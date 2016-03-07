@@ -3,7 +3,7 @@ const Link = require('../models/links.js');
 const router = require('express').Router();
 // These handle all of the requests to the database.
 
-router.get('/yt', (req, res) => {
+router.get('/', (req, res) => {
   Link.read()
    .then((links) => {
      res.json({ links });
@@ -13,10 +13,10 @@ router.get('/yt', (req, res) => {
    });
 });
 
-router.delete('/yt:id', (req, res) => {
-  Link.remove(1)//req.body.id
+router.delete('/:id', (req, res) => {
+  Link.remove(1) // req.body.id
   .then((link) => {
-    console.log('link', link)
+    console.log('link', link);
     res.json({ link });
   })
   .catch((error) => {

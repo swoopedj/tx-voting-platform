@@ -25,8 +25,8 @@ Link.read = function read() {
 Link.remove = function remove(id) {
   return new Promise((resolve) => {
     console.log('link delete', links.yt[id]);
-    var temp = links.yt[id];
-    delete(links.yt[id])
+    const temp = links.yt[id];
+    delete(links.yt[id]);
     return resolve(temp);
   });
 };
