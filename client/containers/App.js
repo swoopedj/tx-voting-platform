@@ -6,11 +6,13 @@ const actions = require('../actionCreators/todos');
 const App = ({someProp, onClick}) => {
   if (isLoading) return (<p>Loading</p>);
   return (
+      <p>App</p>
     // return Components here
 	);
 };
 
 const mapStateToProps = (state) => {
+  return state;
   // return R.pick(['someProp'], state);
 };
 
