@@ -1,10 +1,6 @@
 const React = require('react');
-const R = require('ramda');
 const connect = require('react-redux').connect;
-const actions = require('../actionCreators/todos');
-// FIXME: ESLint
-const App = ({someProp, onClick}) => {
-  if (isLoading) return (<p>Loading</p>);
+const App = () => {
   return (
       <p>App</p>
     // return Components here
@@ -17,6 +13,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
+  return {};
   // return {
   //   onClick: (value) => {
   //     dispatch(actions.someAction(value));
