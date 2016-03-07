@@ -1,8 +1,7 @@
-const combineReducers = require('redux').combineReducers;
-const { routerReducer } = require('react-router-redux');
+const combineReducers = require('redux-immutable').combineReducers;
+const routerReducer = require('./router');
 
 const appReducer = combineReducers({
-  // other reducers here
   routing: routerReducer,
 });
 module.exports = appReducer;
