@@ -6,6 +6,7 @@ const Test = require('./components/Test');
 const { Router, Route } = require('react-router');
 const configureStore = require('./store/configureStore');
 const configureHistory = require('./lib/configureHistory');
+const Link = require('./models/link');
 const store = configureStore();
 const history = configureHistory(store);
 
