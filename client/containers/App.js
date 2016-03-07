@@ -8,7 +8,7 @@ const App = () => {
 };
 
 const mapStateToProps = (state) => {
-  return state;
+  return state.toJS();
   // return R.pick(['someProp'], state);
 };
 
