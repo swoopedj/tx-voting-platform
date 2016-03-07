@@ -12,7 +12,7 @@ const mapStateToProps = (state) => {
   // return R.pick(['someProp'], state);
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = () => {
   return {};
   // return {
   //   onClick: (value) => {
