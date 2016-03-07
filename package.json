@@ -54,6 +54,7 @@
   "homepage": "https://github.com/cbranch101/react-bedrock#readme",
   "devDependencies": {
     "eslint-config-airbnb": "^6.0.2",
-    "eslint-plugin-react": "^4.1.0"
+    "eslint-plugin-react": "^4.1.0",
+    "nodemon": "^1.9.1"
   }
 }
