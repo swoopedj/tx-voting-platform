@@ -1,4 +1,5 @@
 # Texas Voting Platform
+
 [![Build Status](https://travis-ci.org/regolithed/react-bedrock.svg?branch=master)](https://travis-ci.org/regolithed/react-bedrock)
 [![Stories in Ready](https://badge.waffle.io/regolithed/react-bedrock.svg?label=ready&title=Ready)](http://waffle.io/regolithed/react-bedrock)
 
