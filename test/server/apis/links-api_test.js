@@ -37,19 +37,17 @@ describe('The Links API', () => {
           expect(response.body.links).to.include({ id: 1, url: 'youtube.com/axw' });
         });
       const remove = sinon.stub(Link, 'remove');
-      console.log('remove', sinon.stub);
       remove.resolves({ id: 1, url: 'youtube.com/axw' });
       yield request(app)
-        .delete('/api/yt/links/:id')
+        .delete('/api/yt/links/1')
         .expect(200)
         .expect(response => {
           expect(response.body.link).to.include({ id: 1, url: 'youtube.com/axw' });
-          // expect(remove).to.have.been.calledWith(1);
-          // expect(remove.calledWith(1)).to.be.true;
-          sinon.assert.calledWith(remove);
+          expect(Link.remove.calledOnce).to.equal(true);
+          expect(Link.remove.calledWith('1')).to.equal(true);
         });
-      // read.restore();
-      // remove.restore();
+      read.restore();
+      remove.restore();
     });
   });
 });

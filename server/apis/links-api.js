@@ -14,10 +14,8 @@ router.get('/', (req, res) => {
 });
 
 router.delete('/:id', (req, res) => {
-  // console.log('req.body', req.params.id);
   Link.remove(req.params.id)
   .then((link) => {
-    // console.log('RESPONSE: ', res.json({ link }));
     res.json({ link });
   })
   .catch((error) => {
