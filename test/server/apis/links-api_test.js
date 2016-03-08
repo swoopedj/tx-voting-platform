@@ -8,6 +8,7 @@ require('sinon-as-promised');
 
 describe('The Links API', () => {
   let app = null;
+  const data = { id: 1, url: 'youtube.com/sxsw' };
   beforeEach(() => {
     app = TestHelper.createApp();
   });
@@ -15,12 +16,12 @@ describe('The Links API', () => {
   describe('GET /links', () => {
     it_('returns all links', function * testLinks() {
       const read = sinon.stub(Link, 'read');
-      read.resolves({ url: 'youtube.com/axw' });
+      read.resolves(data);
       yield request(app)
         .get('/api/yt/links')
         .expect(200)
         .expect(response => {
-          expect(response.body.links).to.include({ url: 'youtube.com/axw' });
+          expect(response.body.links).to.include(data);
         });
       read.restore();
     });
@@ -28,26 +29,31 @@ describe('The Links API', () => {
 
   describe('DELETE /links', () => {
     it_('deletes a link', function * deletesLinks() {
-      const read = sinon.stub(Link, 'read');
-      read.resolves({ id: 1, url: 'youtube.com/axw' });
-      yield request(app)
-        .get('/api/yt/links')
-        .expect(200)
-        .expect(response => {
-          expect(response.body.links).to.include({ id: 1, url: 'youtube.com/axw' });
-        });
       const remove = sinon.stub(Link, 'remove');
-      remove.resolves({ id: 1, url: 'youtube.com/axw' });
+      remove.resolves(data);
       yield request(app)
         .delete('/api/yt/links/1')
         .expect(200)
         .expect(response => {
-          expect(response.body.link).to.include({ id: 1, url: 'youtube.com/axw' });
+          expect(response.body.link).to.include(data);
           expect(Link.remove.calledOnce).to.equal(true);
           expect(Link.remove.calledWith('1')).to.equal(true);
         });
-      read.restore();
       remove.restore();
+    });
+  });
+
+  describe('POST /links', () => {
+    it_('posts a new link', function * postsLinks() {
+      const create = sinon.stub(Link, 'create');
+      create.resolves(data);
+      yield request(app)
+        .post('/api/yt/links')
+        .expect(200)
+        .expect(response => {
+          expect(response.body.returnedLink).to.include(data);
+          expect(Link.create.calledOnce).to.equal(true);
+        });
     });
   });
 });
