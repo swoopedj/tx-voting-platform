@@ -1,25 +1,26 @@
 /* global TEST_HELPER describe it it_ TestHelper __server __client beforeEach expect */
 'use strict';
+const Immutable = require('immutable');
 require(TEST_HELPER);
-const linksReducer = require(`${__client}/reducers/links`);
-const { requestNewTodo, receiveNewTodo } = require(`${__client}/actionCreators/todos`);
-describe('The Todos Reducer', () => {
-  it('adds a new todo on requestNewTodo', () => {
-    const state = todosReducer(undefined, requestNewTodo('test'));
-    expect(state[0]).to.include({
-      text: 'test',
-      completed: false,
-      id: 'creating',
-    });
-  });
-
-  it('updates the temporary id to the id in the action', () => {
-    const state = [
-        { id: 'creating' },
-        { id: 'other' },
-    ];
-    const updatedState = todosReducer(state, receiveNewTodo(5));
-    expect(updatedState[0]).to.include({ id: 5 });
-    expect(updatedState[1]).to.include({ id: 'other' });
+const { isLinkInfoLoading, currentLink } = require(`${__client}/reducers/links`);
+const { requestLinkInfo, receiveLinkInfo } = require(`${__client}/actionCreators/links`);
+describe('The Link Info Loading Reducer', () => {
+  it('sets link info as loading after requesting link info', () => {
+    const state = isLinkInfoLoading(false, requestLinkInfo());
+    expect(state[0]).to.equal = true;
   });
 });
+
+describe('The currentLink reducer', () => {
+  it('sets the currentLink with received link info', () => {
+    const linkData = {
+      test: 1,
+    };
+    const state = currentLink(null, receiveLinkInfo(linkData));
+    expect(state.toJS()).to.contain(linkData);
+  });
+});
+
+
+
+
