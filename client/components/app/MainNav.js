@@ -1,4 +1,5 @@
 const React = require('react');
+const Auth = require('./Auth');
 
 const HeaderNav = () => {
   return (
@@ -9,9 +10,7 @@ const HeaderNav = () => {
       <span className="header-item">
         <a href="#">Login</a>
       </span>
-      <span className="header-item">
-        <a className="button" href="#">Sign Up</a>
-      </span>
+      <Auth />
     </div>
   );
 };

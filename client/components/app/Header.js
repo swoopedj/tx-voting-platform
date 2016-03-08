@@ -1,5 +1,5 @@
 const React = require('react');
-const HeaderNav = require('./HeaderNav');
+const MainNav = require('./MainNav');
 
 const Header = () => {
   return (
@@ -7,7 +7,7 @@ const Header = () => {
       <div className="container">
         {/* Branding */}
         <div className="header-left">
-          <a className="header-item" href="#">Texans Vote</a>
+          <a className="header-item logo" href="#">Texans<span className="thin">Vote</span></a>
         </div>
         {/* Mobile menu */}
         <span className="header-toggle">
@@ -16,7 +16,7 @@ const Header = () => {
           <span></span>
         </span>
         {/* Main navigation */}
-        <HeaderNav />
+        <MainNav />
       </div>
     </header>
   );
