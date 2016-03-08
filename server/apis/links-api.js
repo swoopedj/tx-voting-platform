@@ -14,8 +14,10 @@ router.get('/', (req, res) => {
 });
 
 router.delete('/:id', (req, res) => {
-  Link.remove(1) // req.body.id
+  // console.log('req.body', req.params.id);
+  Link.remove(req.params.id)
   .then((link) => {
+    // console.log('RESPONSE: ', res.json({ link }));
     res.json({ link });
   })
   .catch((error) => {
@@ -24,7 +26,7 @@ router.delete('/:id', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-  Link.update({ id: 1, url: 'youtube.com/ola' }) // req.body.id
+  Link.update(req.body.id) // req.body.id
   .then((link) => {
     res.json({ link });
   })
