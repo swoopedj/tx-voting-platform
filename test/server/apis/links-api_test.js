@@ -46,8 +46,6 @@ describe('The Links API', () => {
 
   describe('PUT /links', () => {
     it_('updates a link', function * updateLink() {
-      // const linkStub = sinon.stub(Link, linkStub);
-      // linkStub.resolves({id: 3, url: 'youtube.com/uvw'});
       const update = sinon.stub(Link, 'update');
       update.resolves(data);
       yield request(app)
