@@ -34,7 +34,7 @@ router.put('/:id', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  Link.create({ id: 5, url: 'youtube.com/ora' })
+  Link.create(req.body)
     .then((returnedLink) => {
       res.json({ returnedLink });
     });
