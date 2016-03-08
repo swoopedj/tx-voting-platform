@@ -19,8 +19,11 @@ Link.read = function read() {
   });
 };
 
-// Link.update = function update(attrs) {
-// };
+Link.update = function update(link) {
+  return new Promise((resolve) => {
+    resolve(links.yt[link.id] = link.url);
+  });
+};
 
 Link.remove = function remove(id) {
   return new Promise((resolve) => {

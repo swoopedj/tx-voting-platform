@@ -16,7 +16,6 @@ router.get('/', (req, res) => {
 router.delete('/:id', (req, res) => {
   Link.remove(1) // req.body.id
   .then((link) => {
-    console.log('link', link);
     res.json({ link });
   })
   .catch((error) => {
@@ -24,6 +23,15 @@ router.delete('/:id', (req, res) => {
   });
 });
 
+router.put('/:id', (req, res) => {
+  Link.update({ id: 1, url: 'youtube.com/ola' }) // req.body.id
+  .then((link) => {
+    res.json({ link });
+  })
+  .catch((error) => {
+    console.log('ERROR: ', error);
+  });
+});
   // router.post('/', (req, res) => {
   // const link = req.body;
   // link.completed = false;
@@ -34,8 +42,5 @@ router.delete('/:id', (req, res) => {
   // });
 
 
-  // router.put('/:todo_id', (req, res) => {
-
-  // });
 
 module.exports = router;
