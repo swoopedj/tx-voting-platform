@@ -14,10 +14,18 @@ const mockData = {
 };
 
 const MockLink = new ModelMocker(mockData);
+const linkInfo = {
+  title: 'prebuilt stuff',
+  description: 'description',
+  stats: {
+    views: 500,
+  },
+};
 
 const Link = {
   fetch: () => MockLink.read(),
   create: (link) => MockLink.create(link),
+  getInfo: () => Promise.resolve(linkInfo),
 };
 
 module.exports = Link;
