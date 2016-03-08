@@ -32,15 +32,12 @@ router.put('/:id', (req, res) => {
     console.log('ERROR: ', error);
   });
 });
-  // router.post('/', (req, res) => {
-  // const link = req.body;
-  // link.completed = false;
-  // Link.create(link)
-  //   .then((returnedLink) => {
-  //     res.json({ returnedLink });
-  //   });
-  // });
 
-
+router.post('/', (req, res) => {
+  Link.create({ id: 5, url: 'youtube.com/ora' })
+    .then((returnedLink) => {
+      res.json({ returnedLink });
+    });
+});
 
 module.exports = router;

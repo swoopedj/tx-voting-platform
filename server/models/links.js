@@ -10,8 +10,11 @@ const links = {
   },
 };
 
-// Link.create = function create(attrs) {
-// };
+Link.create = function create(link) {
+  return new Promise((resolve) => {
+    return resolve(links.yt[link.id] = link.url);
+  });
+};
 
 Link.read = function read() {
   return new Promise((resolve) => {
