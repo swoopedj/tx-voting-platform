@@ -2,10 +2,21 @@ const React = require('react');
 const connect = require('react-redux').connect;
 
 const Header = require('../components/app/Header');
+const MediaCard = require('../components/app/MediaCard');
 
 const App = () => {
   return (
-    <Header />
+    <div>
+      <Header />
+      <div className="container content">
+        <h2>YouTube</h2>
+        <div className="columns">
+          <MediaCard />
+          <MediaCard />
+          <MediaCard />
+        </div>
+      </div>
+    </div>
 	);
 };
 
