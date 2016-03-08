@@ -25,7 +25,9 @@ const linkInfo = {
 const Link = {
   fetch: () => MockLink.read(),
   create: (link) => MockLink.create(link),
-  getInfo: () => Promise.resolve(linkInfo),
+  getInfo: () => {
+    return Promise.resolve(linkInfo);
+  },
 };
 
 module.exports = Link;

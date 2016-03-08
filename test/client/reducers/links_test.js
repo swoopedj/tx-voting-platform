@@ -1,6 +1,5 @@
 /* global TEST_HELPER describe it it_ TestHelper __server __client beforeEach expect */
 'use strict';
-const Immutable = require('immutable');
 require(TEST_HELPER);
 const { isLinkInfoLoading, currentLink } = require(`${__client}/reducers/links`);
 const { requestLinkInfo, receiveLinkInfo } = require(`${__client}/actionCreators/links`);
@@ -20,7 +19,3 @@ describe('The currentLink reducer', () => {
     expect(state.toJS()).to.contain(linkData);
   });
 });
-
-
-
-

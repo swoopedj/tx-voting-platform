@@ -4,10 +4,14 @@ const createReducer = (initialState, handlers) => {
     R.propOr(R.identity, action.type, handlers)(state, action);
 };
 
-const getAsyncAction = ({ dispatch, promise, onInitial, onSuccess, onError }) => {
-  dispatch(onInitial);
-  return promise
-    .then(response => dispatch(onSuccess(response)))
+// This helper is a general function for dispatching actions
+// before a request, after a request returns, and if it returns with an error
+const getAsyncAction = ({ dispatch, request, onRequest, onSuccess, onError }) => {
+  dispatch(onRequest());
+  return request
+    .then(response => {
+      return dispatch(onSuccess(response));
+    })
     .catch(error => dispatch(onError(error)));
 };
 

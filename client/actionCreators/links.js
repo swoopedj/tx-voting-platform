@@ -18,7 +18,7 @@ function receiveLinkInfo(data) {
 
 function receiveLinkInfoError(error) {
   return {
-    type : 'RECEIVE_LINK_INFO_ERROR',
+    type: 'RECEIVE_LINK_INFO_ERROR',
     error,
   };
 }
@@ -26,15 +26,16 @@ function receiveLinkInfoError(error) {
 function getLinkInfo(url) {
   return dispatch => getAsyncAction({
     dispatch,
-    promise: Link.getInfo(url),
-    initial: () => requestLinkInfo(url),
-    success: (info) => receiveLinkInfo(info),
-    error: (error) => receiveLinkInfoError(error),
+    request: Link.getInfo(url),
+    onRequest: () => requestLinkInfo(url),
+    onSuccess: (info) => receiveLinkInfo(info),
+    onError: (error) => receiveLinkInfoError(error),
   });
 }
 
 module.exports = {
   requestLinkInfo,
+  receiveLinkInfoError,
   receiveLinkInfo,
   getLinkInfo,
 };
