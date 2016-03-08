@@ -1,9 +1,17 @@
 /* global TEST_HELPER describe it it_ TestHelper __server __client beforeEach expect */
 'use strict';
-const Immutable = require('immutable');
 require(TEST_HELPER);
-const { isLinkInfoLoading, currentLink, isLinkBeingEditted } = require(`${__client}/reducers/links`);
-const { requestLinkInfo, receiveLinkInfo, requestNewLink } = require(`${__client}/actionCreators/links`);
+const {
+  isLinkInfoLoading,
+  currentLink,
+  isLinkBeingEditted
+} = require(`${__client}/reducers/links`);
+const {
+  requestLinkInfo,
+  receiveLinkInfo,
+  requestNewLink,
+} = require(`${__client}/actionCreators/links`);
+
 describe('The Link Info Loading Reducer', () => {
   it('sets link info as loading after requesting link info', () => {
     const state = isLinkInfoLoading(undefined, requestLinkInfo());
