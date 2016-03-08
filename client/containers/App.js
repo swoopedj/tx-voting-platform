@@ -1,9 +1,11 @@
 const React = require('react');
 const connect = require('react-redux').connect;
+
+const Header = require('../components/app/Header');
+
 const App = () => {
   return (
-      <p>App</p>
-    // return Components here
+    <Header />
 	);
 };
 
