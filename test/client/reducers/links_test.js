@@ -8,6 +8,7 @@ const {
   isLinkUpdating,
 } = require(`${__client}/reducers/links`);
 const {
+  receiveNewLink,
   requestLinkInfo,
   receiveLinkInfo,
   requestNewLink,
@@ -46,4 +47,9 @@ describe('The isLinkUpdating reducer', () => {
     const state = isLinkUpdating(undefined, requestNewLink({}));
     state.should.equal(true);
   });
+  it('sets link beind updated as false when a new link is received', () => {
+    const state = isLinkUpdating(true, receiveNewLink());
+    state.should.equal(false);
+  });
+
 });

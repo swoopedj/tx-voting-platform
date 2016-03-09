@@ -13,6 +13,7 @@ const isLinkBeingEditted = createReducer(false, {
 
 const isLinkUpdating = createReducer(false, {
   REQUEST_NEW_LINK: () => true,
+  RECEIVE_NEW_LINK: () => false,
 });
 
 const currentLink = createReducer(null, {
