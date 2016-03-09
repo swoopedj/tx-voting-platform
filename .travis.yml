@@ -2,8 +2,6 @@ language: node_js
 node_js:
   - "5.6"
 script:
-  - npm install -g eslint
   - npm install -g eslint-config-airbnb
   - npm install -g eslint-plugin-react
-  - npm install -g babel-eslint
   - npm run lint
