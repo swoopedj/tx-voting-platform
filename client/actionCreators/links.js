@@ -2,6 +2,19 @@ const { getAsyncAction } = require('../lib/redux-helpers');
 require('es6-promise').polyfill();
 const Link = require('../models/link');
 
+function requestLinks() {
+  return {
+    type: 'REQUEST_LINKS',
+  };
+}
+
+function receiveLinks(links) {
+  return {
+    type: 'RECEIVE_LINKS',
+    links,
+  };
+}
+
 function requestLinkInfo(url) {
   return {
     type: 'REQUEST_LINK_INFO',
@@ -65,7 +78,9 @@ function addLink(link) {
 
 
 module.exports = {
+  requestLinks,
   addLink,
+  receiveLinks,
   requestLinkInfo,
   requestNewLink,
   receiveNewLink,
