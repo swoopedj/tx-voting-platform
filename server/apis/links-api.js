@@ -1,6 +1,7 @@
 /* eslint new-cap: [2, {"capIsNewExceptions": ["Router"]}] */
 const Link = require('../models/links.js');
 const router = require('express').Router();
+const Youtube = require('../models/youtube.js');
 // These handle all of the requests to the database.
 
 router.get('/', (req, res) => {
@@ -38,6 +39,16 @@ router.post('/', (req, res) => {
     .then((returnedLink) => {
       res.json({ returnedLink });
     });
+});
+
+router.get('/info', (req, res) => {
+  Youtube.getInfo(req.query.url)
+  .then((data) => {
+    res.json({ data });
+  })
+  .catch((error) => {
+    console.log('ERROR:', error);
+  });
 });
 
 module.exports = router;
