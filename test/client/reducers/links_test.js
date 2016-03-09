@@ -4,7 +4,8 @@ require(TEST_HELPER);
 const {
   isLinkInfoLoading,
   currentLink,
-  isLinkBeingEditted
+  isLinkBeingEditted,
+  isLinkUpdating,
 } = require(`${__client}/reducers/links`);
 const {
   requestLinkInfo,
@@ -32,6 +33,17 @@ describe('The currentLink reducer', () => {
 describe('The isLinkBeingEditted reducer', () => {
   it('sets link being editted as true when link info is recieved', () => {
     const state = isLinkBeingEditted(undefined, receiveLinkInfo({}));
+    state.should.equal(true);
+  });
+  it('sets link being editted as false when a new link is being created', () => {
+    const state = isLinkBeingEditted(undefined, requestNewLink({}));
+    state.should.equal(false);
+  });
+});
+
+describe('The isLinkUpdating reducer', () => {
+  it('sets link being updated as true when a request is made', () => {
+    const state = isLinkUpdating(undefined, requestNewLink({}));
     state.should.equal(true);
   });
 });

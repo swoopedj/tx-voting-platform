@@ -8,6 +8,11 @@ const isLinkInfoLoading = createReducer(false, {
 
 const isLinkBeingEditted = createReducer(false, {
   RECEIVE_LINK_INFO: () => true,
+  REQUEST_NEW_LINK: () => false,
+});
+
+const isLinkUpdating = createReducer(false, {
+  REQUEST_NEW_LINK: () => true,
 });
 
 const currentLink = createReducer(null, {
@@ -19,6 +24,7 @@ const currentLink = createReducer(null, {
 
 module.exports = {
   isLinkBeingEditted,
+  isLinkUpdating,
   isLinkInfoLoading,
   currentLink,
 };

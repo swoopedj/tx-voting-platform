@@ -23,6 +23,13 @@ function receiveLinkInfoError(error) {
   };
 }
 
+function requestNewLink(link) {
+  return {
+    type: 'REQUEST_NEW_LINK',
+    link
+  };
+}
+
 function getLinkInfo(url) {
   return dispatch => getAsyncAction({
     dispatch,
@@ -35,6 +42,7 @@ function getLinkInfo(url) {
 
 module.exports = {
   requestLinkInfo,
+  requestNewLink,
   receiveLinkInfoError,
   receiveLinkInfo,
   getLinkInfo,
