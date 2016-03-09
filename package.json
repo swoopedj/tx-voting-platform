@@ -41,7 +41,7 @@
   },
   "scripts": {
     "start": "nodemon server/index.js",
-    "lint": "./node_modules/.bin/eslint . --ext .js",
+    "lint": "./node_modules/.bin/eslint . --ext .js; true",
     "test": "./test/run.sh",
     "migrate": "knex migrate:latest --env test"
   },
