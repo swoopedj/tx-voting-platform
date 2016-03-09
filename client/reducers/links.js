@@ -23,7 +23,6 @@ const createLinkError = createReducer(false, {
   RECEIVE_NEW_LINK_ERROR: (state, action) => Immutable.fromJS(action.error),
 });
 
-
 const currentLink = createReducer(null, {
   RECEIVE_LINK_INFO: (state, action) => {
     return Immutable.fromJS(action.data);

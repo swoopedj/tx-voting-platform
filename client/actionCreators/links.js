@@ -53,7 +53,19 @@ function getLinkInfo(url) {
   });
 }
 
+function addLink(link) {
+  return dispatch => getAsyncAction({
+    dispatch,
+    request: Link.create(link),
+    onRequest: () => requestNewLink(url),
+    onSuccess: () => receiveNewLink(),
+    onError: (error) => receiveNewLinkError(error),
+  });
+}
+
+
 module.exports = {
+  addLink,
   requestLinkInfo,
   requestNewLink,
   receiveNewLink,
