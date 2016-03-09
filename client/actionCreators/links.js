@@ -23,6 +23,13 @@ function receiveLinkInfoError(error) {
   };
 }
 
+function receiveNewLinkError(error) {
+  return {
+    type: 'RECEIVE_NEW_LINK_ERROR',
+    error,
+  };
+}
+
 function requestNewLink(link) {
   return {
     type: 'REQUEST_NEW_LINK',
@@ -50,6 +57,7 @@ module.exports = {
   requestLinkInfo,
   requestNewLink,
   receiveNewLink,
+  receiveNewLinkError,
   receiveLinkInfoError,
   receiveLinkInfo,
   getLinkInfo,

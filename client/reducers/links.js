@@ -14,6 +14,7 @@ const isLinkBeingEditted = createReducer(false, {
 const isLinkUpdating = createReducer(false, {
   REQUEST_NEW_LINK: () => true,
   RECEIVE_NEW_LINK: () => false,
+  RECEIVE_NEW_LINK_ERROR: () => false,
 });
 
 const currentLink = createReducer(null, {
