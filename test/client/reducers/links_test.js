@@ -24,6 +24,8 @@ describe('The links reducer', () => {
   });
 });
 
+
+
 describe('The Link Info Loading Reducer', () => {
   it('sets link info as loading after requesting link info', () => {
     const state = reducers.isLinkInfoLoading(undefined, actions.requestLinkInfo());
@@ -93,5 +95,19 @@ describe('The linksAreLoading reducer', () => {
   it('sets areLinksLoading as false when a request is received', () => {
     const state = reducers.linksAreLoading(true, actions.receiveLinks({}));
     state.should.equal(false);
+  });
+});
+
+describe('The getLinksError reducer', () => {
+  const error = {
+    message: 'test',
+  };
+  it('sets getLinkError as null when a getLinks request is made', () => {
+    const state = reducers.getLinksError(Immutable.fromJS(error), actions.requestLinks({}));
+    expect(state).to.equal(null);
+  });
+  it('sets the getLinkError when an error is received', () => {
+    const state = reducers.getLinksError(undefined, actions.receiveLinksError(error));
+    (state.toJS()).should.contain(error);
   });
 });

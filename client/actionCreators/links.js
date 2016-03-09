@@ -43,6 +43,13 @@ function receiveNewLinkError(error) {
   };
 }
 
+function receiveLinksError(error) {
+  return {
+    type: 'RECEIVE_LINKS_ERROR',
+    error,
+  };
+}
+
 function requestNewLink(link) {
   return {
     type: 'REQUEST_NEW_LINK',
@@ -70,7 +77,7 @@ function addLink(link) {
   return dispatch => getAsyncAction({
     dispatch,
     request: Link.create(link),
-    onRequest: () => requestNewLink(url),
+    onRequest: () => requestNewLink(),
     onSuccess: () => receiveNewLink(),
     onError: (error) => receiveNewLinkError(error),
   });
@@ -80,6 +87,7 @@ function addLink(link) {
 module.exports = {
   requestLinks,
   addLink,
+  receiveLinksError,
   receiveLinks,
   requestLinkInfo,
   requestNewLink,
