@@ -9,10 +9,8 @@ Youtube.getInfo = (url) => {
   const base = 'https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics, player&id=';
 
   const newUrl = url.slice(url.indexOf('v=') + 2);
-console.log('GET INFO??????')
   return Request.fetch(`${base},${newUrl},'&key=',${config.Key}`)
   .then((response) => {
-    console.log("thennning", response);
     return response;
   })
   .catch((error) => {

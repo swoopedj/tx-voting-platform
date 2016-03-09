@@ -12,21 +12,14 @@ const request = require('../../../server/lib/request');
 
 
 describe('The Youtube Model', () => {
-  // let app = null;
   const sample = 'https://www.youtube.com/watch?v=FzRH3iTQPrk';
-  beforeEach(() => {
-    // app = TestHelper.createApp();
-  });
 
   describe('Get Video Info', () => {
-    //  /////////////////////////////////////////////////////////////////Onlying
-    it_.only('gets data from youtube', function * ytinfo() {
+    it_('gets data from youtube', function * ytinfo() {
       const fetch = sinon.stub(request, 'fetch');
       fetch.resolves(ytOutput);
-      // yield request(app)
       const response = yield Youtube.getInfo(sample);
       expect(response).to.equal(ytOutput);
-      // console.log('.....................', response);
       fetch.restore();
     });
   });
