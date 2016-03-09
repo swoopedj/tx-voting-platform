@@ -23,10 +23,23 @@ function receiveLinkInfoError(error) {
   };
 }
 
+function receiveNewLinkError(error) {
+  return {
+    type: 'RECEIVE_NEW_LINK_ERROR',
+    error,
+  };
+}
+
 function requestNewLink(link) {
   return {
     type: 'REQUEST_NEW_LINK',
-    link
+    link,
+  };
+}
+
+function receiveNewLink() {
+  return {
+    type: 'RECEIVE_NEW_LINK',
   };
 }
 
@@ -40,9 +53,23 @@ function getLinkInfo(url) {
   });
 }
 
+function addLink(link) {
+  return dispatch => getAsyncAction({
+    dispatch,
+    request: Link.create(link),
+    onRequest: () => requestNewLink(url),
+    onSuccess: () => receiveNewLink(),
+    onError: (error) => receiveNewLinkError(error),
+  });
+}
+
+
 module.exports = {
+  addLink,
   requestLinkInfo,
   requestNewLink,
+  receiveNewLink,
+  receiveNewLinkError,
   receiveLinkInfoError,
   receiveLinkInfo,
   getLinkInfo,

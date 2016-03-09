@@ -13,6 +13,14 @@ const isLinkBeingEditted = createReducer(false, {
 
 const isLinkUpdating = createReducer(false, {
   REQUEST_NEW_LINK: () => true,
+  RECEIVE_NEW_LINK: () => false,
+  RECEIVE_NEW_LINK_ERROR: () => false,
+});
+
+const createLinkError = createReducer(false, {
+  REQUEST_NEW_LINK: () => null,
+  RECEIVE_NEW_LINK: () => null,
+  RECEIVE_NEW_LINK_ERROR: (state, action) => Immutable.fromJS(action.error),
 });
 
 const currentLink = createReducer(null, {
@@ -23,6 +31,7 @@ const currentLink = createReducer(null, {
 
 
 module.exports = {
+  createLinkError,
   isLinkBeingEditted,
   isLinkUpdating,
   isLinkInfoLoading,
