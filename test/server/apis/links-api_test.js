@@ -95,6 +95,7 @@ describe('The Youtube API', () => {
           expect(response.body.data).to.include(info);
           expect(Youtube.getInfo.calledOnce).to.equal(true);
         });
+      getInfo.restore();
     });
   });
 });

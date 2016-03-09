@@ -10,7 +10,7 @@ Youtube.getInfo = (url) => {
 
   const newUrl = url.slice(url.indexOf('v=') + 2);
 
-  fetch(`${base},${newUrl},'&key=',${config.Key}`)
+  fetch(`${base}, ${newUrl}, '&key=', ${config.Key}`)
   .then((response) => {
     return response.json();
   })
@@ -22,4 +22,3 @@ Youtube.getInfo = (url) => {
   // pass relevant response info into Link.create
 };
 
-Youtube.getInfo(sample);
