@@ -2,6 +2,15 @@ const Immutable = require('immutable');
 const { createReducer } = require('../lib/redux-helpers');
 
 // FIXME: ESLint
+const links = createReducer(false, {
+  RECEIVE_LINKS: (state, action) => Immutable.fromJS(action.links),
+});
+
+const linksAreLoading = createReducer(false, {
+  REQUEST_LINKS: () => true,
+  RECEIVE_LINKS: () => false,
+});
+
 const isLinkInfoLoading = createReducer(false, {
   REQUEST_LINK_INFO: () => true,
 });
@@ -23,6 +32,12 @@ const createLinkError = createReducer(false, {
   RECEIVE_NEW_LINK_ERROR: (state, action) => Immutable.fromJS(action.error),
 });
 
+const getLinksError = createReducer(false, {
+  REQUEST_LINKS: () => null,
+  RECEIVE_LINKS: () => null,
+  RECEIVE_LINKS_ERROR: (state, action) => Immutable.fromJS(action.error),
+});
+
 const currentLink = createReducer(null, {
   RECEIVE_LINK_INFO: (state, action) => {
     return Immutable.fromJS(action.data);
@@ -31,6 +46,9 @@ const currentLink = createReducer(null, {
 
 
 module.exports = {
+  links,
+  linksAreLoading,
+  getLinksError,
   createLinkError,
   isLinkBeingEditted,
   isLinkUpdating,

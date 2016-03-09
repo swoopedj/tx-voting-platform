@@ -5,6 +5,27 @@ const Immutable = require('immutable');
 const reducers = require(`${__client}/reducers/links`);
 const actions = require(`${__client}/actionCreators/links`);
 
+
+describe('The links reducer', () => {
+  it('sets links array on receieve links', () => {
+    const linkResponse = [
+      {
+        id: 1,
+        title: 'one',
+      },
+      {
+        id: 2,
+        title: 'two',
+      },
+    ];
+    const links = reducers.links(Immutable.fromJS([]), actions.receiveLinks(linkResponse)).toJS();
+    expect(links[0]).to.contain(linkResponse[0]);
+    expect(links[1]).to.contain(linkResponse[1]);
+  });
+});
+
+
+
 describe('The Link Info Loading Reducer', () => {
   it('sets link info as loading after requesting link info', () => {
     const state = reducers.isLinkInfoLoading(undefined, actions.requestLinkInfo());
@@ -63,5 +84,30 @@ describe('The isLinkUpdating reducer', () => {
   it('sets isLinkUpdating as false when a link error is received', () => {
     const state = reducers.isLinkUpdating(true, actions.receiveNewLinkError());
     state.should.equal(false);
+  });
+});
+
+describe('The linksAreLoading reducer', () => {
+  it('sets areLinksLoading as true when a request is made', () => {
+    const state = reducers.linksAreLoading(false, actions.requestLinks({}));
+    state.should.equal(true);
+  });
+  it('sets areLinksLoading as false when a request is received', () => {
+    const state = reducers.linksAreLoading(true, actions.receiveLinks({}));
+    state.should.equal(false);
+  });
+});
+
+describe('The getLinksError reducer', () => {
+  const error = {
+    message: 'test',
+  };
+  it('sets getLinkError as null when a getLinks request is made', () => {
+    const state = reducers.getLinksError(Immutable.fromJS(error), actions.requestLinks({}));
+    expect(state).to.equal(null);
+  });
+  it('sets the getLinkError when an error is received', () => {
+    const state = reducers.getLinksError(undefined, actions.receiveLinksError(error));
+    (state.toJS()).should.contain(error);
   });
 });
