@@ -1,7 +1,7 @@
 # Texas Voting Platform
 
-[![Build Status](https://travis-ci.org/regolithed/react-bedrock.svg?branch=master)](https://travis-ci.org/regolithed/react-bedrock)
-[![Stories in Ready](https://badge.waffle.io/regolithed/react-bedrock.svg?label=ready&title=Ready)](http://waffle.io/regolithed/react-bedrock)
+[![Build Status](https://travis-ci.org/regolithed/tx-voting-platform.svg?branch=master)](https://travis-ci.org/regolithed/tx-voting-platform)
+[![Stories in Ready](https://badge.waffle.io/regolithed/tx-voting-platform.svg?label=ready&title=Ready)](http://waffle.io/regolithed/tx-voting-platform)
 
 > A Texas Voting Platform
 
