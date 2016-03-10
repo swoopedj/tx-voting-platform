@@ -2,8 +2,9 @@ const Request = require('../lib/request');
 const Youtube = module.exports;
 const Config = require('../../config');
 const Url = require('url');
-// const unshortener = require('unshortener');
 const unshortener = require('../lib/unshortener');
+
+// const sample = 'https://www.youtube.com/watch?v=FzRH3iTQPrk';
 
 Youtube.getInfo = (url) => {
   'use strict';
