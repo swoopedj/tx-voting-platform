@@ -27,9 +27,25 @@
 ## Development
 
 ### Environment Variables
-Bedrock utilizes environment variables for running the application locally and in production. Environment variables can be declared locally by adding them to your ```.profile```
+Bedrock utilizes [dotenv](https://github.com/motdotla/dotenv) for environment variables. Create a file called ```.env``` in the root directory. Add environment-specific variables on new lines in the form of NAME=VALUE. For example:
 ```sh
-export DATABASE_URL=postgres://user:pass@localhost
+DB_HOST=localhost
+DB_USER=root
+DB_PASS=s1mpl3
+```
+
+```process.env``` now has the keys and values you defined in your .env file.
+
+```sh
+db.connect({
+  host: process.env.DB_HOST,
+  username: process.env.DB_USER,
+  password: process.env.DB_PASS
+});
+```
+To load the config in your application:
+```js
+require('dotenv').config();
 ```
 
 ### Installing Dependencies & Running
