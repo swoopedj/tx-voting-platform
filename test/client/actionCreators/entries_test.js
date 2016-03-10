@@ -3,11 +3,11 @@
 require(TEST_HELPER);
 const Link = require(`${__client}/models/link`);
 const {
-  getLinkInfo,
-  requestLinkInfo,
-  receiveLinkInfo,
-  receiveLinkInfoError,
-} = require(`${__client}/actionCreators/links`);
+  getEntryInfo,
+  requestEntryInfo,
+  receiveEntryInfo,
+  receiveEntryInfoError,
+} = require(`${__client}/actionCreators/entries`);
 const sinon = require('sinon');
 require('sinon-as-promised');
 
@@ -15,14 +15,14 @@ describe('The getLinkInfo async action', () => {
   it_('dispatches receive link info on success', function * testAction() {
     const getInfo = sinon.stub(Link, 'getInfo');
     const url = 'http://google.com';
-    const requestAction = requestLinkInfo(url);
+    const requestAction = requestEntryInfo(url);
     const infoResponse = {
       test: 1,
     };
-    const receiveAction = receiveLinkInfo(infoResponse);
+    const receiveAction = receiveEntryInfo(infoResponse);
     getInfo.resolves(infoResponse);
     const dispatchSpy = sinon.spy();
-    const dispatchLinkInfo = getLinkInfo('http://google.com');
+    const dispatchLinkInfo = getEntryInfo('http://google.com');
     yield dispatchLinkInfo(dispatchSpy);
     // confirm that the request action was dispatched first
     expect(dispatchSpy.firstCall.calledWith(requestAction)).to.equal(true);
@@ -34,14 +34,14 @@ describe('The getLinkInfo async action', () => {
   it_('dispatches link info error on failure', function * testAction() {
     const getInfo = sinon.stub(Link, 'getInfo');
     const url = 'http://google.com';
-    const requestAction = requestLinkInfo(url);
+    const requestAction = requestEntryInfo(url);
     const error = {
       message: 'test',
     };
-    const errorAction = receiveLinkInfoError(error);
+    const errorAction = receiveEntryInfoError(error);
     getInfo.rejects(error);
     const dispatchSpy = sinon.spy();
-    const dispatchLinkInfo = getLinkInfo('http://google.com');
+    const dispatchLinkInfo = getEntryInfo('http://google.com');
     yield dispatchLinkInfo(dispatchSpy);
     // confirm that the request action was dispatched first
     expect(dispatchSpy.firstCall.calledWith(requestAction)).to.equal(true);

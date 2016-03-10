@@ -1,12 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import Home from '../components/Home';
 import { connect } from 'react-redux';
-import actions from '../actionCreators/links';
+import actions from '../actionCreators/entries';
 
 class HomeRoute extends Component {
   componentDidMount() {
-    const { fetchLinks } = this.props;
-    fetchLinks();
+    const { fetchEntries } = this.props;
+    fetchEntries();
   }
   render() {
     return <Home {...this.props} />;
@@ -14,7 +14,7 @@ class HomeRoute extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { isLoading, items, error } = state.toJS().links;
+  const { isLoading, items, error } = state.toJS().entries;
   return {
     isLoading,
     links: items,
@@ -24,13 +24,13 @@ const mapStateToProps = (state) => {
 
 const matchDispatchToProps = (dispatch) => {
   return {
-    fetchLinks: () => dispatch(actions.fetchLinks()),
+    fetchEntries: () => dispatch(actions.fetchEntries()),
   };
 };
 
 
 HomeRoute.propTypes = {
-  fetchLinks: PropTypes.func.isRequired,
+  fetchEntries: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, matchDispatchToProps)(HomeRoute);

@@ -1,10 +1,21 @@
-require('react');
-const connect = require('react-redux').connect;
-const { push } = require('react-router-redux');
-const GetEntryInfo = require('../components/GetEntryInfo');
+import React, { Component, PropTypes } from 'react';
+import GetEntryInfo from '../components/GetEntryInfo';
+import { connect } from 'react-redux';
+
+class GetEntryInfoRoute extends Component {
+  componentDidMount() {
+    console.log(this.props);
+  }
+  render() {
+    return <GetEntryInfo {...this.props} />;
+  }
+}
+
 
 const mapStateToProps = (state, ownProps) => {
-  return state.toJS();
+  return {
+    id: ownProps.params.id,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -15,7 +26,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-module.exports = connect(
+export default connect(
   mapStateToProps,
   // mapDispatchToProps
-)(GetEntryInfo);
+)(GetEntryInfoRoute);

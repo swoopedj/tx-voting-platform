@@ -1,10 +1,6 @@
 const React = require('react');
 const EntryCard = require('./EntryCard');
 
-const videos = [
-
-];
-
 const Home = ({ links }) => {
   return (
     <div>
