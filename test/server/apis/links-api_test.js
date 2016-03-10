@@ -3,6 +3,7 @@
 require(TEST_HELPER);
 const sinon = require('sinon');
 const Link = require(`${__server}/models/links`);
+const Youtube = require(`${__server}/models/youtube`);
 const request = require('supertest');
 require('sinon-as-promised');
 
@@ -43,7 +44,6 @@ describe('The Links API', () => {
     });
   });
 
-
   describe('PUT /links', () => {
     it_('updates a link', function * updateLink() {
       const update = sinon.stub(Link, 'update');
@@ -72,6 +72,30 @@ describe('The Links API', () => {
           expect(Link.create.calledOnce).to.equal(true);
         });
       create.restore();
+    });
+  });
+});
+
+describe('The Youtube API', () => {
+  let app = null;
+  const info = 'https://www.youtube.com/watch?v=FzRH3iTQPrk';
+  beforeEach(() => {
+    app = TestHelper.createApp();
+  });
+
+  describe('GET /api/yt/links/info', () => {
+    it_('gets video info from Youtube', function * getYTInfo() {
+      const getInfo = sinon.stub(Youtube, 'getInfo');
+      getInfo.resolves(info);
+      yield request(app)
+        .get('/api/yt/links/info')
+        .expect(200)
+        .query({ url: info })
+        .expect((response) => {
+          expect(response.body.data).to.include(info);
+          expect(Youtube.getInfo.calledOnce).to.equal(true);
+        });
+      getInfo.restore();
     });
   });
 });
