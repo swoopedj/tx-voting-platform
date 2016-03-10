@@ -1,17 +1,20 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Header from '../components/app/Header';
 
-const App = ({ main }) => {
-  return (
-    <div>
-      <Header />
-      <div className="container content">
-        {main}
+class App extends Component {
+  render() {
+    const { main } = this.props;
+    return (
+      <div>
+        <Header />
+        <div className="container content">
+          {main}
+        </div>
       </div>
-    </div>
-  );
-};
+    );  
+  }
+}
 
 const mapStateToProps = (state) => {
   return state.toJS();
@@ -27,9 +30,7 @@ const mapDispatchToProps = (dispatch) => {
   // };
 };
 
-const WrappedApp = connect(
+export default connect(
 	mapStateToProps,
 	mapDispatchToProps
 )(App);
-
-module.exports = WrappedApp;
