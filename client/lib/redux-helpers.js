@@ -9,11 +9,14 @@ const createReducer = (initialState, handlers) => {
 // before a request, after a request returns, and if it returns with an error
 const getAsyncAction = ({ dispatch, request, onRequest, onSuccess, onError }) => {
   dispatch(onRequest());
-  return request
+  return request()
     .then(response => {
       return dispatch(onSuccess(response));
     })
-    .catch(error => dispatch(onError(error)));
+    .catch(error => {
+      console.log('error', error);
+      dispatch(onError(error));
+    });
 };
 
 module.exports = {
