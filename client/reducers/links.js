@@ -1,61 +1,26 @@
-const Immutable = require('immutable');
-const { createReducer } = require('../lib/redux-helpers');
+import Immutable from 'immutable';
+import { createReducer } from '../lib/redux-helpers';
+import { combineReducers } from 'redux-immutable';
 
-// FIXME: ESLint
-const links = createReducer(Immutable.fromJS([]), {
+const items = createReducer(Immutable.fromJS([]), {
   RECEIVE_LINKS: (state, action) => {
     return Immutable.fromJS(action.links);
   },
 });
 
-const linksAreLoading = createReducer(false, {
+const isLoading = createReducer(false, {
   REQUEST_LINKS: () => true,
   RECEIVE_LINKS: () => false,
 });
 
-const isLinkInfoLoading = createReducer(false, {
-  REQUEST_LINK_INFO: () => true,
-});
-
-const isLinkBeingEditted = createReducer(false, {
-  RECEIVE_LINK_INFO: () => true,
-  REQUEST_NEW_LINK: () => false,
-});
-
-const isLinkUpdating = createReducer(false, {
-  REQUEST_NEW_LINK: () => true,
-  RECEIVE_NEW_LINK: () => false,
-  RECEIVE_NEW_LINK_ERROR: () => false,
-});
-
-const createLinkError = createReducer(false, {
-  REQUEST_NEW_LINK: () => null,
-  RECEIVE_NEW_LINK: () => null,
-  RECEIVE_NEW_LINK_ERROR: (state, action) => {
-    return Immutable.fromJS(action.error);
-  },
-});
-
-const getLinksError = createReducer(false, {
+const error = createReducer(null, {
   REQUEST_LINKS: () => null,
   RECEIVE_LINKS: () => null,
   RECEIVE_LINKS_ERROR: (state, action) => Immutable.fromJS(action.error),
 });
 
-const currentLink = createReducer(null, {
-  RECEIVE_LINK_INFO: (state, action) => {
-    return Immutable.fromJS(action.data);
-  },
+export const links = combineReducers({
+  items,
+  isLoading,
+  error,
 });
-
-
-module.exports = {
-  links,
-  linksAreLoading,
-  getLinksError,
-  createLinkError,
-  isLinkBeingEditted,
-  isLinkUpdating,
-  isLinkInfoLoading,
-  currentLink,
-};
