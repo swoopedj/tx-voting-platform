@@ -63,10 +63,20 @@ function receiveNewLink() {
   };
 }
 
+function fetchLinks() {
+  return dispatch => getAsyncAction({
+    dispatch,
+    request: () => Link.fetch(),
+    onRequest: () => requestLinks(),
+    onSuccess: (links) => receiveLinks(links),
+    onError: (error) => receiveLinksError(error),
+  });
+}
+
 function getLinkInfo(url) {
   return dispatch => getAsyncAction({
     dispatch,
-    request: Link.getInfo(url),
+    request: () => Link.getInfo(url),
     onRequest: () => requestLinkInfo(url),
     onSuccess: (info) => receiveLinkInfo(info),
     onError: (error) => receiveLinkInfoError(error),
@@ -76,7 +86,7 @@ function getLinkInfo(url) {
 function addLink(link) {
   return dispatch => getAsyncAction({
     dispatch,
-    request: Link.create(link),
+    request: () => Link.create(link),
     onRequest: () => requestNewLink(),
     onSuccess: () => receiveNewLink(),
     onError: (error) => receiveNewLinkError(error),
@@ -85,6 +95,7 @@ function addLink(link) {
 
 
 module.exports = {
+  fetchLinks,
   requestLinks,
   addLink,
   receiveLinksError,
