@@ -1,5 +1,5 @@
 const React = require('react');
-const MediaCard = require('./MediaCard');
+const EntryCard = require('./EntryCard');
 
 const videos = [
 
@@ -11,7 +11,7 @@ const Home = ({ links }) => {
       <h2>YouTube</h2>
       <div className="columns is-multiline">
         { links.map(link =>
-          <MediaCard
+          <EntryCard
             key={link.id}
             {...link}
           />

@@ -1,6 +1,6 @@
 const React = require('react');
 
-const MediaCard = ({ id, title, description, publishedAt }) => {
+const EntryCard = ({ id, title, description, publishedAt }) => {
   return (
     <div className="column is-third">
     <div className="card">
@@ -31,4 +31,4 @@ const MediaCard = ({ id, title, description, publishedAt }) => {
   );
 };
 
-module.exports = MediaCard;
+module.exports = EntryCard;

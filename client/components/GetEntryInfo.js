@@ -1,6 +1,6 @@
 const React = require('react');
 
-const CreateLink = ({ onSubmit }) => {
+const GetEntryInfo = ({ onSubmit }) => {
   let input;
   return (
     <div className="columns">
@@ -33,4 +33,4 @@ const CreateLink = ({ onSubmit }) => {
   );
 };
 
-module.exports = CreateLink;
+module.exports = GetEntryInfo;
