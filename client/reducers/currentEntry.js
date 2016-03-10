@@ -3,6 +3,7 @@ import { createReducer } from '../lib/redux-helpers';
 import { combineReducers } from 'redux-immutable';
 
 const inEditMode = createReducer(true, {
+  SET_ENTRY_AS_CURRENT: () => false,
   REQUEST_ENTRY_INFO: () => true,
   REQUEST_NEW_ENTRY: () => false,
   RECEIVE_NEW_ENTRY: () => false,
@@ -10,12 +11,14 @@ const inEditMode = createReducer(true, {
 });
 
 const isSaving = createReducer(true, {
+  SET_ENTRY_AS_CURRENT: () => false,
   REQUEST_NEW_ENTRY: () => true,
   RECEIVE_NEW_ENTRY: () => false,
   RECEIVE_NEW_ENTRY_ERROR: () => false,
 });
 
 const isLoading = createReducer(false, {
+  SET_ENTRY_AS_CURRENT: () => false,
   REQUEST_NEW_ENTRY: () => false,
   REQUEST_ENTRY_INFO: () => true,
   RECEIVE_ENTRY_INFO: () => false,
@@ -30,6 +33,9 @@ const error = createReducer(null, {
 });
 
 const data = createReducer(Immutable.Map(), {
+  SET_ENTRY_AS_CURRENT: (state, action) => {
+    return Immutable.fromJS(action.entry);
+  },
   RECEIVE_ENTRY_INFO: (state, action) => {
     return Immutable.fromJS(action.data);
   },

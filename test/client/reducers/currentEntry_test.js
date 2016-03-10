@@ -64,14 +64,13 @@ describe('The currentEntry reducer', () => {
     expect(jsState.inEditMode, 'inEditMode').to.equal(true);
   });
 
-  it('chooseCurrentEntry => ', () => {
-    const error = { message: 'test' };
-    const entries = 
-    const state = currentEntry(Immutable.fromJS({}), actions.receiveNewEntryError(error));
+  it('chooseCurrentEntry => sets the data when choosing entry', () => {
+    const entry = { title: 'one' };
+    const state = currentEntry(Immutable.fromJS({}), actions.setEntryAsCurrent(entry));
     const jsState = state.toJS();
-    expect(jsState.error, 'error').to.contain(error);
+    expect(jsState.data, 'data').to.deep.equal(entry);
     expect(jsState.isLoading, 'isLoading').to.equal(false);
     expect(jsState.isSaving, 'isSaving').to.equal(false);
-    expect(jsState.inEditMode, 'inEditMode').to.equal(true);
+    expect(jsState.inEditMode, 'inEditMode').to.equal(false);
   });
 });

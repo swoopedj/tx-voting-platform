@@ -1,7 +1,7 @@
 const { getAsyncAction } = require('../lib/redux-helpers');
 require('es6-promise').polyfill();
 const Link = require('../models/link');
-const { push } = require('react-redux-router');
+const { push } = require('react-router-redux');
 
 function requestEntries() {
   return {
@@ -61,6 +61,13 @@ function requestNewEntry(link) {
 function receiveNewEntry() {
   return {
     type: 'RECEIVE_NEW_ENTRY',
+  };
+}
+
+function setEntryAsCurrent(entry) {
+  return {
+    type: 'SET_ENTRY_AS_CURRENT',
+    entry,
   };
 }
 
