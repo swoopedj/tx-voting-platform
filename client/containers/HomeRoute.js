@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import Home from '../components/app/Home';
+import Home from '../components/Home';
 import { connect } from 'react-redux';
 import actions from '../actionCreators/links';
 
