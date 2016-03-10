@@ -1,19 +1,19 @@
 const React = require('react');
 
-const MediaCard = ({ id, data }) => {
+const MediaCard = ({ id, title, description, publishedAt }) => {
   return (
     <div className="column is-third">
     <div className="card">
       <div className="card-image">
         <figure className="image is-4by3">
-          <a href="#" title={ data.title }><img src="http://placehold.it/300x225&text=Video Thumb" alt={ data.title } /></a>
+          <a href="#" title={ title }><img src="http://placehold.it/300x225&text=Video Thumb" alt={ title } /></a>
         </figure>
       </div>
       <div className="card-content">
-        <small>{ data.publishedAt }</small>
-        <p className="title is-5"><a href="#" title={ data.title }>{ data.title }</a></p>
+        <small>{ publishedAt }</small>
+        <p className="title is-5"><a href="#" title={ title }>{ title }</a></p>
         <div className="content">
-          { data.description }
+          { description }
         </div>
         <div className="media">
           <div className="media-left">
