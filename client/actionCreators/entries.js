@@ -108,6 +108,7 @@ function navigateToEntry(id) {
 }
 
 module.exports = {
+  setEntryAsCurrent,
   navigateToEntry,
   fetchEntries,
   requestEntries,
