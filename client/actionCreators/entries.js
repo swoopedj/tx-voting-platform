@@ -1,6 +1,7 @@
 const { getAsyncAction } = require('../lib/redux-helpers');
 require('es6-promise').polyfill();
 const Link = require('../models/link');
+const { push } = require('react-redux-router');
 
 function requestEntries() {
   return {
@@ -93,8 +94,14 @@ function addEntry(link) {
   });
 }
 
+function navigateToEntry(id) {
+  return (dispatch) => {
+    dispatch(push(`/entry/${id}`));
+  };
+}
 
 module.exports = {
+  navigateToEntry,
   fetchEntries,
   requestEntries,
   addEntry,
