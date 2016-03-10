@@ -2,12 +2,12 @@
 'use strict';
 require(TEST_HELPER);
 import Immutable from 'immutable';
-const { links } = require(`${__client}/reducers/links`);
-const actions = require(`${__client}/actionCreators/links`);
+const { entries } = require(`${__client}/reducers/entries`);
+const actions = require(`${__client}/actionCreators/entries`);
 
-describe('The links reducer', () => {
-  it('sets links array on receieve links', () => {
-    const linkResponse = [
+describe('The entries reducer', () => {
+  it('sets entries array on receieve entries', () => {
+    const entryResponse = [
       {
         id: 1,
         title: 'one',
@@ -17,8 +17,8 @@ describe('The links reducer', () => {
         title: 'two',
       },
     ];
-    const state = links(Immutable.fromJS({}), actions.receiveLinks(linkResponse)).toJS();
-    expect(state.items).to.deep.equal(linkResponse);
+    const state = entries(Immutable.fromJS({}), actions.receiveEntries(entryResponse)).toJS();
+    expect(state.items).to.deep.equal(entryResponse);
     expect(state.isLoading).to.equal(false);
     expect(state.error).to.equal(null);
   });
@@ -27,13 +27,13 @@ describe('The links reducer', () => {
     const error = {
       message: 'test',
     };
-    const state = links(Immutable.fromJS({}), actions.receiveLinksError(error)).toJS();
+    const state = entries(Immutable.fromJS({}), actions.receiveEntriesError(error)).toJS();
     expect(state.isLoading).to.equal(false);
     expect(state.error).to.deep.equal(error);
   });
 
   it('sets loading on request', () => {
-    const state = links(Immutable.fromJS({}), actions.requestLinks()).toJS();
+    const state = entries(Immutable.fromJS({}), actions.requestEntries()).toJS();
     expect(state.isLoading).to.equal(true);
     expect(state.items).to.deep.equal([]);
   });

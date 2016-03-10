@@ -2,15 +2,15 @@
 'use strict';
 require(TEST_HELPER);
 import Immutable from 'immutable';
-const { currentLink } = require(`${__client}/reducers/currentLink`);
-const actions = require(`${__client}/actionCreators/links`);
+const { currentEntry } = require(`${__client}/reducers/currentEntry`);
+const actions = require(`${__client}/actionCreators/entries`);
 
-describe('The currentLink reducer', () => {
+describe('The currentEntry reducer', () => {
   it('sets the correct state when requesting data', () => {
     const receivedData = {
       test: 1,
     };
-    const state = currentLink(Immutable.fromJS({}), actions.requestLinkInfo(receivedData));
+    const state = currentEntry(Immutable.fromJS({}), actions.requestEntryInfo(receivedData));
     const jsState = state.toJS();
     expect(jsState.data).to.contain({});
     expect(jsState.isLoading).to.equal(true);
@@ -20,7 +20,7 @@ describe('The currentLink reducer', () => {
     const receivedData = {
       test: 1,
     };
-    const state = currentLink(Immutable.fromJS({}), actions.receiveLinkInfo(receivedData));
+    const state = currentEntry(Immutable.fromJS({}), actions.receiveEntryInfo(receivedData));
     const jsState = state.toJS();
     expect(jsState.data).to.contain(receivedData);
     expect(jsState.isLoading).to.equal(false);
@@ -31,7 +31,7 @@ describe('The currentLink reducer', () => {
     const error = {
       test: 1,
     };
-    const state = currentLink(Immutable.fromJS({}), actions.receiveLinkInfoError(error));
+    const state = currentEntry(Immutable.fromJS({}), actions.receiveEntryInfoError(error));
     const jsState = state.toJS();
     expect(jsState.data).to.contain({});
     expect(jsState.isLoading).to.equal(false);
@@ -39,7 +39,7 @@ describe('The currentLink reducer', () => {
   });
 
   it('requestNewLink => isLoading : false, isSaving: true, inEditMode : false', () => {
-    const state = currentLink(Immutable.fromJS({}), actions.requestNewLink());
+    const state = currentEntry(Immutable.fromJS({}), actions.requestNewEntry());
     const jsState = state.toJS();
     expect(jsState.isLoading).to.equal(false);
     expect(jsState.isSaving).to.equal(true);
@@ -47,7 +47,7 @@ describe('The currentLink reducer', () => {
   });
 
   it('receiveNewLink => isLoading : false, isSaving: false, inEditMode : false', () => {
-    const state = currentLink(Immutable.fromJS({}), actions.receiveNewLink());
+    const state = currentEntry(Immutable.fromJS({}), actions.receiveNewEntry());
     const jsState = state.toJS();
     expect(jsState.isLoading).to.equal(false);
     expect(jsState.isSaving).to.equal(false);
@@ -56,7 +56,7 @@ describe('The currentLink reducer', () => {
 
   it('receiveNewLinkError => error: error, isSaving: false, inEditMode : true', () => {
     const error = { message: 'test' };
-    const state = currentLink(Immutable.fromJS({}), actions.receiveNewLinkError(error));
+    const state = currentEntry(Immutable.fromJS({}), actions.receiveNewEntryError(error));
     const jsState = state.toJS();
     expect(jsState.error, 'error').to.contain(error);
     expect(jsState.isLoading, 'isLoading').to.equal(false);
