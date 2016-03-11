@@ -1,12 +1,18 @@
 import React, { PropTypes } from 'react';
 
-const EntryViewEdit = ({ isSaving, onCreatEntryClick, title, description, embedHtml }) => {
+const youtubeEmbed = function(embedString) {
+  const output = { __html: embedString };
+  console.log(output);
+  return output;
+};
+
+const EntryViewEdit = ({ isSaving, onCreatEntryClick, title, description, embedID }) => {
   return (
     <div className="columns">
       <div className="column is-8 is-offset-2">
         <div className="box">
           <div className="video-wrapper">
-            {embedHtml}
+            <iframe width="100%" height="100%" src={`https://www.youtube.com/embed/${embedID}`} frameBorder="0" allowFullScreen></iframe>
           </div>
         </div>
         <br /><br />

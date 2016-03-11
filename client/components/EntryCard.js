@@ -1,12 +1,12 @@
 const React = require('react');
 
-const EntryCard = ({ id, title, description, publishedAt }) => {
+const EntryCard = ({ id, title, description, publishedAt, thumbnailURL }) => {
   return (
     <div className="column is-third">
     <div className="card">
       <div className="card-image">
         <figure className="image is-4by3">
-          <a href="#" title={ title }><img src="http://placehold.it/300x225&text=Video Thumb" alt={ title } /></a>
+          <a href="#" title={ title }><img src={thumbnailURL} alt={ title } /></a>
         </figure>
       </div>
       <div className="card-content">

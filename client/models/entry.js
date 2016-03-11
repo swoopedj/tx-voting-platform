@@ -3,14 +3,11 @@ const request = require('../lib/request.js');
 const mockData = {
   mocks: [
     {
+      embedID: 'fICcd-okQEs',
+      thumbnailURL: 'https://i.ytimg.com/vi/fICcd-okQEs/hqdefault.jpg',
       publishedAt: '2010-03-23T07:25:42.000Z',
-      title: 'WCW Nitro: March 16th 1998: Goldberg vs. Lodi',
-      description: 'Goldberg takes on The Flock\'s resident sign man.',
-    },
-    {
-      publishedAt: '2014-11-19T14:00:18.000Z',
-      title: 'Mark Ronson - Uptown Funk ft. Bruno Mars',
-      description: 'Mark Ronson\'s official music video for "Uptown Funk" ft. Bruno Mars.',
+      title: '#CareLikeCrazy About Student Loans',
+      description: "Do you #CareLikeCrazy about voting rights? Women's rights? The environment? ↵We all have a reason to care, we all have a reason to vote. Whatever yours is, make sure you're registered: carelikecrazy.com/register",
     },
   ],
   delay: 100,
@@ -27,17 +24,19 @@ const entryInfo = {
 
 const processData = (data) => {
   const videoData = data.data.items[0];
+  const embedID = videoData.id;
   const title = videoData.snippet.title;
-  const embedHTML = videoData.player.embedHtml;
   const description = videoData.snippet.description;
   const statistics = videoData.statistics;
+  const thumbnailURL = videoData.snippet.thumbnails.high.url;
   return {
+    thumbnailURL,
     title,
-    embedHTML,
+    embedID,
     description,
     statistics,
   };
-}
+};
 
 const Entry = {
   fetch: () => MockEntry.read(),
