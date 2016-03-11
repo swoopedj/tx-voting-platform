@@ -1,4 +1,8 @@
 /* eslint new-cap: [2, {"capIsNewExceptions": ["express.Router"]}] */
+
+// Get env vars and keys from .env file in root dir.
+require('dotenv').config();
+
 const browserify = require('browserify-middleware');
 const express = require('express');
 const Path = require('path');

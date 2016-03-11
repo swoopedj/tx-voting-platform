@@ -42,6 +42,7 @@ router.post('/', (req, res) => {
 });
 
 router.get('/info', (req, res) => {
+  console.log(req.query)
   Youtube.getInfo(req.query.url)
   .then((data) => {
     res.json({ data });
