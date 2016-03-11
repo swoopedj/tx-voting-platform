@@ -3,7 +3,6 @@ const unshortener = require('../lib/unshortener');
 const Url = require('url');
 
 const Youtube = module.exports;
-// const sample = 'https://www.youtube.com/watch?v=FzRH3iTQPrk';
 
 Youtube.getInfo = (url) => {
   'use strict';
@@ -28,3 +27,4 @@ Youtube.getInfo = (url) => {
     });
   });
 };
+

@@ -42,12 +42,17 @@ router.post('/', (req, res) => {
 });
 
 router.get('/info', (req, res) => {
-  console.log(req.query)
   Youtube.getInfo(req.query.url)
   .then((data) => {
+    if (!data.items[0]) {
+      res.status(500).send('That youtube URL is invalid');
+    }
     res.json({ data });
   })
   .catch((error) => {
+    if (error.statusCode === 404) {
+      res.status(404).send('That youtube video is not found.');
+    }
     res.status(500).send(error.message);
   });
 });

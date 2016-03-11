@@ -17,7 +17,7 @@ describe('The Youtube Model', () => {
       const fetch = sinon.stub(request, 'fetch');
       fetch.resolves(ytOutput);
       const response = yield Youtube.getInfo(sample);
-      expect(response).to.equal(ytOutput);
+      expect(response).to.include(ytOutput);
       fetch.restore();
     });
 
@@ -27,9 +27,11 @@ describe('The Youtube Model', () => {
       const fetch = sinon.stub(request, 'fetch');
       fetch.resolves(ytOutput);
       const response = yield Youtube.getInfo(shortenedSample);
-      expect(response).to.equal(ytOutput);
+      expect(response).to.include(ytOutput);
       fetch.restore();
       expand.restore();
     });
   });
+
+  // describe('Shortens a shortened link')
 });
