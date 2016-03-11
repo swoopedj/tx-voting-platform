@@ -4,8 +4,9 @@ const Provider = require('react-redux').Provider;
 require('./lib/longStackTraces.js');
 import App from './containers/App';
 import HomeRoute from './containers/HomeRoute';
-import GetEntryInfoRoute from './containers/GetEntryInfoRoute'
-import EntryView from './components/EntryView'
+import GetEntryInfoRoute from './containers/GetEntryInfoRoute';
+import EntryView from './components/EntryView';
+import EntryViewEdit from './components/EntryViewEdit';
 import Entry from './models/entry';
 const { Router, Route, IndexRoute } = require('react-router');
 const configureStore = require('./store/configureStore');
@@ -19,6 +20,7 @@ ReactDOM.render(
       <Route path="/" component={App}>
         <IndexRoute components={{ main: HomeRoute }} />
         <Route path="/entry/new" components={{ main: GetEntryInfoRoute }} />
+        <Route path="/entry/yt/create" components={{ main: EntryViewEdit }} />
         <Route path="/entry/yt/:id" components={{ main: EntryView }} />
       </Route>
     </Router>
