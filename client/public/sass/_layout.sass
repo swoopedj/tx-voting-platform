@@ -6,6 +6,8 @@
 .header 
   height: 60px
   background: $primary_dark
+  a.is-outline
+    background: transparent
   a.logo
     color: $white_seventy
     font-size: $size-3
@@ -23,6 +25,14 @@
   transition: all 0.3s ease
   &:hover
     color: #fff
+
+.subnav
+  border-bottom: 1px solid $border
+  background: #fff
+  padding: 8px 20px
+  .fa
+    position: relative
+    top: 3px
 
 .main-content
   margin: 2em auto
