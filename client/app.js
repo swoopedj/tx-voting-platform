@@ -6,6 +6,7 @@ import App from './containers/App';
 import HomeRoute from './containers/HomeRoute';
 import GetEntryInfoRoute from './containers/GetEntryInfoRoute'
 import EntryView from './components/EntryView'
+import Entry from './models/entry';
 const { Router, Route, IndexRoute } = require('react-router');
 const configureStore = require('./store/configureStore');
 const configureHistory = require('./lib/configureHistory');

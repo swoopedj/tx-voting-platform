@@ -1,6 +1,6 @@
 const { getAsyncAction } = require('../lib/redux-helpers');
 require('es6-promise').polyfill();
-const Link = require('../models/link');
+const Entry = require('../models/entry');
 const { push } = require('react-router-redux');
 
 function requestEntries() {
@@ -74,7 +74,7 @@ function setEntryAsCurrent(entry) {
 function fetchEntries() {
   return dispatch => getAsyncAction({
     dispatch,
-    request: () => Link.fetch(),
+    request: () => Entry.fetch(),
     onRequest: () => requestEntries(),
     onSuccess: (links) => receiveEntries(links),
     onError: (error) => receiveEntriesError(error),
@@ -84,7 +84,7 @@ function fetchEntries() {
 function getEntryInfo(url) {
   return dispatch => getAsyncAction({
     dispatch,
-    request: () => Link.getInfo(url),
+    request: () => Entry.getInfo(url),
     onRequest: () => requestEntryInfo(url),
     onSuccess: (info) => receiveEntryInfo(info),
     onError: (error) => receiveEntryInfoError(error),
@@ -94,7 +94,7 @@ function getEntryInfo(url) {
 function addEntry(link) {
   return dispatch => getAsyncAction({
     dispatch,
-    request: () => Link.create(link),
+    request: () => Entry.create(link),
     onRequest: () => requestNewEntry(),
     onSuccess: () => receiveNewEntry(),
     onError: (error) => receiveNewEntryError(error),
