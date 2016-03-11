@@ -86,7 +86,12 @@ function getEntryInfo(url) {
     dispatch,
     request: () => Entry.getInfo(url),
     onRequest: () => requestEntryInfo(url),
-    onSuccess: (info) => receiveEntryInfo(info),
+    onSuccess: (info) => {
+      return [
+        receiveEntryInfo(info),
+        push('/entry/yt/create'),
+      ];
+    },
     onError: (error) => receiveEntryInfoError(error),
   });
 }

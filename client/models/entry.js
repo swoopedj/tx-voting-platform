@@ -25,11 +25,27 @@ const entryInfo = {
   },
 };
 
+const processData = (data) => {
+  const videoData = data.data.items[0];
+  const title = videoData.snippet.title;
+  const embedHTML = videoData.player.embedHtml;
+  const description = videoData.snippet.description;
+  const statistics = videoData.statistics;
+  return {
+    title,
+    embedHTML,
+    description,
+    statistics,
+  };
+}
+
 const Entry = {
   fetch: () => MockEntry.read(),
   create: (link) => MockEntry.create(link),
   getInfo: (url) => {
-    return request.fetch(request.addParams('http://localhost:4000/api/yt/links/info', { url })).catch();
+    return request.fetch(request.addParams('http://localhost:4000/api/yt/links/info', { url }))
+      .then(response => response.json())
+      .then(processData);
   },
 };
 

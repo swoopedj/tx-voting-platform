@@ -1,12 +1,12 @@
 import React, { PropTypes } from 'react';
 
-const EntryViewEdit = ({ onCreatEntryClick, title, description }) => {
+const EntryViewEdit = ({ isSaving, onCreatEntryClick, title, description, embedHtml }) => {
   return (
     <div className="columns">
       <div className="column is-8 is-offset-2">
         <div className="box">
           <div className="video-wrapper">
-            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/fICcd-okQEs" frameBorder="0" allowFullScreen></iframe>
+            {embedHtml}
           </div>
         </div>
         <br /><br />

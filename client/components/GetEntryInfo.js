@@ -1,6 +1,6 @@
 const React = require('react');
 
-const GetEntryInfo = ({ onSubmit }) => {
+const GetEntryInfo = ({ infoIsLoading, onSubmit }) => {
   let input;
   return (
     <div className="columns">
