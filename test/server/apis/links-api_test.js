@@ -79,6 +79,7 @@ describe('The Links API', () => {
 describe('The Youtube API', () => {
   let app = null;
   const info = 'https://www.youtube.com/watch?v=FzRH3iTQPrk';
+  const badInfo = 'bit.ly/1pbHRQy';
   beforeEach(() => {
     app = TestHelper.createApp();
   });
@@ -93,6 +94,20 @@ describe('The Youtube API', () => {
         .query({ url: info })
         .expect((response) => {
           expect(response.body.data).to.include(info);
+          expect(Youtube.getInfo.calledOnce).to.equal(true);
+        });
+      getInfo.restore();
+    });
+
+    it_('sends an error when an invalid url is submitted', function *urlValid() {
+      const getInfo = sinon.stub(Youtube, 'getInfo');
+      getInfo.rejects(new Error('Invalid protocol'));
+      yield request(app)
+        .get('/api/yt/links/info')
+        .query({ url: badInfo })
+        .expect(500)
+        .expect((response) => {
+          expect(response.text).to.equal('Invalid protocol');
           expect(Youtube.getInfo.calledOnce).to.equal(true);
         });
       getInfo.restore();
