@@ -1,4 +1,5 @@
 const ModelMocker = require('../lib/model-mocker');
+const request = require('../lib/request.js');
 const mockData = {
   mocks: [
     {
@@ -27,8 +28,8 @@ const entryInfo = {
 const Entry = {
   fetch: () => MockEntry.read(),
   create: (link) => MockEntry.create(link),
-  getInfo: () => {
-    return Promise.resolve(entryInfo);
+  getInfo: (url) => {
+    return request.fetch(request.addParams('http://localhost:4000/api/yt/links/info', { url })).catch();
   },
 };
 

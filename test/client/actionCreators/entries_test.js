@@ -1,7 +1,7 @@
 /* global TEST_HELPER describe it it_ TestHelper __server __client beforeEach expect */
 'use strict';
 require(TEST_HELPER);
-const Link = require(`${__client}/models/link`);
+const Entry = require(`${__client}/models/entry`);
 const {
   getEntryInfo,
   requestEntryInfo,
@@ -13,7 +13,7 @@ require('sinon-as-promised');
 
 describe('The getLinkInfo async action', () => {
   it_('dispatches receive link info on success', function * testAction() {
-    const getInfo = sinon.stub(Link, 'getInfo');
+    const getInfo = sinon.stub(Entry, 'getInfo');
     const url = 'http://google.com';
     const requestAction = requestEntryInfo(url);
     const infoResponse = {
@@ -32,7 +32,7 @@ describe('The getLinkInfo async action', () => {
     getInfo.restore();
   });
   it_('dispatches link info error on failure', function * testAction() {
-    const getInfo = sinon.stub(Link, 'getInfo');
+    const getInfo = sinon.stub(Entry, 'getInfo');
     const url = 'http://google.com';
     const requestAction = requestEntryInfo(url);
     const error = {
