@@ -10,6 +10,9 @@ module.exports = {
           resolve(urls);
         }
       });
+    })
+    .then(urls => {
+      return urls.href;
     });
   },
 };

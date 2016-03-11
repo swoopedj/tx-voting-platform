@@ -13,9 +13,7 @@ Youtube.getInfo = (url) => {
   if (url.indexOf('youtube.com') !== -1) {
     shortenedUrl = Promise.resolve(url);
   } else {
-    shortenedUrl = unshortener.expand(url).then(urls => {
-      return urls.href;
-    });
+    shortenedUrl = unshortener.expand(url);
   }
   return shortenedUrl.then(fullUrl => {
     const vidId = Url.parse(fullUrl, true).query.v;
