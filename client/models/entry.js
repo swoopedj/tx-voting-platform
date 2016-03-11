@@ -15,8 +15,8 @@ const mockData = {
   delay: 100,
 };
 
-const MockLink = new ModelMocker(mockData);
-const linkInfo = {
+const MockEntry = new ModelMocker(mockData);
+const entryInfo = {
   title: 'prebuilt stuff',
   description: 'description',
   stats: {
@@ -24,12 +24,12 @@ const linkInfo = {
   },
 };
 
-const Link = {
-  fetch: () => MockLink.read(),
-  create: (link) => MockLink.create(link),
+const Entry = {
+  fetch: () => MockEntry.read(),
+  create: (link) => MockEntry.create(link),
   getInfo: () => {
-    return Promise.resolve(linkInfo);
+    return Promise.resolve(entryInfo);
   },
 };
 
-module.exports = Link;
+module.exports = Entry;
