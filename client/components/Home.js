@@ -1,7 +1,7 @@
 const React = require('react');
 const EntryCard = require('./EntryCard');
 
-const Home = ({ links }) => {
+const Home = ({ links, onCardClick }) => {
   return (
     <div>
       <h2>YouTube</h2>
@@ -9,7 +9,8 @@ const Home = ({ links }) => {
         { links.map(link =>
           <EntryCard
             key={link.id}
-            {...link}
+            entry={link}
+            onClick={(event) => onCardClick(event, link)}
           />
         )}
       </div>

@@ -101,7 +101,12 @@ function addEntry(link) {
     dispatch,
     request: () => Entry.create(link),
     onRequest: () => requestNewEntry(),
-    onSuccess: () => receiveNewEntry(),
+    onSuccess: () => {
+      return [
+        receiveNewEntry(),
+        dispatch(push('/')),
+      ];
+    },
     onError: (error) => receiveNewEntryError(error),
   });
 }

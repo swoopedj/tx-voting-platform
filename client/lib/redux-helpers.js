@@ -20,7 +20,9 @@ const getAsyncAction = ({ dispatch, request, onRequest, onSuccess, onError }) =>
   dispatchCallback(undefined, dispatch, onRequest);
   return request()
     .then(response => dispatchCallback(response, dispatch, onSuccess))
-    .catch(error => dispatchCallback(error, dispatch, onError));
+    .catch(error => {
+      dispatchCallback(error, dispatch, onError);
+    });
 };
 
 module.exports = {

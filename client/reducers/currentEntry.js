@@ -10,10 +10,11 @@ const inEditMode = createReducer(true, {
   RECEIVE_NEW_ENTRY_ERROR: () => true,
 });
 
-const isSaving = createReducer(true, {
+const isSaving = createReducer(false, {
   SET_ENTRY_AS_CURRENT: () => false,
   REQUEST_NEW_ENTRY: () => true,
   RECEIVE_NEW_ENTRY: () => false,
+  RECEIVE_ENTRY_INFO: () => false,
   RECEIVE_NEW_ENTRY_ERROR: () => false,
 });
 
