@@ -51,7 +51,7 @@ router.get('/info', (req, res) => {
   })
   .catch((error) => {
     if (error.statusCode === 404) {
-      res.status(404).send('That youtube URL is not found.');
+      res.status(404).send('That youtube video is not found.');
     }
     res.status(500).send(error.message);
   });

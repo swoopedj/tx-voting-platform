@@ -5,6 +5,7 @@ const sinon = require('sinon');
 const Link = require(`${__server}/models/links`);
 const Youtube = require(`${__server}/models/youtube`);
 const request = require('supertest');
+const ytOutput = require('../models/ytResult').output;
 require('sinon-as-promised');
 
 describe('The Links API', () => {
@@ -87,13 +88,13 @@ describe('The Youtube API', () => {
   describe('GET /api/yt/links/info', () => {
     it_('gets video info from Youtube', function * getYTInfo() {
       const getInfo = sinon.stub(Youtube, 'getInfo');
-      getInfo.resolves(info);
+      getInfo.resolves(ytOutput);
       yield request(app)
         .get('/api/yt/links/info')
         .expect(200)
         .query({ url: info })
         .expect((response) => {
-          expect(response.body.data).to.include(info);
+          expect(response.body.data).to.have.property('items');
           expect(Youtube.getInfo.calledOnce).to.equal(true);
         });
       getInfo.restore();
