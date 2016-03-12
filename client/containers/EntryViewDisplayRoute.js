@@ -1,11 +1,11 @@
 import React, { Component, PropTypes } from 'react';
-import GetEntryInfo from '../components/GetEntryInfo';
+import EntryViewDisplay from '../components/EntryViewDisplay';
 import { getEntryInfo } from '../actionCreators/entries';
 import { connect } from 'react-redux';
 
-class GetEntryInfoRoute extends Component {
+class EntryViewDisplayRoute extends Component {
   render() {
-    return <GetEntryInfo {...this.props} />;
+    return <EntryViewDisplay {...this.props} />;
   }
 }
 
@@ -14,13 +14,14 @@ const mapStateToProps = (state, ownProps) => {
   const { currentEntry } = state.toJS();
   return {
     id: ownProps.params.id,
-    infoIsLoading: currentEntry.isLoading,
+    isSaving: currentEntry.isSaving,
+    entry: currentEntry.data,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onSubmit: (link) => {
+    onClick: () => {
       dispatch(getEntryInfo(link));
     },
   };
@@ -29,4 +30,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(GetEntryInfoRoute);
+)(EntryViewDisplayRoute);

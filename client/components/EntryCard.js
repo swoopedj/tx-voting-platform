@@ -1,19 +1,19 @@
 const React = require('react');
 
-const EntryCard = ({ id, title, description, publishedAt }) => {
+const EntryCard = ({ entry, onClick }) => {
   return (
     <div className="column is-third">
     <div className="card">
-      <div className="card-image">
+      <div className="card-image" onClick={onClick}>
         <figure className="image is-4by3">
-          <a href="#" title={ title }><img src="http://placehold.it/300x225&text=Video Thumb" alt={ title } /></a>
+          <a href="#" title={ entry.title }><img src={entry.thumbnailURL} alt={ entry.title } /></a>
         </figure>
       </div>
       <div className="card-content">
-        <small>{ publishedAt }</small>
-        <p className="title is-5"><a href="#" title={ title }>{ title }</a></p>
+        <small>{ entry.publishedAt }</small>
+        <p className="title is-5"><a href="#" title={ entry.title }>{ entry.title }</a></p>
         <div className="content">
-          { description }
+          { entry.description }
         </div>
         <div className="media">
           <div className="media-left">

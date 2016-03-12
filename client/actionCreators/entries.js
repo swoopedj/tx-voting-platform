@@ -86,7 +86,12 @@ function getEntryInfo(url) {
     dispatch,
     request: () => Entry.getInfo(url),
     onRequest: () => requestEntryInfo(url),
-    onSuccess: (info) => receiveEntryInfo(info),
+    onSuccess: (info) => {
+      return [
+        receiveEntryInfo(info),
+        push('/entry/yt/create'),
+      ];
+    },
     onError: (error) => receiveEntryInfoError(error),
   });
 }
@@ -96,7 +101,12 @@ function addEntry(link) {
     dispatch,
     request: () => Entry.create(link),
     onRequest: () => requestNewEntry(),
-    onSuccess: () => receiveNewEntry(),
+    onSuccess: () => {
+      return [
+        receiveNewEntry(),
+        dispatch(push('/')),
+      ];
+    },
     onError: (error) => receiveNewEntryError(error),
   });
 }

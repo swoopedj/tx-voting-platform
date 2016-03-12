@@ -5,17 +5,23 @@ const createReducer = (initialState, handlers) => {
   }
 };
 
+const dispatchCallback = (response, dispatch, callback) => {
+  const output = callback(response);
+  if (Array.isArray(output)) {
+    output.forEach(action => dispatch(action));
+  } else {
+    dispatch(output);
+  }
+};
+
 // This helper is a general function for dispatching actions
 // before a request, after a request returns, and if it returns with an error
 const getAsyncAction = ({ dispatch, request, onRequest, onSuccess, onError }) => {
-  dispatch(onRequest());
+  dispatchCallback(undefined, dispatch, onRequest);
   return request()
-    .then(response => {
-      return dispatch(onSuccess(response));
-    })
+    .then(response => dispatchCallback(response, dispatch, onSuccess))
     .catch(error => {
-      console.log('error', error);
-      dispatch(onError(error));
+      dispatchCallback(error, dispatch, onError);
     });
 };
 

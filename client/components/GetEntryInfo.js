@@ -1,7 +1,8 @@
 const React = require('react');
 
-const GetEntryInfo = ({ onSubmit }) => {
+const GetEntryInfo = ({ infoIsLoading, onSubmit }) => {
   let input;
+  const loadingClass = infoIsLoading ? 'is-loading' : '';
   return (
     <div className="columns">
       <div className="column is-half is-offset-quarter">
@@ -23,7 +24,7 @@ const GetEntryInfo = ({ onSubmit }) => {
             />
           </p>
           <p className="control">
-            <button className="button is-primary">Submit Link</button>
+            <button className={`button is-primary ${loadingClass}`}>Submit Link</button>
             &nbsp;
             <button className="button">Cancel</button>
           </p>
