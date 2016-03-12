@@ -4,7 +4,7 @@ import { combineReducers } from 'redux-immutable';
 
 const items = createReducer(Immutable.fromJS([]), {
   RECEIVE_ENTRIES: (state, action) => {
-    return Immutable.fromJS(action.links);
+    return Immutable.fromJS(action.entries);
   },
 });
 

@@ -3,133 +3,100 @@ require('es6-promise').polyfill();
 const Entry = require('../models/entry');
 const { push } = require('react-router-redux');
 
-function requestEntries() {
-  return {
-    type: 'REQUEST_ENTRIES',
-  };
-}
+const actions = {};
 
-function receiveEntries(links) {
-  return {
-    type: 'RECEIVE_ENTRIES',
-    links,
-  };
-}
+actions.requestEntries = () => ({
+  type: 'REQUEST_ENTRIES',
+});
 
-function requestEntryInfo(url) {
-  return {
-    type: 'REQUEST_ENTRY_INFO',
-    url,
-  };
-}
+actions.receiveEntries = (entries) => ({
+  type: 'RECEIVE_ENTRIES',
+  entries,
+});
 
-function receiveEntryInfo(data) {
-  return {
-    type: 'RECEIVE_ENTRY_INFO',
-    data,
-  };
-}
+actions.requestEntryInfo = (url) => ({
+  type: 'REQUEST_ENTRY_INFO',
+  url,
+});
 
-function receiveEntryInfoError(error) {
-  return {
-    type: 'RECEIVE_ENTRY_INFO_ERROR',
-    error,
-  };
-}
+actions.receiveEntryInfo = (data) => ({
+  type: 'RECEIVE_ENTRY_INFO',
+  data,
+});
 
-function receiveNewEntryError(error) {
-  return {
-    type: 'RECEIVE_NEW_ENTRY_ERROR',
-    error,
-  };
-}
+actions.receiveEntryInfoError = (error) => ({
+  type: 'RECEIVE_ENTRY_INFO_ERROR',
+  error,
+});
 
-function receiveEntriesError(error) {
-  return {
-    type: 'RECEIVE_ENTRIES_ERROR',
-    error,
-  };
-}
+actions.receiveNewEntryError = (error) => ({
+  type: 'RECEIVE_NEW_ENTRY_ERROR',
+  error,
+});
 
-function requestNewEntry(link) {
-  return {
-    type: 'REQUEST_NEW_ENTRY',
-    link,
-  };
-}
+actions.receiveEntriesError = (error) => ({
+  type: 'RECEIVE_ENTRIES_ERROR',
+  error,
+});
 
-function receiveNewEntry() {
-  return {
-    type: 'RECEIVE_NEW_ENTRY',
-  };
-}
+actions.requestNewEntry = (link) => ({
+  type: 'REQUEST_NEW_ENTRY',
+  link,
+});
 
-function setEntryAsCurrent(entry) {
-  return {
-    type: 'SET_ENTRY_AS_CURRENT',
-    entry,
-  };
-}
+actions.receiveNewEntry = () => ({
+  type: 'RECEIVE_NEW_ENTRY',
+});
 
-function fetchEntries() {
+actions.setEntryAsCurrent = (entry) => ({
+  type: 'SET_ENTRY_AS_CURRENT',
+  entry,
+});
+
+actions.fetchEntries = () => {
   return dispatch => getAsyncAction({
     dispatch,
     request: () => Entry.fetch(),
-    onRequest: () => requestEntries(),
-    onSuccess: (links) => receiveEntries(links),
-    onError: (error) => receiveEntriesError(error),
+    onRequest: () => actions.requestEntries(),
+    onSuccess: (links) => actions.receiveEntries(links),
+    onError: (error) => actions.receiveEntriesError(error),
   });
-}
+};
 
-function getEntryInfo(url) {
+actions.getEntryInfo = (url) => {
   return dispatch => getAsyncAction({
     dispatch,
     request: () => Entry.getInfo(url),
-    onRequest: () => requestEntryInfo(url),
+    onRequest: () => actions.requestEntryInfo(url),
     onSuccess: (info) => {
       return [
-        receiveEntryInfo(info),
+        actions.receiveEntryInfo(info),
         push('/entry/yt/create'),
       ];
     },
-    onError: (error) => receiveEntryInfoError(error),
+    onError: (error) => actions.receiveEntryInfoError(error),
   });
-}
+};
 
-function addEntry(link) {
+actions.addEntry = (link) => {
   return dispatch => getAsyncAction({
     dispatch,
     request: () => Entry.create(link),
-    onRequest: () => requestNewEntry(),
+    onRequest: () => actions.requestNewEntry(),
     onSuccess: () => {
       return [
-        receiveNewEntry(),
+        actions.receiveNewEntry(),
         dispatch(push('/')),
       ];
     },
-    onError: (error) => receiveNewEntryError(error),
+    onError: (error) => actions.receiveNewEntryError(error),
   });
-}
+};
 
-function navigateToEntry(id) {
+actions.navigateToEntry = (id) => {
   return (dispatch) => {
     dispatch(push(`/entry/${id}`));
   };
-}
-
-module.exports = {
-  setEntryAsCurrent,
-  navigateToEntry,
-  fetchEntries,
-  requestEntries,
-  addEntry,
-  receiveEntriesError,
-  receiveEntries,
-  requestEntryInfo,
-  requestNewEntry,
-  receiveNewEntry,
-  receiveNewEntryError,
-  receiveEntryInfoError,
-  receiveEntryInfo,
-  getEntryInfo,
 };
+
+module.exports = actions;
