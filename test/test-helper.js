@@ -1,8 +1,7 @@
 /* global TestHelper before it xit beforeEach __server */
-
 process.env.NODE_ENV = 'test';
 
-const dbCleaner = require('knex-cleaner');
+// const dbCleaner = require('knex-cleaner');
 const chai = require('chai');
 const express = require('express');
 
@@ -16,6 +15,8 @@ const Bluebird = require('bluebird');
 global.__server = `${__dirname}/../server`;
 global.__client = `${__dirname}/../client`;
 const routes = require(`${__server}/index`);
+
+const db = require(`${__server}/lib/db`);
 
 //
 // Assertions
@@ -33,8 +34,14 @@ global.should = chai.should();
 // This is the object you can attach any helper functions used across
 // several test files.
 global.TestHelper = {
-  emptyDb: (db) => {
-    return dbCleaner.clean(db, { mode: 'truncate' });
+  emptyDb: () => {
+    return db.emptyAll();
+  },
+  db: (collection) => {
+    return {
+      create: (...args) => db(collection).create.apply(null, args),
+      read: (...args) => db(collection).read.apply(null, args),
+    };
   },
 };
 
