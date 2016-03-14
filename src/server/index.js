@@ -11,7 +11,7 @@ const routes = express.Router();
 const port = process.env.PORT || 4000;
 const app = express();
 const localPath = Path.resolve(__dirname, '../client/public');
-const assetFolder = process.env.NODE_ENV === 'production' ? '/app/dist/client/public' : localPath;
+const assetFolder = process.env.NODE_ENV === 'production' ? 'dist/client/public' : localPath;
 
 // This handles entry requests.
 
