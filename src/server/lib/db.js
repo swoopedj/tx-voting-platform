@@ -21,7 +21,7 @@ const collections = {
         description: "Do you #CareLikeCrazy about voting rights? Women's rights?",
       },
     ],
-    delay: 100,
+    delay: 1,
   },
 };
 

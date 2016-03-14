@@ -37,4 +37,14 @@ describe('The entries reducer', () => {
     expect(state.isLoading).to.equal(true);
     expect(state.items).to.deep.equal([]);
   });
+
+  it('sets saving on save', () => {
+    const state = entries(Immutable.fromJS({}), actions.requestNewEntry()).toJS();
+    expect(state.isAddingNew).to.equal(true);
+  });
+
+  it('stop saving on receive new item', () => {
+    const state = entries(Immutable.fromJS({}), actions.receiveNewEntry()).toJS();
+    expect(state.isAddingNew).to.equal(false);
+  });
 });

@@ -14,7 +14,6 @@ const configureStore = require('./store/configureStore');
 const configureHistory = require('./lib/configureHistory');
 const store = configureStore();
 const history = configureHistory(store);
-
 ReactDOM.render(
 	<Provider store={store}>
     <Router history={history}>
