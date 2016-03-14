@@ -46,6 +46,7 @@
     "start": "nodemon src/server/index.js --exec babel-node",
     "lint": "./node_modules/.bin/eslint . --ext .js; true",
     "test": "./test/run.sh",
+    "build": "babel src -d dist",
     "migrate": "knex migrate:latest --env test"
   },
   "repository": {
