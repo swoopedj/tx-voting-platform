@@ -33,5 +33,8 @@ describe('The Youtube Model', () => {
     });
   });
 
+    // describe('Get Video Info', () => {
+    //   it_('gets batch data from youtube', function * ytinfo() {
+    //   }
   // describe('Shortens a shortened link')
 });

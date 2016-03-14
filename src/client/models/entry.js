@@ -19,8 +19,11 @@ const processData = (data) => {
 
 const Entry = {
   fetch: () => {
-    return request.fetch('/api/yt/entries/')
-    .then(response => response.json())
+    return request.fetch(request.addParams('http://localhost:4000/api/yt/entries/'))
+    .then(response => {
+      console.log('====================', response);
+      response.json();
+    })
     .then(processData);
   },
   create: (entry) => {
