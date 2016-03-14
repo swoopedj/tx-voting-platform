@@ -10,8 +10,11 @@ const sass = require('node-sass-endpoint');
 const routes = express.Router();
 const port = process.env.PORT || 4000;
 const app = express();
-const assetFolder = Path.resolve(__dirname, '../client/public');
+const browserifyPath = process.env.NODE_ENV === 'production' ? './dist' : './src';
 
+// were in the server folder, so we go up two directories
+// to get to the public directory
+const assetFolder = Path.resolve(__dirname, '../../public');
 // This handles entry requests.
 
 const apiRouter = express.Router();
@@ -28,10 +31,10 @@ browserify.settings({
 
 // Provide browserified files at a specified paths
 routes.get('/app-bundle.js',
-  browserify('./client/app.js'));
+  browserify(`${browserifyPath}/client/app.js`));
 
 routes.get('/css/app-bundle.css',
-  sass.serve('./client/public/sass/app.sass'));
+  sass.serve('./public/sass/app.sass'));
 
 // Static assets (html, etc.)
 routes.use(express.static(assetFolder));

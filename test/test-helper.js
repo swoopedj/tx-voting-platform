@@ -12,8 +12,8 @@ const Bluebird = require('bluebird');
 // Example:
 //  var User = require(__server + '/models/user.js')
 //
-global.__server = `${__dirname}/../server`;
-global.__client = `${__dirname}/../client`;
+global.__server = `${__dirname}/../src/server`;
+global.__client = `${__dirname}/../src/client`;
 const routes = require(`${__server}/index`);
 
 const db = require(`${__server}/lib/db`);

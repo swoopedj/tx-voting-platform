@@ -1,11 +1,7 @@
 /* global TEST_HELPER describe it_ TestHelper __server beforeEach expect */
 'use strict';
 require(TEST_HELPER);
-const sinon = require('sinon');
 const Entries = require(`${__server}/models/entries`);
-const ytOutput = require('./ytResult').output;
-const unshortener = require('../../../server/lib/unshortener');
-const request = require('../../../server/lib/request');
 require('sinon-as-promised');
 
 describe('The entries model', () => {

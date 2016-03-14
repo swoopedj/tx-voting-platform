@@ -19,6 +19,7 @@
     "es6-promise": "^3.1.2",
     "eslint": "~2.2.0",
     "express": "^4.13.4",
+    "forever": "^0.15.1",
     "immutable": "^3.7.6",
     "isomorphic-fetch": "^2.2.1",
     "knex": "^0.10.0",
@@ -40,12 +41,14 @@
     "sinon-as-promised": "^4.0.0",
     "supertest": "^1.2.0",
     "underscore": "^1.8.3",
-    "unshortener": "^0.1.0"
+    "unshortener": "^0.1.0",
+    "babel-cli": "^6.6.5"
   },
   "scripts": {
-    "start": "nodemon server/index.js",
+    "start": "nodemon src/server/index.js --exec babel-node",
     "lint": "./node_modules/.bin/eslint . --ext .js; true",
     "test": "./test/run.sh",
+    "heroku-postbuild": "babel src -d dist",
     "migrate": "knex migrate:latest --env test"
   },
   "repository": {
