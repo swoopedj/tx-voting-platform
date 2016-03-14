@@ -28,10 +28,10 @@ browserify.settings({
 
 // Provide browserified files at a specified paths
 routes.get('/app-bundle.js',
-  browserify('./client/app.js'));
+  browserify('./src/client/app.js'));
 
 routes.get('/css/app-bundle.css',
-  sass.serve('./client/public/sass/app.sass'));
+  sass.serve('./src/client/public/sass/app.sass'));
 
 // Static assets (html, etc.)
 routes.use(express.static(assetFolder));

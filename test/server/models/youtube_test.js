@@ -4,8 +4,8 @@ require(TEST_HELPER);
 const sinon = require('sinon');
 const Youtube = require(`${__server}/models/youtube`);
 const ytOutput = require('./ytResult').output;
-const unshortener = require('../../../server/lib/unshortener');
-const request = require('../../../server/lib/request');
+const unshortener = require(`${__server}/lib/unshortener`);
+const request = require(`${__server}/lib/request`);
 require('sinon-as-promised');
 
 describe('The Youtube Model', () => {
