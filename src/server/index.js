@@ -10,7 +10,7 @@ const sass = require('node-sass-endpoint');
 const routes = express.Router();
 const port = process.env.PORT || 4000;
 const app = express();
-const assetPath = process.env.NODE_ENV === 'production' ? '../dist/client/public' : '../client/public';
+const assetPath = process.env.NODE_ENV === 'production' ? './dist/client/public' : '../client/public';
 const assetFolder = Path.resolve(__dirname, assetPath);
 
 // This handles entry requests.
