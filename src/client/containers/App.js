@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
+import FlashMessage from '../components/FlashMessage';
 
 class App extends Component {
   render() {
@@ -8,6 +9,11 @@ class App extends Component {
     return (
       <div>
         <Header />
+        <FlashMessage 
+          isVisible={false}
+          text="Success! Post updated."
+          messageType="success"
+        />
         <div className="container main-content">
           {main}
         </div>
