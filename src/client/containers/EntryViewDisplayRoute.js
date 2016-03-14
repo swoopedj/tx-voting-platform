@@ -9,7 +9,6 @@ class EntryViewDisplayRoute extends Component {
   }
 }
 
-
 const mapStateToProps = (state, ownProps) => {
   const { currentEntry } = state.toJS();
   return {
