@@ -32,7 +32,7 @@ const Entry = {
     .then(processData);
   },
   getInfo: (url) => {
-    return request.fetch(request.addParams('http://localhost:4000/api/yt/links/info', { url }))
+    return request.fetch(request.addParams('http://localhost:4000/api/yt/entries/info', { url }))
       .then(response => response.json())
       .then(processData);
   },

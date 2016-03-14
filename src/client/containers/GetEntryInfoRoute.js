@@ -11,10 +11,11 @@ class GetEntryInfoRoute extends Component {
 
 
 const mapStateToProps = (state, ownProps) => {
-  const { currentEntry } = state.toJS();
+  const { entries } = state.toJS();
+  console.log(entries);
   return {
     id: ownProps.params.id,
-    infoIsLoading: currentEntry.isLoading,
+    infoIsLoading: entries.info.isFetching,
   };
 };
 
