@@ -110,9 +110,9 @@ actions.addEntry = (link) => {
   });
 };
 
-actions.getEntryByID = (state, id) => {
-  // return the entry that matches the id
-  // as immutable object
+actions.findEntryByID = (state, id) => {
+  return state.get('items')
+  .find(item => item.get('id') === id);
 };
 
 actions.navigateToEntry = (id) => {

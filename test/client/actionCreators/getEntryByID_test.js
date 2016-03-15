@@ -20,7 +20,7 @@ describe('The getEntryByID action', () => {
   it('gets the state for a entry with the matching id', () => {
     const state = Immutable.fromJS(initialState);
     const foundEntry = actions.findEntryByID(state, 1).toJS();
-    expect(foundEntry).to.deep.equal(initialState.items[1]);
+    expect(foundEntry).to.deep.equal(initialState.items[0]);
   });
 });
 
