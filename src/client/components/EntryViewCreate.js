@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-const EntryViewEdit = ({ isSaving, onCreatEntryClick, entry }) => {
+const EntryViewCreate = ({ isSaving, onCreatEntryClick, entry }) => {
   const loadingClass = isSaving ? 'is-loading' : '';
   return (
     <div className="columns">
@@ -27,10 +27,10 @@ const EntryViewEdit = ({ isSaving, onCreatEntryClick, entry }) => {
   );
 };
 
-EntryViewEdit.propTypes = {
+EntryViewCreate.propTypes = {
   entry: PropTypes.object.isRequired,
   isSaving: PropTypes.bool.isRequired,
   onCreatEntryClick: PropTypes.func.isRequired,
 };
 
-module.exports = EntryViewEdit;
+module.exports = EntryViewCreate;
