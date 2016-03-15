@@ -48,11 +48,6 @@ actions.receiveNewEntry = () => ({
   type: 'RECEIVE_NEW_ENTRY',
 });
 
-actions.setSelectedEntryID = (id) => ({
-  type: 'SET_SELECTED_ENTRY_ID',
-  id,
-});
-
 actions.fetchEntries = () => {
   return dispatch => getAsyncAction({
     dispatch,
