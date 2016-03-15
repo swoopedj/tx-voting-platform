@@ -1,16 +1,16 @@
 const React = require('react');
 const EntryCard = require('./EntryCard');
 
-const Home = ({ links, onCardClick }) => {
+const Home = ({ entries, onCardClick }) => {
   return (
     <div>
       <h2>YouTube</h2>
       <div className="columns is-multiline">
-        { links.map(link =>
+        { entries.map(entry =>
           <EntryCard
-            key={link.id}
-            entry={link}
-            onClick={(event) => onCardClick(event, link)}
+            key={entry.id}
+            entry={entry}
+            onClick={(event) => onCardClick(event, entry)}
           />
         )}
       </div>

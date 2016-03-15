@@ -9,20 +9,16 @@ class EntryViewRoute extends Component {
   }
 }
 
-
-const mapStateToProps = (state, ownProps) => {
-  const { currentEntry } = state.toJS();
+const mapStateToProps = (state) => {
   return {
-    id: ownProps.params.id,
-    isSaving: currentEntry.isSaving,
-    entry: currentEntry.data,
+    isSaving: state.getIn(['entries', 'isSaving']),
+    entry: state.getIn(['entries', 'info', 'data']).toJS(),
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     onCreatEntryClick: (entry) => {
-      console.log(entry);
       dispatch(addEntry(entry));
     },
   };
