@@ -110,6 +110,11 @@ actions.addEntry = (link) => {
   });
 };
 
+actions.getEntryByID = (state, id) => {
+  // return the entry that matches the id
+  // as immutable object
+};
+
 actions.navigateToEntry = (id) => {
   return (dispatch) => {
     dispatch(push(`/entry/${id}`));
