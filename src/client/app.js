@@ -6,9 +6,8 @@ import App from './containers/App';
 import HomeRoute from './containers/HomeRoute';
 import GetEntryInfoRoute from './containers/GetEntryInfoRoute';
 import Login from './components/Login';
-import EntryView from './components/EntryView';
+import EntryViewRoute from './containers/EntryViewRoute';
 import EntryViewCreateRoute from './containers/EntryViewCreateRoute';
-import EntryViewDisplayRoute from './containers/EntryViewDisplayRoute';
 const { Router, Route, IndexRoute } = require('react-router');
 const configureStore = require('./store/configureStore');
 const configureHistory = require('./lib/configureHistory');
@@ -21,7 +20,8 @@ ReactDOM.render(
         <IndexRoute components={{ main: HomeRoute }} />
         <Route path="/entry/new" components={{ main: GetEntryInfoRoute }} />
         <Route path="/entry/yt/create" components={{ main: EntryViewCreateRoute }} />
-        <Route path="/entry/yt/:id" components={{ main: EntryViewDisplayRoute }} />
+        <Route path="/entry/yt/:id" components={{ main: EntryViewRoute }} />
+        <Route path="/entry/yt/:is_edit/:id" components={{ main: EntryViewRoute }} />
         <Route path="/login" components={{ main: Login }} />
       </Route>
     </Router>
