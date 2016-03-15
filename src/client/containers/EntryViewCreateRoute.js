@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import EntryViewCreate from '../components/EntryViewEdit';
+import EntryViewEdit from '../components/EntryViewEdit';
 import { addEntry } from '../actionCreators/entries';
 import { connect } from 'react-redux';
 
