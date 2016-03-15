@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-const FlashMessage = ({ onCloseClick, text, messageType, isVisible }) => {
+const FlashMessage = ({ onCloseClick, text, messageType, isVisible, onClick }) => {
   const flashMessageVisibility = isVisible ? 'show' : '';
   return (
     <div className={ `notification has-icon is-text-centered is-${messageType} ${flashMessageVisibility}` }>
