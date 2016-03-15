@@ -1,10 +1,9 @@
-const React = require('react');
+import React from 'react';
+import AuthUser from './AuthUser';
 
 const Auth = () => {
   return (
-    <span className="header-item">
-      <a className="button is-outline" href="#">Sign Up</a>
-    </span>
+    <AuthUser />
   );
 };
 
