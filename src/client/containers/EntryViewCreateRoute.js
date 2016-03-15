@@ -3,7 +3,7 @@ import EntryViewEdit from '../components/EntryViewEdit';
 import { addEntry } from '../actionCreators/entries';
 import { connect } from 'react-redux';
 
-class EntryViewRoute extends Component {
+class EntryViewCreateRoute extends Component {
   render() {
     return <EntryViewEdit {...this.props} />;
   }
@@ -27,4 +27,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(EntryViewRoute);
+)(EntryViewCreateRoute);

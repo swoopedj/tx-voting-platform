@@ -6,7 +6,8 @@ import App from './containers/App';
 import HomeRoute from './containers/HomeRoute';
 import GetEntryInfoRoute from './containers/GetEntryInfoRoute';
 import Login from './components/Login';
-import EntryViewRoute from './containers/EntryViewRoute';
+import EntryView from './components/EntryView';
+import EntryViewCreateRoute from './containers/EntryViewCreateRoute';
 import EntryViewDisplayRoute from './containers/EntryViewDisplayRoute';
 const { Router, Route, IndexRoute } = require('react-router');
 const configureStore = require('./store/configureStore');
@@ -19,7 +20,7 @@ ReactDOM.render(
       <Route path="/" component={App}>
         <IndexRoute components={{ main: HomeRoute }} />
         <Route path="/entry/new" components={{ main: GetEntryInfoRoute }} />
-        <Route path="/entry/yt/create" components={{ main: EntryViewRoute }} />
+        <Route path="/entry/yt/create" components={{ main: EntryViewCreateRoute }} />
         <Route path="/entry/yt/:id" components={{ main: EntryViewDisplayRoute }} />
         <Route path="/login" components={{ main: Login }} />
       </Route>
