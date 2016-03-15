@@ -1,4 +1,5 @@
-const React = require('react');
+import React from 'react';
+import { Link } from 'react-router';
 
 const SubNav = () => {
   return (
@@ -19,7 +20,7 @@ const SubNav = () => {
           </div>
           <div className="navbar-right">
             <p className="navbar-item">
-              <a href="/entry/new" className="button is-success">Submit Your Entry</a>
+              <Link to="/entry/new" className="button is-success">Submit Your Entry</Link>
             </p>
           </div>
         </nav>
