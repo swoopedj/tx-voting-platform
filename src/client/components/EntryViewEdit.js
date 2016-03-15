@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 
 const EntryViewEdit = ({ isSaving, onCreatEntryClick, entry }) => {
+  console.log(entry);
   const loadingClass = isSaving ? 'is-loading' : '';
   return (
     <div className="columns">
@@ -15,7 +16,7 @@ const EntryViewEdit = ({ isSaving, onCreatEntryClick, entry }) => {
           <input className="input is-large" type="text" value={entry.title} />
         </p>
         <p className="control">
-          <textarea className="textarea">{entry.description}</textarea>
+          <textarea className="textarea" value={entry.description}></textarea>
         </p>
         <p className="control">
           <button onClick={() => onCreatEntryClick(entry)} className={`button is-primary ${loadingClass}`}>Create Entry</button>
