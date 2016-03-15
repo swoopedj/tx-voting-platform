@@ -28,4 +28,13 @@ describe('The client entry model', () => {
     expect(createAnEntry.message).to.equal('test');
     fetch.restore();
   });
+
+  it_.only('takes a url and gets info from Youtube', function * getYTInfo() {
+    const fetch = sinon.stub(request, 'fetch');
+    fetch.resolves(data);
+    const ytInfo = yield Entry.getInfo('http://www.youtube.com/embed/FzRH3iTQPrk');
+    expect(ytInfo.embedID).to.equal(data.data.items[0].id);
+    fetch.restore();
+  })
+
 });

@@ -1,7 +1,6 @@
 const request = require('../../lib/request.js');
 
 const processData = (data) => {
-  console.log('DATA (process)', data);
   const videoData = data.data.items[0];
   const embedID = videoData.id;
   const title = videoData.snippet.title;
