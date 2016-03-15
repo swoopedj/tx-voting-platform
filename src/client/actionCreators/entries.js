@@ -48,9 +48,9 @@ actions.receiveNewEntry = () => ({
   type: 'RECEIVE_NEW_ENTRY',
 });
 
-actions.setEntryAsCurrent = (entry) => ({
-  type: 'SET_ENTRY_AS_CURRENT',
-  entry,
+actions.setSelectedEntryID = (id) => ({
+  type: 'SET_SELECTED_ENTRY_ID',
+  id,
 });
 
 actions.fetchEntries = () => {
@@ -61,6 +61,28 @@ actions.fetchEntries = () => {
     onSuccess: (links) => actions.receiveEntries(links),
     onError: (error) => actions.receiveEntriesError(error),
   });
+};
+
+const shouldFetch = (requiredID, state) => {
+  const itemCount = state.get('items').size;
+  if (state.get('isFetching')) return false;
+  // if there are no always fetch
+  if (itemCount === 0) return true;
+  // if no id is provided
+  // only fetch if the array is empty
+  if (!requiredID) return itemCount === 0;
+  // otherwise, check whether the required id is in the array
+  return !state
+    .get('items')
+    .find(item => item.get('id') === requiredID);
+};
+
+actions.fetchIfNeeded = (requiredID) => {
+  return (dispatch, getState) => {
+    const state = getState();
+    if (shouldFetch(requiredID, state.get('entries'))) return actions.fetchEntries();
+    return Promise.resolve(state.get('items'));
+  };
 };
 
 actions.getEntryInfo = (url) => {

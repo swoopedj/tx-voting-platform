@@ -19,7 +19,10 @@ const dispatchCallback = (response, dispatch, callback) => {
 const getAsyncAction = ({ dispatch, request, onRequest, onSuccess, onError }) => {
   dispatchCallback(undefined, dispatch, onRequest);
   return request()
-    .then(response => dispatchCallback(response, dispatch, onSuccess))
+    .then(response => {
+      dispatchCallback(response, dispatch, onSuccess);
+      return response;
+    })
     .catch(error => {
       dispatchCallback(error, dispatch, onError);
     });

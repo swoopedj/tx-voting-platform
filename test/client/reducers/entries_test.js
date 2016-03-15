@@ -19,7 +19,7 @@ describe('The entries reducer', () => {
     ];
     const state = entries(Immutable.fromJS({}), actions.receiveEntries(entryResponse)).toJS();
     expect(state.items).to.deep.equal(entryResponse);
-    expect(state.isLoading).to.equal(false);
+    expect(state.isFetching).to.equal(false);
     expect(state.error).to.equal(null);
   });
 
@@ -28,13 +28,13 @@ describe('The entries reducer', () => {
       message: 'test',
     };
     const state = entries(Immutable.fromJS({}), actions.receiveEntriesError(error)).toJS();
-    expect(state.isLoading).to.equal(false);
+    expect(state.isFetching).to.equal(false);
     expect(state.error).to.deep.equal(error);
   });
 
   it('sets loading on request', () => {
     const state = entries(Immutable.fromJS({}), actions.requestEntries()).toJS();
-    expect(state.isLoading).to.equal(true);
+    expect(state.isFetching).to.equal(true);
     expect(state.items).to.deep.equal([]);
   });
 
@@ -46,5 +46,12 @@ describe('The entries reducer', () => {
   it('stop saving on receive new item', () => {
     const state = entries(Immutable.fromJS({}), actions.receiveNewEntry()).toJS();
     expect(state.isAddingNew).to.equal(false);
+  });
+
+  it('set link error on create link error', () => {
+    const error = { message: 'test' };
+    const state = entries(Immutable.fromJS({}), actions.receiveNewEntryError(error)).toJS();
+    expect(state.isAddingNew).to.equal(false);
+    expect(state.error).to.deep.equal(error);
   });
 });
