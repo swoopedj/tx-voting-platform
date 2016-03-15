@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import actions  from '../actionCreators/entries';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import FlashMessage from '../components/FlashMessage';
@@ -15,6 +16,9 @@ const message = {
 };
 
 class App extends Component {
+  componentDidMount() {
+    this.props.fetchEntries();
+  }
   render() {
     const { main } = this.props;
     return (
@@ -41,12 +45,9 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
-  // return {
-  //   onClick: (value) => {
-  //     dispatch(actions.someAction(value));
-  //   },
-  // };
+  return {
+    fetchEntries: () => dispatch(actions.fetchIfNeeded()),
+  };
 };
 
 export default connect(

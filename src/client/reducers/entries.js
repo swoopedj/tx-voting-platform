@@ -5,7 +5,7 @@ import { info } from './entryInfo';
 
 const items = createReducer(Immutable.fromJS([]), {
   RECEIVE_ENTRIES: (state, action) => {
-    return state.merge(action.entries);
+    return state.concat(action.entries).flatten();
   },
 });
 

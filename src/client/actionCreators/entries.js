@@ -2,6 +2,7 @@ const { getAsyncAction } = require('../lib/redux-helpers');
 require('es6-promise').polyfill();
 const Entry = require('../models/entry');
 const { push } = require('react-router-redux');
+const Immutable = require('immutable');
 
 const actions = {};
 
@@ -9,9 +10,9 @@ actions.requestEntries = () => ({
   type: 'REQUEST_ENTRIES',
 });
 
-actions.receiveEntries = (entries) => ({
+actions.receiveEntries = (response) => ({
   type: 'RECEIVE_ENTRIES',
-  entries,
+  entries: response.entries || [],
 });
 
 actions.requestEntryInfo = (url) => ({
@@ -108,6 +109,11 @@ actions.addEntry = (link) => {
     },
     onError: (error) => actions.receiveNewEntryError(error),
   });
+};
+
+actions.findEntryByID = (state, id) => {
+  return state.get('items')
+  .find(item => item.get('id') === id) || Immutable.fromJS([]);
 };
 
 actions.navigateToEntry = (id) => {

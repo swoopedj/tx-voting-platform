@@ -28,9 +28,9 @@ const EntryViewEdit = ({ isSaving, onCreatEntryClick, entry }) => {
 };
 
 EntryViewEdit.propTypes = {
+  entry: PropTypes.object.isRequired,
+  isSaving: PropTypes.bool.isRequired,
   onCreatEntryClick: PropTypes.func.isRequired,
-  title: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
 };
 
 module.exports = EntryViewEdit;

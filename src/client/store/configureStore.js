@@ -1,7 +1,7 @@
 const Immutable = require('immutable');
 const appReducer = require('../reducers/app');
 const { routerMiddleware } = require('react-router-redux');
-const { createStore, applyMiddleware } = require('redux');
+const { createStore, applyMiddleware, compose } = require('redux');
 const thunkMiddleware = require('redux-thunk');
 const { browserHistory } = require('react-router');
 
@@ -12,6 +12,9 @@ module.exports = () => {
   return createStore(
     appReducer,
     initialState,
-    applyMiddleware(thunkMiddleware, middleware)
+    compose(
+      applyMiddleware(thunkMiddleware, middleware),
+      window.devToolsExtension ? window.devToolsExtension() : f => f
+    )
   );
 };
