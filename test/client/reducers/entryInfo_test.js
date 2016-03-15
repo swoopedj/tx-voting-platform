@@ -5,7 +5,7 @@ import Immutable from 'immutable';
 const { info } = require(`${__client}/reducers/entryInfo`);
 const actions = require(`${__client}/actionCreators/entries`);
 
-describe('The entries reducer', () => {
+describe('The entries info reducer', () => {
   it('sets fetching as true when requesting info', () => {
     const state = info(Immutable.fromJS({}), actions.requestEntryInfo('google.com')).toJS();
     expect(state.data).to.deep.equal({});

@@ -9,7 +9,7 @@ const items = createReducer(Immutable.fromJS([]), {
   },
 });
 
-const isLoading = createReducer(false, {
+const isFetching = createReducer(false, {
   REQUEST_NEW_ENTRY: () => false,
   REQUEST_ENTRIES: () => true,
   RECEIVE_ENTRIES: () => false,
@@ -24,12 +24,13 @@ const error = createReducer(null, {
   REQUEST_ENTRIES: () => null,
   RECEIVE_ENTRIES: () => null,
   RECEIVE_ENTRIES_ERROR: (state, action) => Immutable.fromJS(action.error),
+  RECEIVE_NEW_ENTRY_ERROR: (state, action) => Immutable.fromJS(action.error),
 });
 
 export const entries = combineReducers({
   isAddingNew,
   info,
   items,
-  isLoading,
+  isFetching,
   error,
 });
