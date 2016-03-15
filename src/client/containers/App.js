@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 import FlashMessage from '../components/FlashMessage';
 
 const message = {
@@ -17,7 +18,7 @@ class App extends Component {
   render() {
     const { main } = this.props;
     return (
-      <div>
+      <div className="wrapper">
         <Header />
         <FlashMessage
           isVisible={message.isVisible}
@@ -28,6 +29,7 @@ class App extends Component {
         <div className="container main-content">
           {main}
         </div>
+        <Footer />
       </div>
     );  
   }
