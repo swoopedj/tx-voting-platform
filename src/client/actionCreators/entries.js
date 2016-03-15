@@ -9,9 +9,9 @@ actions.requestEntries = () => ({
   type: 'REQUEST_ENTRIES',
 });
 
-actions.receiveEntries = (entries) => ({
+actions.receiveEntries = (response) => ({
   type: 'RECEIVE_ENTRIES',
-  entries,
+  entries: response.entries || [],
 });
 
 actions.requestEntryInfo = (url) => ({
