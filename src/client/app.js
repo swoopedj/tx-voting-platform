@@ -5,10 +5,9 @@ require('./lib/longStackTraces.js');
 import App from './containers/App';
 import HomeRoute from './containers/HomeRoute';
 import GetEntryInfoRoute from './containers/GetEntryInfoRoute';
-import EntryView from './components/EntryView';
+import Login from './components/Login';
 import EntryViewRoute from './containers/EntryViewRoute';
 import EntryViewDisplayRoute from './containers/EntryViewDisplayRoute';
-import Entry from './models/entry';
 const { Router, Route, IndexRoute } = require('react-router');
 const configureStore = require('./store/configureStore');
 const configureHistory = require('./lib/configureHistory');
@@ -22,6 +21,7 @@ ReactDOM.render(
         <Route path="/entry/new" components={{ main: GetEntryInfoRoute }} />
         <Route path="/entry/yt/create" components={{ main: EntryViewRoute }} />
         <Route path="/entry/yt/:id" components={{ main: EntryViewDisplayRoute }} />
+        <Route path="/login" components={{ main: Login }} />
       </Route>
     </Router>
   </Provider>,

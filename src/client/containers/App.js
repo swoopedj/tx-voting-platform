@@ -7,7 +7,7 @@ import FlashMessage from '../components/FlashMessage';
 const message = {
   key: 1,
   text: 'Success! Your entry was submitted.',
-  isVisible: true,
+  isVisible: false,
   messageType: 'success',
   onClick: function(){
     isVisible: false;
