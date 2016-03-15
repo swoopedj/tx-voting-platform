@@ -2,7 +2,7 @@ const R = require('ramda');
 const createReducer = (initialState, handlers) => {
   return (state = initialState, action) => {
     return R.propOr(R.identity, action.type, handlers)(state, action);
-  }
+  };
 };
 
 const dispatchCallback = (response, dispatch, callback) => {
