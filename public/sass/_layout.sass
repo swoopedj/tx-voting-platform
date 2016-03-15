@@ -8,17 +8,27 @@
   background: $primary_dark
   a.is-outline
     background: transparent
-  a.logo
-    color: $white_seventy
-    font-size: $size-3
-    text-transform: uppercase
-    transition: all 0.3s ease
-    span
-      font-weight: 800
-    .thin
-      font-weight: 300
+
+.logo
+  color: $white_seventy
+  font-size: $size-3
+  text-transform: uppercase
+  transition: all 0.3s ease
+  text-decoration: none
+  border: none !important
+  span
+    font-weight: 800
+  .thin
+    font-weight: 300
+  &:hover
+    color: #fff
+  &.logo-footer
+    font-size: $size-5
+    margin-bottom: 0.5em
+    opacity: 0.6
+    display: block
     &:hover
-      color: #fff
+      opacity: 1
 
 .header-menu a
   color: $white_seventy
@@ -37,4 +47,13 @@
     top: 3px
 
 .main-content
-  margin: 2em auto
+  margin: 2em auto 4em
+  min-height: 300px
+
+.wrapper
+  background: $grey-lighter
+
+.footer
+  padding: 40px 20px
+  background: #fff
+  border-top: 1px solid $border
