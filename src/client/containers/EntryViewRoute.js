@@ -8,7 +8,6 @@ class EntryViewRoute extends Component {
     this.props.fetchEntries(this.props.id);
   }
   render() {
-    console.log(this.props);
     return <EntryView {...this.props} />;
   }
 }

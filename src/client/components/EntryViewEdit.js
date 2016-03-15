@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 
 const EntryViewEdit = ({ isSaving, onCreatEntryClick, entry }) => {
-  console.log(entry);
   const loadingClass = isSaving ? 'is-loading' : '';
   return (
     <div className="columns">
