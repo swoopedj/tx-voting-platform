@@ -2,11 +2,17 @@ const db = require('../lib/db');
 const Entry = module.exports;
 
 Entry.create = function create(entry) {
-  return db('entries').create(entry);
+  return db('entries').insert([
+    entry.thumbnailURL,
+    entry.title,
+    entry.embedID,
+    entry.description,
+    entry.statistics,
+  ], entry);
 };
 
 Entry.read = function read() {
-  return db('entries').read();
+  return db.select('*').from('entries');
 };
 
 Entry.update = function update(id, fields) {
