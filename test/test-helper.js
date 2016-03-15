@@ -14,6 +14,7 @@ const Bluebird = require('bluebird');
 //
 global.__server = `${__dirname}/../src/server`;
 global.__client = `${__dirname}/../src/client`;
+global.__lib = `${__dirname}/../src/lib`;
 const routes = require(`${__server}/index`);
 
 const db = require(`${__server}/lib/db`);

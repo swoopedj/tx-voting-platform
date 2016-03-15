@@ -1,11 +1,11 @@
-/* global TEST_HELPER describe it_ TestHelper __server beforeEach expect */
+/* global TEST_HELPER describe it_ TestHelper __server __lib beforeEach expect */
 'use strict';
 require(TEST_HELPER);
 const sinon = require('sinon');
 const Youtube = require(`${__server}/models/youtube`);
 const ytOutput = require('./ytResult').output;
 const unshortener = require(`${__server}/lib/unshortener`);
-const request = require(`${__server}/lib/request`);
+const request = require(`${__lib}/request`);
 require('sinon-as-promised');
 
 describe('The Youtube Model', () => {
@@ -33,5 +33,8 @@ describe('The Youtube Model', () => {
     });
   });
 
+    // describe('Get Video Info', () => {
+    //   it_('gets batch data from youtube', function * ytinfo() {
+    //   }
   // describe('Shortens a shortened link')
 });
