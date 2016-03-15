@@ -1,6 +1,7 @@
-const React = require('react');
-const MainNav = require('./MainNav');
-const SubNav = require('./SubNav');
+import React from 'react';
+import { Link } from 'react-router';
+import MainNav from './MainNav';
+import SubNav from './SubNav';
 
 const Header = () => {
   return (
@@ -9,7 +10,7 @@ const Header = () => {
         <div className="container">
           {/* Branding */}
           <div className="header-left">
-            <a className="header-item logo" href="/">Texans<span className="thin">Vote</span></a>
+            <Link to='/' className="header-item logo">Texans<span className="thin">Vote</span></Link>
           </div>
           {/* Mobile menu */}
           <span className="header-toggle">

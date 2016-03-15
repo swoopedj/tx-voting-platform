@@ -1,18 +1,18 @@
-const React = require('react');
-const Auth = require('./Auth');
+import React from 'react';
+import { Link } from 'react-router';
+import Auth from './Auth'
 
 const HeaderNav = () => {
   return (
+
     <div className="header-right header-menu">
       <span className="header-item">
-        <a href="#">About</a>
-      </span>
-      <span className="header-item">
-        <a href="#">Login</a>
+        <Link to='/entry/new' activeClassName='active'>Login</Link>
       </span>
       <Auth />
     </div>
   );
 };
+
 
 module.exports = HeaderNav;
