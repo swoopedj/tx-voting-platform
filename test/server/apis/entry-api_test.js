@@ -28,7 +28,6 @@ describe('The Entries API', () => {
         .get('/api/yt/entries')
         .expect(200)
         .expect(response => {
-          console.log('==============-==============', response.body)
           expect(response.body.entries).to.include(data);
         });
     });

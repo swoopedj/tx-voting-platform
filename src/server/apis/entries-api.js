@@ -42,7 +42,6 @@ router.post('/', (req, res) => {
 });
 
 router.get('/info', (req, res) => {
-  console.log('=====REQ', req.query.url)
   Youtube.getInfo(req.query.url)
 
   .then((data) => {
@@ -55,7 +54,6 @@ router.get('/info', (req, res) => {
     if (error.statusCode === 404) {
       res.status(404).send('That youtube video is not found.');
     }
-    console.log('ERROR:', error.stack);
     res.status(500).send(error.message);
   });
 });
