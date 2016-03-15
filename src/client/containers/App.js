@@ -3,16 +3,27 @@ import { connect } from 'react-redux';
 import Header from '../components/Header';
 import FlashMessage from '../components/FlashMessage';
 
+const message = {
+  key: 1,
+  text: 'Success! Your entry was submitted.',
+  isVisible: true,
+  messageType: 'success',
+  onClick: function(){
+    isVisible: false;
+  }
+};
+
 class App extends Component {
   render() {
     const { main } = this.props;
     return (
       <div>
         <Header />
-        <FlashMessage 
-          isVisible={false}
-          text="Success! Post updated."
-          messageType="success"
+        <FlashMessage
+          isVisible={message.isVisible}
+          text={message.text}
+          messageType={message.messageType}
+          onClick={message.onClick}
         />
         <div className="container main-content">
           {main}
