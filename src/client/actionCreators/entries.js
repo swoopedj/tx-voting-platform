@@ -66,7 +66,7 @@ const shouldFetch = (requiredID, state) => {
   if (itemCount === 0) return true;
   // if no id is provided
   // only fetch if the array is empty
-  if (!requiredID) return itemCount === 0;
+  if (requiredID === undefined) return itemCount === 0;
   // otherwise, check whether the required id is in the array
   return !state
     .get('items')
@@ -76,8 +76,8 @@ const shouldFetch = (requiredID, state) => {
 actions.fetchIfNeeded = (requiredID) => {
   return (dispatch, getState) => {
     const state = getState();
-    if (shouldFetch(requiredID, state.get('entries'))) return actions.fetchEntries();
-    return Promise.resolve(state.get('items'));
+    if (shouldFetch(requiredID, state.get('entries'))) return dispatch(actions.fetchEntries());
+    return Promise.resolve(state.getIn('entries', 'items'));
   };
 };
 
@@ -113,7 +113,7 @@ actions.addEntry = (link) => {
 
 actions.findEntryByID = (state, id) => {
   return state.get('items')
-  .find(item => item.get('id') === id) || Immutable.fromJS([]);
+  .find(item => item.get('id') === id) || Immutable.fromJS({});
 };
 
 actions.navigateToEntry = (id) => {

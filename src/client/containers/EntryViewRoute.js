@@ -1,30 +1,32 @@
 import React, { Component, PropTypes } from 'react';
-import EntryViewDisplay from '../components/EntryViewDisplay';
+import EntryView from '../components/EntryView';
 import actions from '../actionCreators/entries';
 import { connect } from 'react-redux';
 
-class EntryViewDisplayRoute extends Component {
+class EntryViewRoute extends Component {
   componentDidMount() {
     this.props.fetchEntries(this.props.id);
   }
   render() {
-    return <EntryViewDisplay {...this.props} />;
+    return <EntryView {...this.props} />;
   }
 }
 
-EntryViewDisplayRoute.propTypes = {
+EntryViewRoute.propTypes = {
   id: PropTypes.number.isRequired,
   fetchEntries: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => {
   const id = parseInt(ownProps.params.id, 0);
-  const currentEntry = actions.findEntryByID(state.get('entries'), id).toJS();
-  console.log(currentEntry);
+  const isEdit = ownProps.params.is_edit;
+  const entry = actions.findEntryByID(state.get('entries'), id).toJS();
+  console.log(entry);
   return {
     id,
-    isSaving: currentEntry.isSaving,
-    entry: currentEntry.data,
+    inEditMode: isEdit === 'edit',
+    isSaving: state.getIn(['entries', 'isSaving']),
+    entry,
   };
 };
 
@@ -37,4 +39,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(EntryViewDisplayRoute);
+)(EntryViewRoute);

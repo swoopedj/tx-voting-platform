@@ -20,8 +20,8 @@ describe('the fetch if needed helper', () => {
       ],
     },
   });
-  const buildGetState = (initialState) => {
-    return () => initialState;
+  const buildGetState = (input) => {
+    return () => input;
   };
 
   beforeEach(() => {
@@ -33,50 +33,50 @@ describe('the fetch if needed helper', () => {
     fetchStub.restore();
   });
 
-  it_('dispatches fetch if the required id is not set', function * testAction() {
+  it('dispatches fetch if the required id is not set', () => {
     fetchStub.resolves({});
     const getState = buildGetState(initialState);
     const dispatchFetchIfNeeded = actions.fetchIfNeeded(1);
-    yield dispatchFetchIfNeeded(dispatchSpy, getState);
+    dispatchFetchIfNeeded(dispatchSpy, getState);
     // confirm that the request action was dispatched first
-    expect(fetchStub.callCount).to.equal(1);
+    expect(dispatchSpy.callCount).to.equal(1);
   });
 
-  it_('avoids fetch if the required id is set', function * testAction() {
+  it('avoids fetch if the required id is set', () => {
     fetchStub.resolves({});
     const getState = buildGetState(initialState);
     const dispatchFetchIfNeeded = actions.fetchIfNeeded(2);
-    yield dispatchFetchIfNeeded(dispatchSpy, getState);
+    dispatchFetchIfNeeded(dispatchSpy, getState);
     // confirm that the request action was dispatched first
-    expect(fetchStub.callCount).to.equal(0);
+    expect(dispatchSpy.callCount).to.equal(0);
   });
 
-  it_('avoids fetch if not requried id is provided, and array has items', function * testAction() {
+  it('avoids fetch if not requried id is provided, and array has items', () => {
     fetchStub.resolves({});
     const getState = buildGetState(initialState);
     const dispatchFetchIfNeeded = actions.fetchIfNeeded();
-    yield dispatchFetchIfNeeded(dispatchSpy, getState);
+    dispatchFetchIfNeeded(dispatchSpy, getState);
     // confirm that the request action was dispatched first
-    expect(fetchStub.callCount).to.equal(0);
+    expect(dispatchSpy.callCount).to.equal(0);
   });
 
-  it_('avoids fetch if already fetching', function * testAction() {
+  it('avoids fetch if already fetching', () => {
     const fetchingState = initialState.setIn(['entries', 'isFetching'], true);
     fetchStub.resolves({});
     const getState = buildGetState(fetchingState);
     const dispatchFetchIfNeeded = actions.fetchIfNeeded(1);
-    yield dispatchFetchIfNeeded(dispatchSpy, getState);
+    dispatchFetchIfNeeded(dispatchSpy, getState);
     // confirm that the request action was dispatched first
-    expect(fetchStub.callCount).to.equal(0);
+    expect(dispatchSpy.callCount).to.equal(0);
   });
 
-  it_('dispatches fetch if the array is empty', function * testAction() {
+  it('dispatches fetch if the array is empty', () => {
     const emptyState = initialState.setIn(['entries', 'items'], Immutable.fromJS([]));
     fetchStub.resolves({});
     const getState = buildGetState(emptyState);
     const dispatchFetchIfNeeded = actions.fetchIfNeeded();
-    yield dispatchFetchIfNeeded(dispatchSpy, getState);
+    dispatchFetchIfNeeded(dispatchSpy, getState);
     // confirm that the request action was dispatched first
-    expect(fetchStub.callCount).to.equal(1);
+    expect(dispatchSpy.callCount).to.equal(1);
   });
 });

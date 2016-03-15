@@ -1,10 +1,16 @@
-const React = require('react');
-const EntryAuthor = require('./EntryAuthor');
+import React, { PropTypes } from 'react';
+const EntryViewEdit = require('./EntryViewEdit');
+const EntryViewDisplay = require('./EntryViewDisplay');
 
-const EntryView = () => {
-  return (
-    <h1>EntryView</h1>
-  );
+const EntryView = ({ inEditMode, entry, isSaving }) => {
+  if (inEditMode) return (<EntryViewEdit isSaving={isSaving} entry={entry} />);
+  return (<EntryViewDisplay {...entry} />);
+};
+
+EntryView.propTypes = {
+  inEditMode: PropTypes.bool.isRequired,
+  entry: PropTypes.object.isRequired,
+  isSaving: PropTypes.bool.isRequired,
 };
 
 module.exports = EntryView;
