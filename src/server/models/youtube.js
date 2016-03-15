@@ -1,4 +1,4 @@
-const Request = require('../lib/request');
+const Request = require('../../lib/request');
 const unshortener = require('../lib/unshortener');
 const Url = require('url');
 

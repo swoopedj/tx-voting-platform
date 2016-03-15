@@ -1,22 +1,31 @@
-/* global TEST_HELPER describe it_ TestHelper __client __server afterEach expect */
+/* global TEST_HELPER describe it_ TestHelper __client __lib afterEach expect */
 'use strict';
 require(TEST_HELPER);
 const sinon = require('sinon');
 const Entry = require(`${__client}/models/entry`);
-const request = require(`${__client}/lib/request`);
+const request = require(`${__lib}/request`);
+const entryResult = require('./entry-result');
 require('sinon-as-promised');
 
 describe('The client entry model', () => {
-  const data = ['video1', 'video2', 'video3', 'video4'];
+  const data = entryResult.data;
   // afterEach(() => {
-  //   if (requestStub) requestStub.restore();
+  //   if (fetch) fetch.restore();
   // });
 
-  it_.only('fetch gets all entries', function * fetchEntry() {
-    // const fetch = sinon.stub(request, 'fetch');
-    // fetch.resolves(data);
+  it_('fetch gets all entries', function * fetchEntry() {
+    const fetch = sinon.stub(request, 'fetch');
+    fetch.resolves(data);
     const getResult = yield Entry.fetch();
-    expect(getResult).to.contain(data);
-    // fetch.restore();
+    expect(getResult.thumbnailURL).to.equal(data.data.items[0].snippet.thumbnails.high.url);
+    fetch.restore();
+  });
+
+  it_('create adds an entry', function * createEntry() {
+    const fetch = sinon.stub(request, 'fetch');
+    fetch.resolves({ message: 'test' });
+    const createAnEntry = yield Entry.create({ message: 'test' });
+    expect(createAnEntry.message).to.equal('test');
+    fetch.restore();
   });
 });

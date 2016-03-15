@@ -1,7 +1,7 @@
-const request = require('../lib/request.js');
-
+const request = require('../../lib/request.js');
 
 const processData = (data) => {
+  console.log('DATA (process)', data);
   const videoData = data.data.items[0];
   const embedID = videoData.id;
   const title = videoData.snippet.title;
@@ -20,23 +20,17 @@ const processData = (data) => {
 const Entry = {
   fetch: () => {
     return request.fetch(request.addParams('http://localhost:4000/api/yt/entries/'))
-    .then(response => {
-      console.log('====================', response);
-      response.json();
-    })
     .then(processData);
   },
   create: (entry) => {
     return request.fetch('/api/yt/entries/', {
       method: 'POST',
-      body: JSON.srtingify(entry),
+      body: JSON.stringify(entry),
     })
-    .then(response => response.json())
-    .then(processData);
+    .then(data => data);
   },
   getInfo: (url) => {
     return request.fetch(request.addParams('http://localhost:4000/api/yt/entries/info', { url }))
-      .then(response => response.json())
       .then(processData);
   },
   delete: (id) => {
