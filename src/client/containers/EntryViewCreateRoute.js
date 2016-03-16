@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import EntryViewEdit from '../components/EntryViewEdit';
-import { addEntry } from '../actionCreators/entries';
+import actions from '../actionCreators/entries';
 import { connect } from 'react-redux';
 
 class EntryViewCreateRoute extends Component {
@@ -11,7 +11,7 @@ class EntryViewCreateRoute extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    isSaving: state.getIn(['entries', 'isSaving']),
+    isSaving: state.getIn(['entries', 'isAddingNew']),
     entry: state.getIn(['entries', 'info', 'data']).toJS(),
   };
 };
@@ -19,9 +19,14 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onCreatEntryClick: (entry) => {
-      dispatch(addEntry(entry));
+      dispatch(actions.addEntryAndRedirect(entry, '/'));
     },
   };
+};
+
+EntryViewCreateRoute.PropTypes = {
+  entry: PropTypes.object.isRequired,
+  isSaving: PropTypes.bool.isRequired,
 };
 
 export default connect(
