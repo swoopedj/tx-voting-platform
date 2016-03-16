@@ -28,9 +28,8 @@ const matchDispatchToProps = (dispatch) => {
     fetchEntries: () => dispatch(actions.fetchEntries()),
     onCardClick: (event, entry) => {
       event.preventDefault();
-      dispatch(actions.setEntryAsCurrent(entry));
       dispatch(push(`/entry/yt/${entry.id}`));
-    }
+    },
   };
 };
 
