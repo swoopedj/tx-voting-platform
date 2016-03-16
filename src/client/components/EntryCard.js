@@ -1,4 +1,5 @@
 const React = require('react');
+const DateFormat = require('./DateFormat');
 
 const EntryCard = ({ entry, onClick }) => {
   return (
@@ -10,7 +11,7 @@ const EntryCard = ({ entry, onClick }) => {
         </figure>
       </div>
       <div className="card-content">
-        <small>{ entry.publishedAt }</small>
+        <small><DateFormat pubDate={ entry.publishedAt } /></small>
         <p className="title is-5"><a href="#" title={ entry.title }>{ entry.title }</a></p>
         <div className="content">
           { entry.description }
