@@ -14,6 +14,7 @@ class EntryViewRoute extends Component {
 
 EntryViewRoute.propTypes = {
   id: PropTypes.number.isRequired,
+  isSaving: PropTypes.bool.isRequired,
   fetchEntries: PropTypes.func.isRequired,
 };
 
@@ -21,11 +22,10 @@ const mapStateToProps = (state, ownProps) => {
   const id = parseInt(ownProps.params.id, 0);
   const isEdit = ownProps.params.is_edit;
   const entry = actions.findEntryByID(state.get('entries'), id).toJS();
-  console.log(entry);
   return {
     id,
     inEditMode: isEdit === 'edit',
-    isSaving: state.getIn(['entries', 'isSaving']),
+    isSaving: state.getIn(['entries', 'isAddingNew']),
     entry,
   };
 };
