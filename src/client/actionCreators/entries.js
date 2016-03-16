@@ -109,8 +109,8 @@ actions.addEntry = (entry) => {
 actions.navigate = (path) => {
   return dispatch => {
     dispatch(push(path));
-  }
-}
+  };
+};
 
 actions.addEntryAndRedirect = (entry, path) => {
   return dispatch => {
