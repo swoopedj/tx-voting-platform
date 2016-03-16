@@ -10,6 +10,7 @@ const AuthUser = () => {
       <ul>
         <li className="arrow-down"><i className="fa fa-sort-down arrow"></i></li>
         <li><a className="cta" href="#">Submit Entry<i className="fa fa-bullhorn"></i></a></li>
+        <li><a href="/profile">My Profile<i className="fa fa-user"></i></a></li>
         <li><a className="last" href="#">Logout<i className="fa fa-sign-out"></i></a></li>
       </ul>
     </span>
