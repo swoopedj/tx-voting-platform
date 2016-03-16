@@ -26,8 +26,7 @@ const error = createReducer(null, {
   REQUEST_ENTRIES: () => null,
   RECEIVE_ENTRIES: () => null,
   RECEIVE_ENTRIES_ERROR: (state, action) => Immutable.fromJS(action.error),
-  RECEIVE_NEW_ENTRY_ERROR: (state, action) => Immutable.fromJS({ message: action.error.message });
-  },
+  RECEIVE_NEW_ENTRY_ERROR: (state, action) => Immutable.fromJS({ message: action.error.message }),
 });
 
 export const entries = combineReducers({
