@@ -1,15 +1,16 @@
-/* global TEST_HELPER describe it_ TestHelper __server beforeEach expect */
+/* global TEST_HELPER describe it_ db TestHelper __server beforeEach expect */
 'use strict';
 require(TEST_HELPER);
 const Entries = require(`${__server}/models/entries`);
 require('sinon-as-promised');
+const db = require(`${__server}/lib/db`);
 
 describe('The entries model', () => {
   beforeEach(() => {
-    return TestHelper.emptyDb();
+    return TestHelper.emptyDb(db);
   });
 
-  it_('reads an item into the entries models', function * insert() {
+  it_.only('reads an item into the entries models', function * insert() {
     const entry = {
       title: 'test',
     };
@@ -30,9 +31,6 @@ describe('The entries model', () => {
     expect(insertResult, 'insertResults').to.contain(entry);
     const readEntries = yield TestHelper.db('entries').read();
     expect(readEntries[0]).to.contain(entry);
-    // TestHelper.db.read();
-    // read and confirm that read works
-    // this will use DB read not the model
   });
 
   it_('updates an item in the entries model', function * update() {

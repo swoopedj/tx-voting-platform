@@ -1,7 +1,7 @@
 /* global TestHelper before it xit beforeEach __server */
 process.env.NODE_ENV = 'test';
 
-// const dbCleaner = require('knex-cleaner');
+const dbCleaner = require('knex-cleaner');
 const chai = require('chai');
 const express = require('express');
 
@@ -35,13 +35,17 @@ global.should = chai.should();
 // This is the object you can attach any helper functions used across
 // several test files.
 global.TestHelper = {
-  emptyDb: () => {
-    return db.emptyAll();
+  emptyDb: (datab) => {
+    return dbCleaner.clean(datab, { mode: 'truncate' });
   },
   db: (collection) => {
     return {
-      create: (...args) => db(collection).create.apply(null, args),
-      read: (...args) => db(collection).read.apply(null, args),
+      create: (...args) => {
+        console.log('>>>>>>>>>>args', args);
+        console.log('...........', collection);
+        db(collection).insert(args[0]);
+      },
+      read: () => db.select('*').from(collection),
     };
   },
 };
