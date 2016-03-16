@@ -11,7 +11,7 @@ class EntryViewCreateRoute extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    isSaving: state.getIn(['entries', 'isSaving']),
+    isSaving: state.getIn(['entries', 'isAddingNew']),
     entry: state.getIn(['entries', 'info', 'data']).toJS(),
   };
 };
@@ -22,6 +22,11 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(actions.addEntryAndRedirect(entry, '/'));
     },
   };
+};
+
+EntryViewCreateRoute.PropTypes = {
+  entry: PropTypes.object.isRequired,
+  isSaving: PropTypes.bool.isRequired,
 };
 
 export default connect(
