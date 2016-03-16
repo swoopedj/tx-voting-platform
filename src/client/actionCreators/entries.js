@@ -96,15 +96,15 @@ actions.getEntryInfo = (url) => {
   });
 };
 
-actions.addEntry = (link) => {
+actions.addEntry = (entry) => {
   return dispatch => getAsyncAction({
     dispatch,
-    request: () => Entry.create(link),
+    request: () => Entry.create(entry),
     onRequest: () => actions.requestNewEntry(),
     onSuccess: () => {
       return [
         actions.receiveNewEntry(),
-        dispatch(push('/')),
+        push('/'),
       ];
     },
     onError: (error) => actions.receiveNewEntryError(error),
