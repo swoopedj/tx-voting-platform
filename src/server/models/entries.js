@@ -1,15 +1,18 @@
 const db = require('../lib/db');
 const Entry = module.exports;
+const fieldsArray = [
+  'id',
+  'thumbnailURL',
+  'title',
+  'embedID',
+  'description',
+  'statistics',
+  'sortMetric',
+  'userID',
+];
 
 Entry.create = function create(entry) {
-  return db('entries').insert(entry, [
-    'id',
-    'thumbnailURL',
-    'title',
-    'embedID',
-    'description',
-    'statistics',
-  ])
+  return db('entries').insert(entry, fieldsArray)
   .then((response) => {
     return response[0];
   })
@@ -20,20 +23,17 @@ Entry.create = function create(entry) {
 
 Entry.read = function read() {
   return db.select('*').from('entries')
-  .then((response) => {
-    return response[0];
-  })
   .catch((error) => {
     throw new Error(error);
   });
 };
 
-Entry.update = function update(id, fields) {
+Entry.updateByID = function update(id, fields) {
   return db('entries').where('id', id)
-  .returning(['id', 'thumbnailURL', 'title', 'embedID', 'description', 'statistics'])
+  .returning(fieldsArray)
   .update(fields)
   .then((response) => {
-    return response;
+    return response[0];
   })
   .catch((error) => {
     throw new Error(error);
