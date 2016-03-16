@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import EntryViewEdit from '../components/EntryViewEdit';
-import { addEntry } from '../actionCreators/entries';
+import actions from '../actionCreators/entries';
 import { connect } from 'react-redux';
 
 class EntryViewCreateRoute extends Component {
@@ -19,7 +19,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onCreatEntryClick: (entry) => {
-      dispatch(addEntry(entry));
+      dispatch(actions.addEntryAndRedirect(entry, '/'));
     },
   };
 };

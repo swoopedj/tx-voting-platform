@@ -38,6 +38,13 @@ global.TestHelper = {
   emptyDb: (datab) => {
     return dbCleaner.clean(datab, { mode: 'truncate' });
   },
+  delayedResolve: (value, delay) => {
+    return new Promise(resolve => {
+      setTimeout(() => {
+        resolve(value);
+      }, delay);
+    });
+  },
   db: (collection) => {
     return {
       create: (...args) => {

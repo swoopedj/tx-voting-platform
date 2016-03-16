@@ -101,14 +101,22 @@ actions.addEntry = (entry) => {
     dispatch,
     request: () => Entry.create(entry),
     onRequest: () => actions.requestNewEntry(),
-    onSuccess: () => {
-      return [
-        actions.receiveNewEntry(),
-        push('/'),
-      ];
-    },
+    onSuccess: () => actions.receiveNewEntry(),
     onError: (error) => actions.receiveNewEntryError(error),
   });
+};
+
+actions.navigate = (path) => {
+  return dispatch => {
+    dispatch(push(path));
+  }
+}
+
+actions.addEntryAndRedirect = (entry, path) => {
+  return dispatch => {
+    return dispatch(actions.addEntry(entry))
+    .then(dispatch(actions.navigate(path)));
+  };
 };
 
 actions.findEntryByID = (state, id) => {
