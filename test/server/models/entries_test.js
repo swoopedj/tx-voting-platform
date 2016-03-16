@@ -10,14 +10,14 @@ describe('The entries model', () => {
     return TestHelper.emptyDb(db);
   });
 
-  it_.only('reads an item into the entries models', function * insert() {
+  it_('reads an item into the entries models', function * insert() {
     const entry = {
       title: 'test',
     };
     const insertResult = yield TestHelper.db('entries').create(entry);
     expect(insertResult, 'insertResults').to.contain(entry);
     const readEntries = yield Entries.read();
-    expect(readEntries[0]).to.contain(entry);
+    expect(readEntries).to.contain(entry);
     // TestHelper.db.read();
     // read and confirm that read works
     // this will use DB read not the model
@@ -41,9 +41,10 @@ describe('The entries model', () => {
       title: 'whatever',
     };
     const insertResult = yield Entries.create(entry);
+    const entryId = insertResult.id;
     expect(insertResult, 'insertResults').to.contain(entry);
-    const updateResult = yield Entries.update(1, newLink);
-    expect(updateResult, 'updateResults').to.contain(newLink);
+    const updateResult = yield Entries.update(entryId, newLink);
+    expect(updateResult[0].title, 'updateResults').to.equal(newLink.title);
     const readEntries = yield TestHelper.db('entries').read();
     expect(readEntries[0]).to.contain(newLink);
   });
@@ -54,8 +55,9 @@ describe('The entries model', () => {
     };
     const insertResult = yield Entries.create(entry);
     expect(insertResult, 'insertResults').to.contain(entry);
-    const removeResult = yield Entries.remove(1);
-    expect(removeResult, 'removeResult').to.equal(1);
+    const entryId = insertResult.id;
+    const removeResult = yield Entries.remove(entryId);
+    expect(removeResult.id, 'removeResult').to.equal(entryId);
     const readEntries = yield TestHelper.db('entries').read();
     expect(readEntries).to.deep.equal([]);
   });

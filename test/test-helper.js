@@ -41,9 +41,7 @@ global.TestHelper = {
   db: (collection) => {
     return {
       create: (...args) => {
-        console.log('>>>>>>>>>>args', args);
-        console.log('...........', collection);
-        db(collection).insert(args[0]);
+        return db(collection).insert(args[0], ['title']);
       },
       read: () => db.select('*').from(collection),
     };
