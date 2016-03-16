@@ -23,7 +23,11 @@ const Entry = {
   create: (entry) => {
     return request.fetch('/api/yt/entries', {
       method: 'POST',
+      headers: {
+        Accept: 'application/json',
       body: JSON.stringify(entry),
+        'Content-Type': 'application/json',
+      },
     });
   },
   getInfo: (url) => {
