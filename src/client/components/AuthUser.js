@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 const AuthUser = () => {
   return (
@@ -9,9 +10,9 @@ const AuthUser = () => {
       </a>
       <ul>
         <li className="arrow-down"><i className="fa fa-sort-down arrow"></i></li>
-        <li><a className="cta" href="#">Submit Entry<i className="fa fa-bullhorn"></i></a></li>
-        <li><a href="/profile">My Profile<i className="fa fa-user"></i></a></li>
-        <li><a className="last" href="#">Logout<i className="fa fa-sign-out"></i></a></li>
+        <li><Link to="/entry/new" className="cta">Submit Entry<i className="fa fa-bullhorn"></i></Link></li>
+        <li><Link to="/profile">My Profile<i className="fa fa-user"></i></Link></li>
+        <li><Link to="/logout" className="last" href="#">Logout<i className="fa fa-sign-out"></i></Link></li>
       </ul>
     </span>
   );

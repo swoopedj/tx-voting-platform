@@ -13,10 +13,10 @@ const Footer = () => {
                   <Link to="/" className="link is-info">Home</Link>
                 </p>
                 <p className="navbar-item is-text-centered">
-                  <Link to="/about" className="link is-info">About</Link>
+                  <Link to="/entries" className="link is-info">Entries</Link>
                 </p>
                 <p className="navbar-item is-text-centered">
-                  <Link to="/blog" className="link is-info">Blog</Link>
+                  <Link to="/about" className="link is-info">About</Link>
                 </p>
                 <p className="navbar-item is-text-centered">
                   <Link to="/privacy" className="link is-info">Privacy</Link>
