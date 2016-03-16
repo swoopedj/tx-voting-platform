@@ -26,7 +26,15 @@ describe('The client entry model', () => {
   it_('create adds an entry', function * createEntry() {
     const fetch = sinon.stub(request, 'fetch');
     const entry = { message: 'test' };
-    const args = ['/api/yt/entries', { method: 'POST', body: JSON.stringify(entry) }];
+    const args = ['/api/yt/entries',
+      { method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          body: JSON.stringify(entry),
+          'Content-Type': 'application/json',
+        },
+      },
+    ];
     fetch.resolves(entry);
     const createAnEntry = yield Entry.create(entry);
     expect(fetch.calledWith(args[0], args[1])).to.equal(true);

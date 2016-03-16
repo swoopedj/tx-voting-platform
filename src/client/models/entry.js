@@ -25,7 +25,7 @@ const Entry = {
       method: 'POST',
       headers: {
         Accept: 'application/json',
-      body: JSON.stringify(entry),
+        body: JSON.stringify(entry),
         'Content-Type': 'application/json',
       },
     });
