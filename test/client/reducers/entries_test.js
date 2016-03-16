@@ -8,7 +8,7 @@ const actions = require(`${__client}/actionCreators/entries`);
 describe('The entries reducer', () => {
   it('sets entries array on receieve entries', () => {
     const entryResponse = {
-      'entries': [
+      entries: [
         {
           id: 1,
           title: 'one',

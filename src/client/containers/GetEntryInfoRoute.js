@@ -12,7 +12,6 @@ class GetEntryInfoRoute extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   const { entries } = state.toJS();
-  console.log(entries);
   return {
     id: ownProps.params.id,
     infoIsLoading: entries.info.isFetching,
