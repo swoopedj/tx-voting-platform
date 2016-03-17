@@ -33,4 +33,17 @@ entryResult.result = {
   description: 'B',
   statistics: { viewCount: '3' } 
 }
+
+entryResult.toUpdate = { 
+  title: 'AAA',
+  embedID: '1f3',
+  description: 'Bv',
+}
+entryResult.updatedResult = { 
+  thumbnailURL: 'C',
+  title: 'AAA',
+  embedID: '1f3',
+  description: 'Bv',
+  statistics: { viewCount: '3' } 
+}
 /*eslint-enable */

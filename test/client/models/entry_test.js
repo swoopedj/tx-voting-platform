@@ -9,6 +9,8 @@ require('sinon-as-promised');
 
 describe('The client entry model', () => {
   const data = entryResult.data;
+  const updated = entryResult.updatedResult;
+  const newData = entryResult.toUpdate;
   const dataResult = entryResult.result;
 
   it_('fetch gets all entries', function * fetchEntry() {
@@ -51,12 +53,30 @@ describe('The client entry model', () => {
     fetch.restore();
   });
 
-  // it_('deletes an entry from the database', function * deleteEntry() {
-  //   const fetch = sinon.stub(request, 'clientFetch');
-  //   fetch.resolves(dataResult);
-  //   const removedEntry = yield Entry.delete(1);
-  //   expect(fetch.calledWith('1')).to.equal(true);
-  //   expect(removedEntry).to.deep.equal(dataResult);
-  //   fetch.restore();
-  // });
+  it_('updates an entry given an id and fields to update', function * updateEntry() {
+    const fetch = sinon.stub(request, 'clientFetch');
+    fetch.resolves(updated);
+    const args = [`/api/yt/entries/${1}`,
+      { method: 'PUT',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newData),
+      },
+    ];
+    const updatedEntry = yield Entry.update(1, newData);
+    expect(fetch.calledWith(args[0], args[1]), 'passed into entry model').to.equal(true);
+    expect(updatedEntry, 'entry output').to.deep.equal(updated);
+    fetch.restore();
+  });
+
+  it_('deletes an entry from the database', function * deleteEntry() {
+    const fetch = sinon.stub(request, 'clientFetch');
+    fetch.resolves(dataResult);
+    const removedEntry = yield Entry.delete(1);
+    expect(fetch.calledWith(`/api/yt/entries/${1}`)).to.equal(true);
+    expect(removedEntry).to.deep.equal(dataResult);
+    fetch.restore();
+  });
 });

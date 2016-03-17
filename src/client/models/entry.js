@@ -30,6 +30,16 @@ const Entry = {
       body: JSON.stringify(entry),
     });
   },
+  update: (id, fields) => {
+    return request.clientFetch(`/api/yt/entries/${id}`, {
+      method: 'PUT',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(fields),
+    });
+  },
   getInfo: (url) => {
     return request.clientFetch(request.addParams('http://localhost:4000/api/yt/entries/info', { url }))
       .then(processData);
