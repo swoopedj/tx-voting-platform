@@ -28,7 +28,7 @@ describe('The Entries API', () => {
         .get('/api/yt/entries')
         .expect(200)
         .expect(response => {
-          expect(response.body.entries).to.include(data);
+          expect(response.body.data).to.deep.equal(data);
         });
     });
   });
@@ -36,29 +36,27 @@ describe('The Entries API', () => {
   describe('DELETE /entries', () => {
     it_('deletes an entry', function * deletesLinks() {
       modelStub = sinon.stub(Entry, 'remove');
-      modelStub.resolves(data.id);
+      modelStub.resolves({ success: true });
       yield request(app)
         .delete('/api/yt/entries/1')
         .expect(200)
         .expect(response => {
-          expect(response.body.entry).to.equal(data.id);
-          expect(Entry.remove.calledOnce).to.equal(true);
-          expect(Entry.remove.calledWith('1')).to.equal(true);
+          expect(modelStub.calledWith('1')).to.equal(true);
+          expect(response.body.data.success).to.equal(true);
         });
     });
   });
 
   describe('PUT /entries', () => {
     it_('updates an entry', function * updateLink() {
-      modelStub = sinon.stub(Entry, 'update');
+      modelStub = sinon.stub(Entry, 'updateByID');
       modelStub.resolves(data);
       yield request(app)
         .put('/api/yt/entries/1')
         .expect(200)
         .expect(response => {
-          expect(response.body.entry).to.include(data);
-          expect(Entry.update.calledOnce).to.equal(true);
-          expect(Entry.update.calledWith('1')).to.equal(true);
+          expect(modelStub.calledWith('1')).to.equal(true);
+          expect(response.body.data).to.include(data);
         });
     });
   });
@@ -71,8 +69,7 @@ describe('The Entries API', () => {
         .post('/api/yt/entries')
         .expect(200)
         .expect(response => {
-          expect(response.body.returnedEntry).to.include(data);
-          expect(Entry.create.calledOnce).to.equal(true);
+          expect(response.body.data).to.deep.equal(data);
         });
     });
   });
@@ -107,9 +104,9 @@ describe('The Youtube API', () => {
       yield request(app)
         .get('/api/yt/entries/info')
         .query({ url: badInfo })
-        .expect(500)
+        .expect(200)
         .expect((response) => {
-          expect(response.text).to.equal('Invalid protocol');
+          expect(response.body.error.message).to.equal('Invalid protocol');
           expect(Youtube.getInfo.calledOnce).to.equal(true);
         });
       getInfo.restore();

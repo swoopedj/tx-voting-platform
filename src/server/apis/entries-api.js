@@ -10,48 +10,20 @@ router.get('/', (req, res) => {
 });
 
 router.delete('/:id', (req, res) => {
-  Entry.remove(req.params.id)
-  .then((entry) => {
-    res.json({ entry });
-  })
-  .catch((error) => {
-    console.log('ERROR: ', error);
-  });
+  console.log('req-------------===', req)
+  responseHandler.respond(Entry.remove(req.params.id), res);
 });
 
 router.put('/:id', (req, res) => {
-  Entry.update(req.params.id) // req.body.id
-  .then((entry) => {
-    res.json({ entry });
-  })
-  .catch((error) => {
-    console.log('ERROR: ', error);
-  });
+  responseHandler.respond(Entry.updateByID(req.params.id), res);
 });
 
 router.post('/', (req, res) => {
-  Entry.create(req.body)
-    .then((returnedEntry) => {
-      res.json({ returnedEntry });
-    });
+  responseHandler.respond(Entry.create(req.body), res);
 });
 
 router.get('/info', (req, res) => {
   responseHandler.respond(Youtube.getInfo(req.query.url), res);
-//   Youtube.getInfo(req.query.url)
-
-//   .then((data) => {
-//     if (!data.items[0]) {
-//       res.status(500).send('That youtube URL is invalid');
-//     }
-//     res.json({ data });
-//   })
-//   .catch((error) => {
-//     if (error.statusCode === 404) {
-//       res.status(404).send('That youtube video is not found.');
-//     }
-//     res.status(500).send(error.message);
-//   });
 });
 
 module.exports = router;

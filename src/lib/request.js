@@ -10,7 +10,7 @@ const request = {
     return `${urlString}?${queryString.stringify(params)}`;
   },
   clientFetch: (...args) => {
-    request.fetch.apply(null, args)
+    return request.fetch.apply(null, args)
       .then(response => {
         if(response.error !== null) return Promise.reject(response.error);
         return response.data;
