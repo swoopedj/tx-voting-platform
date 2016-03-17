@@ -13,7 +13,7 @@ Youtube.getInfo = (url) => {
   } else {
     shortenedUrl = unshortener.expand(url).catch(error => {
       if (error.message === 'Invalid protocol') throw new Error(`invalid entry url: ${url}`);
-      else throw new Error("there was a problem on the server");
+      else throw new Error('there was a problem on the server');
     });
   }
   return shortenedUrl.then(fullUrl => {
@@ -34,7 +34,7 @@ Youtube.getInfo = (url) => {
       throw new Error(`YouTube url: ${url} is invalid`);
     }
     return youtubeResponse;
-  })
+  });
 };
 
 Youtube.getBatchInfo = (urlArray) => {

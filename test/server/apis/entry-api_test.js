@@ -36,12 +36,12 @@ describe('The Entries API', () => {
   describe('DELETE /entries', () => {
     it_('deletes an entry', function * deletesLinks() {
       modelStub = sinon.stub(Entry, 'remove');
-      modelStub.resolves(data.id);
+      modelStub.resolves({ success: true });
       yield request(app)
         .delete('/api/yt/entries/1')
         .expect(200)
         .expect(response => {
-          expect(response.body.data.success).to.be(true);
+          expect(response.body.data.success).to.equal(true);
         });
     });
   });
@@ -54,9 +54,7 @@ describe('The Entries API', () => {
         .put('/api/yt/entries/1')
         .expect(200)
         .expect(response => {
-          // expect(response.body.entry).to.include(data);
-          // expect(Entry.update.calledOnce).to.equal(true);
-          // expect(Entry.update.calledWith('1')).to.equal(true);
+          expect(response.body.data).to.include(data);
         });
     });
   });
@@ -104,9 +102,9 @@ describe('The Youtube API', () => {
       yield request(app)
         .get('/api/yt/entries/info')
         .query({ url: badInfo })
-        .expect(500)
+        .expect(200)
         .expect((response) => {
-          expect(response.text).to.equal('Invalid protocol');
+          expect(response.body.error.message).to.equal('Invalid protocol');
           expect(Youtube.getInfo.calledOnce).to.equal(true);
         });
       getInfo.restore();

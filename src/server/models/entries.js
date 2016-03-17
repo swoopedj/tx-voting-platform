@@ -47,15 +47,12 @@ Entry.remove = function remove(id) {
   return db('entries').where('id', id)
   .returning('id')
   .del()
-  .then((response) => {
-    console.log('response in remove', response);
-    if (response[0] === id) {
-      return { success: true };
-    }
-  })
   .catch((error) => {
     console.log('Error in Remove:', error);
     throw new Error('Database Remove error');
+  })
+  .then((response) => {
+    if (response.length === 0) throw new Error('Attempted to delete invalid ID');
+    return { success: true };
   });
 };
-
