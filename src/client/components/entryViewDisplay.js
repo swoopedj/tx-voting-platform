@@ -1,20 +1,20 @@
 const React = require('react');
 const EntryAuthor = require('./EntryAuthor');
 
-const EntryViewDisplay = () => {
+const EntryViewDisplay = ({ entry }) => {
   return (
     <div className="columns">
       <div className="column is-8 is-offset-2">
         <div className="box">
           <div className="video-wrapper">
-            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/fICcd-okQEs" frameBorder="0" allowFullScreen></iframe>
+            <iframe width="100%" height="100%" src={`https://www.youtube.com/embed/${entry.embedID}`} frameBorder="0" allowFullScreen></iframe>
           </div>
         </div>
         <br /><br />
-        <p className="title is-3">#CareLikeCrazy About Student Loans</p>
+        <p className="title is-3">{entry.title}</p>
         <div className="columns">
           <div className="column is-8">
-            <p className="title is-5">We all have a reason to vote. Whatever yours is, make sure you're registered</p>
+            <p className="title is-5">{entry.description}</p>
             <br />
             {/* Main navigation */}
             <EntryAuthor />
@@ -24,7 +24,7 @@ const EntryViewDisplay = () => {
               <tbody>
                 <tr>
                   <td className="table-icon"><i className="fa fa-youtube"></i></td>
-                  <td><a href="https://youtu.be/fICcd-okQEs">youtu.be/fICcd-okQEs</a></td>
+                  <td><a href={`https://youtu.be/${entry.embedID}`}>{entry.embedID}</a></td>
                 </tr>
                 <tr>
                   <td className="table-icon"><i className="fa fa-eye"></i></td>

@@ -4,7 +4,7 @@ const EntryViewDisplay = require('./EntryViewDisplay');
 
 const EntryView = ({ inEditMode, entry, isSaving }) => {
   if (inEditMode) return (<EntryViewEdit isSaving={isSaving} entry={entry} />);
-  return (<EntryViewDisplay {...entry} />);
+  return (<EntryViewDisplay entry={entry} />);
 };
 
 EntryView.propTypes = {
