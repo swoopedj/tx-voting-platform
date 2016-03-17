@@ -7,10 +7,10 @@ const HeaderNav = () => {
 
     <div className="header-right header-menu">
       <span className="header-item">
-        <Link to='/about' activeClassName='active'>About</Link>
+        <Link to='/entries' activeClassName='active'>Entries</Link>
       </span>
       <span className="header-item">
-        <Link to='/blog' activeClassName='active'>Blog</Link>
+        <Link to='/about' activeClassName='active'>About</Link>
       </span>
       <Auth />
     </div>
