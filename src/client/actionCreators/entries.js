@@ -10,9 +10,9 @@ actions.requestEntries = () => ({
   type: 'REQUEST_ENTRIES',
 });
 
-actions.receiveEntries = (response) => ({
+actions.receiveEntries = (entries) => ({
   type: 'RECEIVE_ENTRIES',
-  entries: response.entries || [],
+  entries,
 });
 
 actions.requestEntryInfo = (url) => ({
@@ -54,7 +54,7 @@ actions.fetchEntries = () => {
     dispatch,
     request: () => Entry.fetch(),
     onRequest: () => actions.requestEntries(),
-    onSuccess: (links) => actions.receiveEntries(links),
+    onSuccess: (entries) => actions.receiveEntries(entries),
     onError: (error) => actions.receiveEntriesError(error),
   });
 };
@@ -97,9 +97,14 @@ actions.getEntryInfo = (url) => {
 };
 
 actions.addEntry = (entry) => {
+  const newEntry = {
+    userID: 1,
+    sortMetric: 10,
+    ...entry,
+  };
   return dispatch => getAsyncAction({
     dispatch,
-    request: () => Entry.create(entry),
+    request: () => Entry.create(newEntry),
     onRequest: () => actions.requestNewEntry(),
     onSuccess: () => actions.receiveNewEntry(),
     onError: (error) => actions.receiveNewEntryError(error),

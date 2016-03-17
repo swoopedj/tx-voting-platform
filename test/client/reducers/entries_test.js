@@ -7,20 +7,18 @@ const actions = require(`${__client}/actionCreators/entries`);
 
 describe('The entries reducer', () => {
   it('sets entries array on receieve entries', () => {
-    const entryResponse = {
-      entries: [
-        {
-          id: 1,
-          title: 'one',
-        },
-        {
-          id: 2,
-          title: 'two',
-        },
-      ],
-    };
+    const entryResponse = [
+      {
+        id: 1,
+        title: 'one',
+      },
+      {
+        id: 2,
+        title: 'two',
+      },
+    ];
     const state = entries(Immutable.fromJS({}), actions.receiveEntries(entryResponse)).toJS();
-    expect(state.items).to.deep.equal(entryResponse.entries);
+    expect(state.items).to.deep.equal(entryResponse);
     expect(state.isFetching).to.equal(false);
     expect(state.error).to.equal(null);
   });
