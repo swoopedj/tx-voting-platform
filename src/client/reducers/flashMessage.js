@@ -19,7 +19,10 @@ const getFlashMessage = (action, getMessage, getTime, getType) => {
   })
 }
 
-const getError = (action, getErrorMessage) => getFlashMessage()
+const getError = (action, getErrorMessage) => getFlashMessage(
+  action,
+  (action) =>   
+);
 
 export const flashMessage = createReducer(Immutable.fromJS({}), {
   RECEIVE_NEW_ENTRY_ERROR: () => Immutable.fromJS({}}
