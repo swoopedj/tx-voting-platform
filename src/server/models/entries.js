@@ -17,14 +17,16 @@ Entry.create = function create(entry) {
     return response[0];
   })
   .catch((error) => {
-    throw new Error(error);
+    console.log('Error in Create:', error);
+    throw new Error('Database Create error');
   });
 };
 
 Entry.read = function read() {
   return db.select('*').from('entries')
   .catch((error) => {
-    throw new Error(error);
+    console.log('Error in Read:', error);
+    throw new Error('Database Read error');
   });
 };
 
@@ -36,19 +38,24 @@ Entry.updateByID = function update(id, fields) {
     return response[0];
   })
   .catch((error) => {
-    throw new Error(error);
+    console.log('Error in Update:', error);
+    throw new Error('Database Update error');
   });
 };
 
 Entry.remove = function remove(id) {
   return db('entries').where('id', id)
-  .returning(['id', 'thumbnailURL', 'title', 'embedID', 'description', 'statistics'])
+  .returning('id')
   .del()
   .then((response) => {
-    return response[0];
+    console.log('response in remove', response);
+    if (response[0] === id) {
+      return { success: true };
+    }
   })
   .catch((error) => {
-    throw new Error(error);
+    console.log('Error in Remove:', error);
+    throw new Error('Database Remove error');
   });
 };
 

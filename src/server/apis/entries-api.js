@@ -20,20 +20,22 @@ router.delete('/:id', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-  Entry.update(req.params.id) // req.body.id
-  .then((entry) => {
-    res.json({ entry });
-  })
-  .catch((error) => {
-    console.log('ERROR: ', error);
-  });
+  responseHandler.respond(Entry.updateByID(req.params.id), res);
+  // Entry.update(req.params.id) // req.body.id
+  // .then((entry) => {
+  //   res.json({ entry });
+  // })
+  // .catch((error) => {
+  //   console.log('ERROR: ', error);
+  // });
 });
 
 router.post('/', (req, res) => {
-  Entry.create(req.body)
-    .then((returnedEntry) => {
-      res.json({ returnedEntry });
-    });
+  responseHandler.respond(Entry.create(req.body), res);
+  // Entry.create(req.body)
+  //   .then((returnedEntry) => {
+  //     res.json({ returnedEntry });
+  //   });
 });
 
 router.get('/info', (req, res) => {

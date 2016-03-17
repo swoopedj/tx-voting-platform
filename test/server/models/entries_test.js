@@ -35,7 +35,6 @@ describe('The entries model', () => {
   it_('inserts an item into the database and reads it back', function * insert() {
     const insertResult = yield Entries.create(entry);
     expect(insertResult, 'insertResults').to.deep.equal(entry);
-    // console.log(insertResult['statistics']);
     const readEntries = yield Entries.read();
     expect(readEntries[0]).to.deep.equal(entry);
   });
@@ -47,7 +46,7 @@ describe('The entries model', () => {
     expect(updateResult).to.contain({ embedID: '10' });
   });
 
-  it_('deletes an item in the entries model', function * remove() {
+  it_.only('deletes an item in the entries model', function * remove() {
     const entry = {
       title: 'test',
     };

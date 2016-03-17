@@ -18,24 +18,24 @@ const processData = (data) => {
 
 const Entry = {
   fetch: () => {
-    return request.fetch('/api/yt/entries');
+    return request.clientFetch('/api/yt/entries');
   },
   create: (entry) => {
-    return request.fetch('/api/yt/entries', {
+    return request.clientFetch('/api/yt/entries', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
-        body: JSON.stringify(entry),
         'Content-Type': 'application/json',
       },
+      body: JSON.stringify(entry),
     });
   },
   getInfo: (url) => {
-    return request.fetch(request.addParams('http://localhost:4000/api/yt/entries/info', { url }))
+    return request.clientFetch(request.addParams('http://localhost:4000/api/yt/entries/info', { url }))
       .then(processData);
   },
   delete: (id) => {
-    return request.fetch(request.addParams('http://localhost:4000/api/yt/entries/', { id }), {
+    return request.clientFetch(request.addParams('http://localhost:4000/api/yt/entries/', { id }), {
       method: 'DELETE',
     });
   },

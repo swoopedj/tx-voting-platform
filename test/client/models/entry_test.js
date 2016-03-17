@@ -12,7 +12,7 @@ describe('The client entry model', () => {
   const dataResult = entryResult.result;
 
   it_('fetch gets all entries', function * fetchEntry() {
-    const fetch = sinon.stub(request, 'fetch');
+    const fetch = sinon.stub(request, 'clientFetch');
     const entries = [
       { id: 1 },
     ];
@@ -24,15 +24,15 @@ describe('The client entry model', () => {
   });
 
   it_('create adds an entry', function * createEntry() {
-    const fetch = sinon.stub(request, 'fetch');
+    const fetch = sinon.stub(request, 'clientFetch');
     const entry = { message: 'test' };
     const args = ['/api/yt/entries',
       { method: 'POST',
         headers: {
           Accept: 'application/json',
-          body: JSON.stringify(entry),
           'Content-Type': 'application/json',
         },
+        body: JSON.stringify(entry),
       },
     ];
     fetch.resolves(entry);
@@ -43,7 +43,7 @@ describe('The client entry model', () => {
   });
 
   it_('takes a url and gets info from Youtube', function * getYTInfo() {
-    const fetch = sinon.stub(request, 'fetch');
+    const fetch = sinon.stub(request, 'clientFetch');
     fetch.resolves(data);
     const ytInfo = yield Entry.getInfo('http://bit.ly');
     expect(fetch.calledWith('http://localhost:4000/api/yt/entries/info?url=http%3A%2F%2Fbit.ly')).to.equal(true);
@@ -52,7 +52,7 @@ describe('The client entry model', () => {
   });
 
   it_('deletes an entry from the database', function * deleteEntry() {
-    const fetch = sinon.stub(request, 'fetch');
+    const fetch = sinon.stub(request, 'clientFetch');
     fetch.resolves(dataResult);
     const removedEntry = yield Entry.delete(1);
     expect(fetch.calledWith('http://localhost:4000/api/yt/entries/?id=1')).to.equal(true);
