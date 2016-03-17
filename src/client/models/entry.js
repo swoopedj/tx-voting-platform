@@ -35,7 +35,7 @@ const Entry = {
       .then(processData);
   },
   delete: (id) => {
-    return request.clientFetch(request.addParams('http://localhost:4000/api/yt/entries/', { id }), {
+    return request.clientFetch(`/api/yt/entries/${id}`, {
       method: 'DELETE',
     });
   },

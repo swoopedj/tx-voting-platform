@@ -41,6 +41,7 @@ describe('The Entries API', () => {
         .delete('/api/yt/entries/1')
         .expect(200)
         .expect(response => {
+          expect(modelStub.calledWith('1')).to.equal(true);
           expect(response.body.data.success).to.equal(true);
         });
     });
@@ -54,6 +55,7 @@ describe('The Entries API', () => {
         .put('/api/yt/entries/1')
         .expect(200)
         .expect(response => {
+          expect(modelStub.calledWith('1')).to.equal(true);
           expect(response.body.data).to.include(data);
         });
     });

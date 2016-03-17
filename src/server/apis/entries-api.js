@@ -10,6 +10,7 @@ router.get('/', (req, res) => {
 });
 
 router.delete('/:id', (req, res) => {
+  console.log('req-------------===', req)
   responseHandler.respond(Entry.remove(req.params.id), res);
 });
 
