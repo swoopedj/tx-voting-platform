@@ -62,7 +62,7 @@ actions.fetchEntries = () => {
 const shouldFetch = (requiredID, state) => {
   const itemCount = state.get('items').size;
   if (state.get('isFetching')) return false;
-  // if there are no always fetch
+  // if there are no items always fetch
   if (itemCount === 0) return true;
   // if no id is provided
   // only fetch if the array is empty
