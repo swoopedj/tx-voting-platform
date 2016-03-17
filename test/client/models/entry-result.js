@@ -1,30 +1,29 @@
 /*eslint-disable */
 const entryResult = module.exports;
 entryResult.data = {
-  "data": {
-    "items": [
-      {
-        "id": "1",
-        "snippet": {
-          "title": "A",
-          "description": "B",
-          "thumbnails": {
-            "high": {
-              "url": "C",
-              "width": 1,
-              "height": 2
-            }
-          },
+  "items" : [
+    {
+      "id": "1",
+      "snippet": {
+        "title": "A",
+        "description": "B",
+        "thumbnails": {
+          "high": {
+            "url": "C",
+            "width": 1,
+            "height": 2
+          }
         },
-        "statistics": {
-          "viewCount": "3",
-        },
-        "player": {
-          "embedHtml": "7"
-        }
-      }
-    ]
-  }
+      },
+      "statistics": {
+        "viewCount": "3",
+      },
+      "player": {
+        "embedHtml": "7"
+      }    
+    },
+  ],
+
 }
 
 entryResult.result = { 
