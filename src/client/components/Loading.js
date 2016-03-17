@@ -6,4 +6,4 @@ const Loading = () => {
   );
 };
 
-module.exports = Loading
+module.exports = Loading;

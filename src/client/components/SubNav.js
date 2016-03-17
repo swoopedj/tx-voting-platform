@@ -7,15 +7,12 @@ const SubNav = () => {
       <div className="container">
         <nav className="navbar">
           <div className="navbar-left">
-            <p className="navbar-item"><strong>Channels:</strong></p>
+            <p className="navbar-item"><i className="fa fa-filter"></i>&nbsp;<strong>Filter:</strong></p>
             <p className="navbar-item">
-              <a href="#"><i className="fa fa-video-camera"></i>&nbsp;Videos</a>
+              <Link to='/entries' activeClassName='active'>Latest</Link>
             </p>
             <p className="navbar-item">
-              <a href="#"><i className="fa fa-camera"></i>&nbsp;Photos</a>
-            </p>
-            <p className="navbar-item">
-              <a href="#"><i className="fa fa-comment"></i>&nbsp;Posts</a>
+              <Link to='/entries' activeClassName='active'>Most Views</Link>
             </p>
           </div>
           <div className="navbar-right">
