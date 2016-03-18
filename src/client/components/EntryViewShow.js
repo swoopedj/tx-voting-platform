@@ -1,7 +1,7 @@
 const React = require('react');
 const EntryAuthor = require('./EntryAuthor');
 
-const EntryViewDisplay = ({ entry }) => {
+const EntryViewShow = ({ entry }) => {
   return (
     <div className="columns">
       <div className="column is-8">
@@ -37,4 +37,4 @@ const EntryViewDisplay = ({ entry }) => {
   );
 };
 
-module.exports = EntryViewDisplay;
+module.exports = EntryViewShow;
