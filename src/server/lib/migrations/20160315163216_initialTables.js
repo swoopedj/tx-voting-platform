@@ -8,8 +8,6 @@ exports.up = (knex, Promise) => {
       table.string('photo');
       table.boolean('isAdmin').notNullable();
       table.string('authID').notNullable().unique();
-      //authID needs to be unique
-
     }),
     knex.schema.createTableIfNotExists('entries', (table) => {
       table.increments('id').primary();
