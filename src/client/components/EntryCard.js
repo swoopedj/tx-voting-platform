@@ -3,18 +3,18 @@ import DateFormat from './DateFormat';
 import { Link } from 'react-router';
 
 
-const EntryCard = ({ entry, onClick }) => {
+const EntryCard = ({ entry }) => {
   return (
     <div className="column is-third">
     <div className="card">
-      <div className="card-image" onClick={onClick}>
+      <div className="card-image">
         <figure className="image is-4by3">
-          <Link to="`/entry/${id}`" title={ entry.title }><img src={entry.thumbnailURL} alt={ entry.title } /></Link>
+          <Link to={`/entry/yt/${entry.id}`} title={ entry.title }><img src={entry.thumbnailURL} alt={ entry.title } /></Link>
         </figure>
       </div>
       <div className="card-content">
         <small><DateFormat pubDate={ entry.publishedAt } /></small>
-        <p className="title is-5 truncate" onClick={onClick}><a href="#" className="" title={ entry.title }>{ entry.title }</a></p>
+        <p className="title is-5 truncate"><Link to={`/entry/yt/${entry.id}`} title={ entry.title }>{ entry.title }</Link></p>
         <div className="media">
           <div className="media-left">
             <figure className="image is-32x32 avatar">

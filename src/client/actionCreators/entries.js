@@ -25,19 +25,22 @@ actions.receiveEntryInfo = (data) => ({
   data,
 });
 
-actions.receiveEntryInfoError = (error) => ({
+actions.receiveEntryInfoError = (error, time = Date.now()) => ({
   type: 'RECEIVE_ENTRY_INFO_ERROR',
   error,
+  time,
 });
 
-actions.receiveNewEntryError = (error) => ({
+actions.receiveNewEntryError = (error, time = Date.now()) => ({
   type: 'RECEIVE_NEW_ENTRY_ERROR',
   error,
+  time,
 });
 
-actions.receiveEntriesError = (error) => ({
+actions.receiveEntriesError = (error, time = Date.now()) => ({
   type: 'RECEIVE_ENTRIES_ERROR',
   error,
+  time,
 });
 
 actions.requestNewEntry = (link) => ({
@@ -45,8 +48,9 @@ actions.requestNewEntry = (link) => ({
   link,
 });
 
-actions.receiveNewEntry = () => ({
+actions.receiveNewEntry = (time = Date.now()) => ({
   type: 'RECEIVE_NEW_ENTRY',
+  time,
 });
 
 actions.fetchEntries = () => {

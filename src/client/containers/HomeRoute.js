@@ -26,10 +26,6 @@ const mapStateToProps = (state) => {
 const matchDispatchToProps = (dispatch) => {
   return {
     fetchEntries: () => dispatch(actions.fetchEntries()),
-    onCardClick: (event, entry) => {
-      event.preventDefault();
-      dispatch(push(`/entry/yt/${entry.id}`));
-    },
   };
 };
 
