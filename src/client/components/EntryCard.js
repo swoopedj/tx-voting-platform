@@ -1,5 +1,7 @@
-const React = require('react');
-const DateFormat = require('./DateFormat');
+import React from 'react';
+import DateFormat from './DateFormat';
+import { Link } from 'react-router';
+
 
 const EntryCard = ({ entry, onClick }) => {
   return (
@@ -7,15 +9,12 @@ const EntryCard = ({ entry, onClick }) => {
     <div className="card">
       <div className="card-image" onClick={onClick}>
         <figure className="image is-4by3">
-          <a href="#" title={ entry.title }><img src={entry.thumbnailURL} alt={ entry.title } /></a>
+          <Link to="`/entry/${id}`" title={ entry.title }><img src={entry.thumbnailURL} alt={ entry.title } /></Link>
         </figure>
       </div>
       <div className="card-content">
         <small><DateFormat pubDate={ entry.publishedAt } /></small>
-        <p className="title is-5"><a href="#" title={ entry.title }>{ entry.title }</a></p>
-        <div className="content">
-          { entry.description }
-        </div>
+        <p className="title is-5 truncate" onClick={onClick}><a href="#" className="" title={ entry.title }>{ entry.title }</a></p>
         <div className="media">
           <div className="media-left">
             <figure className="image is-32x32 avatar">
