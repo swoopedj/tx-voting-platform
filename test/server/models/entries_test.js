@@ -11,6 +11,7 @@ describe('The entries model', () => {
     userName: 'clay',
     email: 'clay@test.com',
     isAdmin: false,
+    authID: 'qgraerdfb',
   };
 
   const entry = {
