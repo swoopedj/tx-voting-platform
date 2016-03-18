@@ -4,7 +4,8 @@ const EntryCard = require('./EntryCard');
 const Home = ({ entries, onCardClick }) => {
   return (
     <div>
-      <h2>YouTube</h2>
+      <h1 className="title">Entries</h1>
+      <hr />
       <div className="columns is-multiline">
         { entries.map(entry =>
           <EntryCard
