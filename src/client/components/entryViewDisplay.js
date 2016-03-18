@@ -4,39 +4,33 @@ const EntryAuthor = require('./EntryAuthor');
 const EntryViewDisplay = ({ entry }) => {
   return (
     <div className="columns">
-      <div className="column is-8 is-offset-2">
+      <div className="column is-8">
         <div className="box">
           <div className="video-wrapper">
             <iframe width="100%" height="100%" src={`https://www.youtube.com/embed/${entry.embedID}`} frameBorder="0" allowFullScreen></iframe>
           </div>
         </div>
-        <br /><br />
-        <p className="title is-3">{entry.title}</p>
-        <div className="columns">
-          <div className="column is-8">
-            <p className="title is-5">{entry.description}</p>
-            <br />
-            {/* Main navigation */}
-            <EntryAuthor />
+        <p className="title is-5 is-pad-15">{entry.description}</p>
+      </div>
+      <div className="column is-4">
+        <div className="big-data">
+          <p className="title is-3 entry-title">{entry.title}</p>
+          <EntryAuthor />
+          <hr />
+          <h3 className="title is-6 heading"><i className="fa fa-bar-chart"></i>&nbsp;Stats</h3>
+          <div className="columns">
+            <div className="column is-half">
+              <p className="number">21,233</p>
+              <small>Views</small>
+            </div>
+            <div className="column is-half">
+              <p className="number">33</p>
+              <small>Likes</small>
+            </div>
           </div>
-          <div className="column is-4">
-            <table className="table">
-              <tbody>
-                <tr>
-                  <td className="table-icon"><i className="fa fa-youtube"></i></td>
-                  <td><a href={`https://youtu.be/${entry.embedID}`}>{entry.embedID}</a></td>
-                </tr>
-                <tr>
-                  <td className="table-icon"><i className="fa fa-eye"></i></td>
-                  <td>12,566 Views</td>
-                </tr>
-                <tr>
-                  <td className="table-icon"><i className="fa fa-thumbs-o-up"></i></td>
-                  <td>26 Likes</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+          <hr />
+          <h3 className="title is-6 heading"><i className="fa fa-youtube"></i>&nbsp;YouTube</h3>  
+          <a href={`https://youtu.be/${entry.embedID}`}>youtu.be/{entry.embedID}</a>
         </div>
       </div>
     </div>
