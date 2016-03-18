@@ -1,10 +1,10 @@
 import React, { PropTypes } from 'react';
 const EntryViewEdit = require('./EntryViewEdit');
-const EntryViewDisplay = require('./EntryViewDisplay');
+const EntryViewShow = require('./EntryViewShow');
 
 const EntryView = ({ inEditMode, entry, isSaving }) => {
   if (inEditMode) return (<EntryViewEdit isSaving={isSaving} entry={entry} />);
-  return (<EntryViewDisplay entry={entry} />);
+  return (<EntryViewShow entry={entry} />);
 };
 
 EntryView.propTypes = {

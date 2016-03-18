@@ -12,7 +12,7 @@ const request = {
   clientFetch: (...args) => {
     return request.fetch.apply(null, args)
       .then(response => {
-        if(response.error !== null) return Promise.reject(response.error);
+        if(response.error !== null) return Promise.reject(new Error(response.error.message));
         return response.data;
       })
   }

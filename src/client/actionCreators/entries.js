@@ -25,19 +25,22 @@ actions.receiveEntryInfo = (data) => ({
   data,
 });
 
-actions.receiveEntryInfoError = (error) => ({
+actions.receiveEntryInfoError = (error, time = Date.now()) => ({
   type: 'RECEIVE_ENTRY_INFO_ERROR',
   error,
+  time,
 });
 
-actions.receiveNewEntryError = (error) => ({
+actions.receiveNewEntryError = (error, time = Date.now()) => ({
   type: 'RECEIVE_NEW_ENTRY_ERROR',
   error,
+  time,
 });
 
-actions.receiveEntriesError = (error) => ({
+actions.receiveEntriesError = (error, time = Date.now()) => ({
   type: 'RECEIVE_ENTRIES_ERROR',
   error,
+  time,
 });
 
 actions.requestNewEntry = (link) => ({
@@ -45,8 +48,9 @@ actions.requestNewEntry = (link) => ({
   link,
 });
 
-actions.receiveNewEntry = () => ({
+actions.receiveNewEntry = (time = Date.now()) => ({
   type: 'RECEIVE_NEW_ENTRY',
+  time,
 });
 
 actions.fetchEntries = () => {
@@ -62,7 +66,7 @@ actions.fetchEntries = () => {
 const shouldFetch = (requiredID, state) => {
   const itemCount = state.get('items').size;
   if (state.get('isFetching')) return false;
-  // if there are no always fetch
+  // if there are no items always fetch
   if (itemCount === 0) return true;
   // if no id is provided
   // only fetch if the array is empty

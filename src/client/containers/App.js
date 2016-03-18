@@ -1,52 +1,55 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import actions  from '../actionCreators/entries';
+import entryActions from '../actionCreators/entries';
+import flashMessageActions from '../actionCreators/flashMessage';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import FlashMessage from '../components/FlashMessage';
-
-const message = {
-  key: 1,
-  text: 'Success! Your entry was submitted.',
-  isVisible: false,
-  messageType: 'success',
-  onClick: function(){
-    isVisible: false;
-  }
-};
 
 class App extends Component {
   componentDidMount() {
     this.props.fetchEntries();
   }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.flashMessage.isVisible && !this.props.flashMessage.isVisible) {
+      this.props.tryToClearFlashMessage();
+    }
+  }
   render() {
-    const { main } = this.props;
+    const { main, flashMessage } = this.props;
     return (
       <div className="wrapper">
         <Header />
         <FlashMessage
-          isVisible={message.isVisible}
-          text={message.text}
-          messageType={message.messageType}
-          onClick={message.onClick}
+          {...flashMessage}
+          onCloseClick={this.props.onCloseFlashMessage}
         />
         <div className="container main-content">
           {main}
         </div>
         <Footer />
       </div>
-    );  
+    );
   }
 }
 
+App.propTypes = {
+  main: PropTypes.object.isRequired,
+  flashMessage: PropTypes.object.isRequired,
+  fetchEntries: PropTypes.func.isRequired,
+  tryToClearFlashMessage: PropTypes.func.isRequired,
+  onCloseFlashMessage: PropTypes.func.isRequired,
+};
+
 const mapStateToProps = (state) => {
   return state.toJS();
-  // return R.pick(['someProp'], state);
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchEntries: () => dispatch(actions.fetchIfNeeded()),
+    tryToClearFlashMessage: () => dispatch(flashMessageActions.tryToClearFlashMessageOnInterval()),
+    fetchEntries: () => dispatch(entryActions.fetchIfNeeded()),
+    onCloseFlashMessage: () => dispatch(flashMessageActions.clearFlashMessage()),
   };
 };
 

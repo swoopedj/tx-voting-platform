@@ -21,10 +21,15 @@ const getAsyncAction = ({ dispatch, request, onRequest, onSuccess, onError }) =>
   return request()
     .catch(error => {
       dispatchCallback(error, dispatch, onError);
+      // ensure that the promise doesn't resolve;
+      return Promise.reject(error);
     })
     .then(response => {
       dispatchCallback(response, dispatch, onSuccess);
       return response;
+    })
+    .catch(error => {
+      console.log(error);
     });
 };
 
