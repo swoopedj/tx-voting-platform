@@ -14,7 +14,7 @@ const EntryViewDisplay = ({ entry }) => {
         <p className="title is-3">{entry.title}</p>
         <div className="columns">
           <div className="column is-8">
-            <p className="title is-6">{entry.description}</p>
+            <p className="title is-5">{entry.description}</p>
             <br />
             {/* Main navigation */}
             <EntryAuthor />
