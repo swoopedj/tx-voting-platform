@@ -56,3 +56,14 @@ Entry.remove = function remove(id) {
     return { success: true };
   });
 };
+
+Entry.getEntriesWithUsers = function getUsersEntries() {
+  return db.select('*').from('entries').fullOuterJoin('users', 'users.id', 'entries.userID')
+  .then(response => {
+    return response;
+  })
+  .catch(error => {
+    console.log('Error in getEntriesWithUsers:', error);
+    throw new Error('Database Read All Entries and Users error');
+  });
+};

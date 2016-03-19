@@ -2,6 +2,7 @@
 'use strict';
 require(TEST_HELPER);
 const Entries = require(`${__server}/models/entries`);
+const Users = require(`${__server}/models/users`);
 require('sinon-as-promised');
 const db = require(`${__server}/lib/db`);
 
@@ -11,6 +12,7 @@ describe('The entries model', () => {
     userName: 'clay',
     email: 'clay@test.com',
     isAdmin: false,
+    authID: 'qgraerdfb',
   };
 
   const entry = {
@@ -24,6 +26,27 @@ describe('The entries model', () => {
     description: 'description',
     sortMetric: 10,
     userID: 0,
+  };
+
+  const testUser1 = {
+    id: 1,
+    userName: 'dylan',
+    email: 'dylan@test.com',
+    isAdmin: false,
+    authID: 'lkjh',
+  };
+
+  const entry1 = {
+    id: 1,
+    title: 'test',
+    embedID: '5',
+    thumbnailURL: 'google.com',
+    statistics: {
+      stuff: 'test',
+    },
+    description: 'description',
+    sortMetric: 10,
+    userID: 1,
   };
 
   const successTrue = {
@@ -65,5 +88,14 @@ describe('The entries model', () => {
     } catch (error) {
       expect(error.message).to.equal('Attempted to delete invalid ID');
     }
+  });
+
+  it_('returns user data with entry data', function * allData() {
+    yield Entries.create(entry);
+    yield Users.insert(testUser1);
+    yield Entries.create(entry1);
+    const entryAndUser = yield Entries.getEntriesWithUsers();
+    expect(entryAndUser[0]).to.include.keys('thumbnailURL', 'embedID', 'userName', 'email');
+    expect(entryAndUser[1]).to.include.keys('thumbnailURL', 'embedID', 'userName', 'email');
   });
 });

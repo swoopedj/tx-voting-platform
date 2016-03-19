@@ -5,8 +5,9 @@ exports.up = (knex, Promise) => {
       table.increments('id').primary();
       table.string('userName').notNullable();
       table.string('email').notNullable();
-      table.string('photo')
+      table.string('photo');
       table.boolean('isAdmin').notNullable();
+      table.string('authID').notNullable().unique();
     }),
     knex.schema.createTableIfNotExists('entries', (table) => {
       table.increments('id').primary();
