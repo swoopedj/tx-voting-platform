@@ -10,10 +10,10 @@ const NoMatch = () => {
           <hr />
           <h2 className="title is-5">Some links to get you back:</h2>
           <ul className="is-text-larg">
-            <li><Link to='/'>Home</Link></li>
-            <li><Link to='/entries'>Entries</Link></li>
-            <li><Link to='/about'>About</Link></li>
-            <li><Link to='/login'>Login</Link></li>
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/entries">Entries</Link></li>
+            <li><Link to="/about">About</Link></li>
+            <li><Link to="/login">Login</Link></li>
           </ul>
         </div>
       </div>
