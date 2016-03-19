@@ -1,7 +1,7 @@
 /* global TEST_HELPER describe it_ db TestHelper __server beforeEach beforeEach_ expect */
 'use strict';
 require(TEST_HELPER);
-const Users = require(`${__server}/models/Users_server`);
+const Users = require(`${__server}/models/users`);
 require('sinon-as-promised');
 const db = require(`${__server}/lib/db`);
 

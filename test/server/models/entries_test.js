@@ -2,7 +2,7 @@
 'use strict';
 require(TEST_HELPER);
 const Entries = require(`${__server}/models/entries`);
-const Users = require(`${__server}/models/Users_server`);
+const Users = require(`${__server}/models/users`);
 require('sinon-as-promised');
 const db = require(`${__server}/lib/db`);
 
