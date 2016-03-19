@@ -130,6 +130,8 @@ describe('The Users API', () => {
     it_('returns false in succes if the userId could not be found', function * deleteError() {
       fetch = sinon.stub(request, 'clientFetch');
       fetch.resolves(returnedFakeUser2);
+      const noUser = yield User.delete(2);
+      expect(noUser).to.deep.equal(returnedFakeUser2);
     });
   });
 });
