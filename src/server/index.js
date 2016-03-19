@@ -25,6 +25,9 @@ apiRouter.use('/:channel_id', channelRouter);
 const entryRouter = require('./apis/entries-api.js');
 channelRouter.use('/entries', entryRouter);
 
+const userRouter = require('./apis/users-api.js');
+channelRouter.use('/users', userRouter);
+
 browserify.settings({
   transform: ['babelify'],
 });
