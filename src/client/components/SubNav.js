@@ -1,3 +1,4 @@
+/* eslint max-len: [0] */
 import React from 'react';
 import { Link } from 'react-router';
 
@@ -9,10 +10,10 @@ const SubNav = () => {
           <div className="navbar-left">
             <p className="navbar-item"><i className="fa fa-filter"></i>&nbsp;<strong>Filter:</strong></p>
             <p className="navbar-item">
-              <Link to='/entries' activeClassName='active'>Latest</Link>
+              <Link to="/entries" activeClassName="active">Latest</Link>
             </p>
             <p className="navbar-item">
-              <Link to='/entries' activeClassName='active'>Most Views</Link>
+              <Link to="/entries" activeClassName="active">Most Views</Link>
             </p>
           </div>
           <div className="navbar-right">

@@ -1,3 +1,4 @@
+/* eslint max-len: [0] */
 import React from 'react';
 import DateFormat from './DateFormat';
 import { Link } from 'react-router';
