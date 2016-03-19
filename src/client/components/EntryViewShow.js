@@ -1,5 +1,6 @@
 const React = require('react');
 const EntryAuthor = require('./EntryAuthor');
+const EntryEditControl = require('./EntryEditControl');
 
 const EntryViewShow = ({ entry }) => {
   return (
@@ -30,7 +31,8 @@ const EntryViewShow = ({ entry }) => {
           </div>
           <hr />
           <h3 className="title is-6 heading"><i className="fa fa-youtube"></i>&nbsp;YouTube</h3>  
-          <a href={`https://youtu.be/${entry.embedID}`}>youtu.be/{entry.embedID}</a>
+          <a className="is-block" href={`https://youtu.be/${entry.embedID}`}>youtu.be/{entry.embedID}</a>
+          <EntryEditControl />
         </div>
       </div>
     </div>
