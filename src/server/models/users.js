@@ -63,22 +63,20 @@ Users.findByAuthID = (authID) => {
 
 Users.insertOrUpdateUsingAuthID = (authID, fields) => {
   return Users.findByAuthID(authID)
+  .then(user => {
+    return Users.update(authID, fields);
+  })
   .catch(error => {
+    // this is how we know that the user
+    // doesnt' exist
     if (error.message === 'User does not exist') {
-      Promise.resolve();
+      return Users.insert(fields);
+    } else {
+      throw error;
     }
   })
-  .then(response => {
-    if (response) {
-      return Users.update(authID, fields);
-    }
-    return Users.insert(fields)
-    .then(resp => {
-      return resp;
-    })
-    .catch(error => {
-      console.log('Insert error in insertOrUpdate:', error);
-      throw new Error('user database insert error');
-    });
+  .catch(error => {
+    console.log('Insert error in insertOrUpdate:', error);
+    throw new Error('user database insert error');
   });
 };
