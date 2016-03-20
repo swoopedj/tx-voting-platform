@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 
 const EntryViewEdit = ({ isCreatingNew, isWorking, updateEntry, createEntry, entry, onTitleChange, onDescriptionChange, inputFields }) => {
+  
   const loadingClass = isWorking ? 'is-loading' : '';
   return (
     <div className="columns">
@@ -15,7 +16,7 @@ const EntryViewEdit = ({ isCreatingNew, isWorking, updateEntry, createEntry, ent
           <input onChange={onTitleChange} className="input is-large" type="text" value={entry.title} />
         </p>
         <p className="control">
-          <textarea onChange={onDescriptionChange} className="textarea" value={entry.description}></textarea>
+          <textarea onChange={onDescriptionChange} className="textarea" defaultValue={entry.description}></textarea>
         </p>
         <p className="control">
           <button onClick={function clickControl() {
