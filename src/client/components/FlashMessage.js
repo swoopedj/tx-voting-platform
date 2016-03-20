@@ -3,15 +3,22 @@ import React, { PropTypes } from 'react';
 
 const typeMap = {
   success: 'success',
-  warning: 'error',
+  warning: 'danger',
+  info: 'info',
 };
 
-const FlashMessage = ({ onCloseClick, message, messageType, isVisible }) => {
+const iconMap = {
+  success: 'fa-check-circle',
+  warning: 'fa-exclamation-circle',
+  info: 'fa-info-circle',
+};
+
+const FlashMessage = ({ onCloseClick, message, type, isVisible }) => {
   const flashMessageVisibility = isVisible ? 'show' : '';
   return (
-    <div className={ `notification has-icon is-text-centered is-${typeMap[messageType]} ${flashMessageVisibility}` }>
+    <div className={`notification has-icon is-text-centered is-${typeMap[type]} ${flashMessageVisibility}` }>
       <button onClick={onCloseClick} className="delete"></button>
-      <h3 className="title is-5"><i className="fa fa-check-circle"></i>&nbsp;{message}</h3>
+      <h3 className="title is-5"><i className={`fa ${iconMap[type]}`}></i>&nbsp;{message}</h3>
     </div>
   );
 };
@@ -19,7 +26,7 @@ const FlashMessage = ({ onCloseClick, message, messageType, isVisible }) => {
 FlashMessage.propTypes = {
   onCloseClick: PropTypes.func.isRequired,
   message: PropTypes.string,
-  messageType: PropTypes.string,
+  type: PropTypes.string,
   isVisible: PropTypes.bool.isRequired,
 };
 

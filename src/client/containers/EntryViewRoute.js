@@ -8,31 +8,39 @@ class EntryViewRoute extends Component {
     this.props.fetchEntries(this.props.id);
   }
   render() {
-    return <EntryView {...this.props} />;
+    const props = this.props;
+    return <EntryView {...props} />;
   }
 }
 
 EntryViewRoute.propTypes = {
   id: PropTypes.number.isRequired,
-  isSaving: PropTypes.bool.isRequired,
+  inputFields: PropTypes.object.isRequired,
+  isWorking: PropTypes.bool.isRequired,
   fetchEntries: PropTypes.func.isRequired,
+  onTitleChange: PropTypes.func.isRequired,
+  onDescripitionChange: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => {
-  const id = parseInt(ownProps.params.id, 0);
-  const isEdit = ownProps.params.is_edit;
-  const entry = actions.findEntryByID(state.get('entries'), id).toJS();
-  return {
-    id,
-    inEditMode: isEdit === 'edit',
-    isSaving: state.getIn(['entries', 'isAddingNew']),
-    entry,
-  };
+  return actions.getEntryViewProps(state, ownProps.params);
 };
 
-const mapDispatchToProps = (dispatch) => {
+const onFieldChange = (dispatch, fieldName) => {
+  return event => dispatch(actions.changeEntryInputField(fieldName, event.target.value));
+};
+
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     fetchEntries: (id) => dispatch(actions.fetchIfNeeded(id)),
+    onTitleChange: onFieldChange(dispatch, 'title'),
+    onDescripitionChange: onFieldChange(dispatch, 'description'),
+    updateEntry: (id, inputFields) => {
+      dispatch(actions.updateEntry(id, inputFields));
+    },
+    createEntry: (entry) => {
+      dispatch(actions.addEntryAndRedirect(entry, '/'));
+    },
   };
 };
 

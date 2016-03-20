@@ -27,6 +27,15 @@ const assertSuccessMessage = (initialState, message, action) => {
   });
 };
 
+const assertInfoMessage = (initialState, message, action) => {
+  expect(getMessage(action, initialState)).to.deep.equal({
+    type: 'info',
+    message,
+    isVisible: true,
+    createdAt: 1000,
+  });
+};
+
 describe('The flash message reducer', () => {
   describe('generates error messages on', () => {
     const initialState = Immutable.fromJS({});
@@ -55,8 +64,18 @@ describe('The flash message reducer', () => {
         entryActions.receiveEntryInfoError(youtubeError, 1000)
       );
     });
+    it('RECEIVE_UPDATED_ENTRY_ERROR', () => {
+      const youtubeError = {
+        message: 'test',
+      };
+      assertErrorMessage(
+        initialState,
+        'Update failed, please try again',
+        entryActions.receiveUpdatedEntryError(youtubeError, 1000)
+      );
+    });
   });
- 
+
   describe('generates success messages on', () => {
     const initialState = Immutable.fromJS({});
     it('RECEIVE_NEW_ENTRY', () => {
@@ -66,6 +85,23 @@ describe('The flash message reducer', () => {
         entryActions.receiveNewEntry(1000),
       );
     });
+    it('RECEIVE_UPDATED_ENTRY', () => {
+      assertSuccessMessage(
+        initialState,
+        'Entry updated successfully!',
+        entryActions.receiveUpdatedEntry({}, 1000),
+      );
+    });
   });
 
+  describe('generates info messages on', () => {
+    const initialState = Immutable.fromJS({});
+    it('REQUEST_UPDATED_ENTRY', () => {
+      assertInfoMessage(
+        initialState,
+        'Updating Entry...',
+        entryActions.requestUpdatedEntry(1000),
+      );
+    });
+  });
 });

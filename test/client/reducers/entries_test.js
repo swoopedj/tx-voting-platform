@@ -38,20 +38,48 @@ describe('The entries reducer', () => {
     expect(state.items).to.deep.equal([]);
   });
 
-  it('sets saving on save', () => {
+  it('sets isWorking on create new entry', () => {
     const state = entries(Immutable.fromJS({}), actions.requestNewEntry()).toJS();
-    expect(state.isAddingNew).to.equal(true);
+    expect(state.isWorking).to.equal(true);
   });
 
   it('stop saving on receive new item', () => {
     const state = entries(Immutable.fromJS({}), actions.receiveNewEntry()).toJS();
-    expect(state.isAddingNew).to.equal(false);
+    expect(state.isWorking).to.equal(false);
   });
-
   it('set link error on create link error', () => {
     const error = { message: 'test' };
     const state = entries(Immutable.fromJS({}), actions.receiveNewEntryError(error)).toJS();
-    expect(state.isAddingNew).to.equal(false);
+    expect(state.isWorking).to.equal(false);
     expect(state.error).to.deep.equal(error);
   });
+  describe('The inputFields property', () => {
+    it('has a new key and value added to it on changeEntryInputField', () => {
+      const state = entries(
+        Immutable.fromJS({}),
+        actions.changeEntryInputField('text', 'newValue')
+      ).toJS();
+      expect(state.inputFields.text).to.equal('newValue');
+    });
+    describe('Is set to an empty object', () => {
+      const confirmEmptyAfterAction = (action) => {
+        const state = entries(
+          Immutable.fromJS({
+            inputFields: {
+              stuff: true,
+            },
+          }),
+          action,
+        ).toJS();
+        expect(state.inputFields).to.deep.equal({});
+      };
+      it('on receiveNewEntry', () => {
+        confirmEmptyAfterAction(actions.receiveNewEntry());
+      });
+      it('on receiveUpdatedEntry', () => {
+        confirmEmptyAfterAction(actions.receiveUpdatedEntry());
+      });
+    });
+  });
+
 });

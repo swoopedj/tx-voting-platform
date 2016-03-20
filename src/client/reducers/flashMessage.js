@@ -7,10 +7,16 @@ const errorMap = {
   RECEIVE_NEW_ENTRY_ERROR: () => 'Failed to create new entry',
   RECEIVE_ENTRIES_ERROR: () => 'Something went wrong while fetching entries',
   RECEIVE_ENTRY_INFO_ERROR: (action) => action.error.message,
+  RECEIVE_UPDATED_ENTRY_ERROR: () => 'Update failed, please try again',
 };
 
 const successMap = {
   RECEIVE_NEW_ENTRY: () => 'Entry created successfully!',
+  RECEIVE_UPDATED_ENTRY: () => 'Entry updated successfully!',
+};
+
+const infoMap = {
+  REQUEST_UPDATED_ENTRY: () => 'Updating Entry...',
 };
 
 // if the getter is a function
@@ -47,8 +53,14 @@ const getSuccess = (action, getMessage) => {
   );
 };
 
-
-
+const getInfo = (action, getMessage) => {
+  return getFlashMessage(
+    action,
+    () => actionWrap(getMessage, action),
+    () => action.time,
+    () => 'info',
+  );
+};
 
 // Map the simple error to the correct formap to be passed into
 // create reducer
@@ -59,6 +71,11 @@ let reducerInput = _.reduce(errorMap, (output, getMessage, actionType) => {
 
 reducerInput = _.reduce(successMap, (output, getMessage, actionType) => {
   output[actionType] = (state, action) => getSuccess(action, getMessage);
+  return output;
+}, reducerInput);
+
+reducerInput = _.reduce(infoMap, (output, getMessage, actionType) => {
+  output[actionType] = (state, action) => getInfo(action, getMessage);
   return output;
 }, reducerInput);
 
