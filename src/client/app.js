@@ -9,7 +9,6 @@ import Login from './components/Login';
 import Profile from './components/Profile';
 import NoMatch from './components/NoMatch';
 import EntryViewRoute from './containers/EntryViewRoute';
-import EntryViewCreateRoute from './containers/EntryViewCreateRoute';
 const { Router, Route, IndexRoute } = require('react-router');
 const configureStore = require('./store/configureStore');
 const configureHistory = require('./lib/configureHistory');
@@ -21,7 +20,6 @@ ReactDOM.render(
       <Route path="/" component={App}>
         <IndexRoute components={{ main: HomeRoute }} />
         <Route path="/entry/new" components={{ main: GetEntryInfoRoute }} />
-        <Route path="/entry/yt/create" components={{ main: EntryViewCreateRoute }} />
         <Route path="/entry/yt/:id" components={{ main: EntryViewRoute }} />
         <Route path="/entry/yt/:is_edit/:id" components={{ main: EntryViewRoute }} />
         <Route path="/login" components={{ main: Login }} />

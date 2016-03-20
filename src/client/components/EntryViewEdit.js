@@ -1,7 +1,8 @@
 import React, { PropTypes } from 'react';
 
-const EntryViewEdit = ({ isSaving, onCreatEntryClick, entry }) => {
-  const loadingClass = isSaving ? 'is-loading' : '';
+const EntryViewEdit = ({ isCreatingNew, isWorking, updateEntry, createEntry, entry, onTitleChange, onDescriptionChange, inputFields }) => {
+  
+  const loadingClass = isWorking ? 'is-loading' : '';
   return (
     <div className="columns">
       <div className="column is-8 is-offset-2">
@@ -12,13 +13,19 @@ const EntryViewEdit = ({ isSaving, onCreatEntryClick, entry }) => {
         </div>
         <br /><br />
         <p className="control">
-          <input className="input is-large" type="text" value={entry.title} />
+          <input onChange={onTitleChange} className="input is-large" type="text" value={entry.title} />
         </p>
         <p className="control">
-          <textarea className="textarea" value={entry.description}></textarea>
+          <textarea onChange={onDescriptionChange} className="textarea" defaultValue={entry.description}></textarea>
         </p>
         <p className="control">
-          <button onClick={() => onCreatEntryClick(entry)} className={`button is-primary ${loadingClass}`}>Create Entry</button>
+          <button onClick={function clickControl() {
+            if (isCreatingNew) {
+              createEntry(entry);
+            } else {
+              updateEntry(entry.id, inputFields);      
+            }
+          }} className={`button is-primary ${loadingClass}`}>Create Entry</button>
           &nbsp;
           <a href="/entry/new" className="button">Cancel</a>
         </p>
@@ -28,9 +35,13 @@ const EntryViewEdit = ({ isSaving, onCreatEntryClick, entry }) => {
 };
 
 EntryViewEdit.propTypes = {
-  entry: PropTypes.object.isRequired,
-  isSaving: PropTypes.bool.isRequired,
-  onCreatEntryClick: PropTypes.func.isRequired,
+  entry: PropTypes.object,
+  isWorking: PropTypes.bool,
+  updateEntry: PropTypes.func,
+  createEntry: PropTypes.func,
+  onTitleChange: PropTypes.func,
+  onDescriptionChange: PropTypes.func,
+  inputFields: PropTypes.object,
 };
 
 module.exports = EntryViewEdit;

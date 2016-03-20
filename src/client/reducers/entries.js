@@ -17,7 +17,7 @@ const isFetching = createReducer(false, {
   RECEIVE_ENTRIES: () => false,
 });
 
-const isAddingNew = createReducer(false, {
+const isWorking = createReducer(false, {
   REQUEST_NEW_ENTRY: () => true,
   RECEIVE_NEW_ENTRY: () => false,
 });
@@ -29,10 +29,17 @@ const error = createReducer(null, {
   RECEIVE_NEW_ENTRY_ERROR: (state, action) => Immutable.fromJS({ message: action.error.message }),
 });
 
+const inputFields = createReducer(Immutable.fromJS({}), {
+  RECEIVE_UPDATED_ENTRY: () => Immutable.fromJS({}),
+  RECEIVE_NEW_ENTRY: () => Immutable.fromJS({}),
+  CHANGE_ENTRY_INPUT_FIELD: (state, action) => state.set(action.key, action.value),
+});
+
 export const entries = combineReducers({
-  isAddingNew,
+  isWorking,
   info,
   items,
   isFetching,
   error,
+  inputFields,
 });

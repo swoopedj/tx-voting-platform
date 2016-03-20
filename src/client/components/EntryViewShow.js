@@ -32,7 +32,7 @@ const EntryViewShow = ({ entry }) => {
           <hr />
           <h3 className="title is-6 heading"><i className="fa fa-youtube"></i>&nbsp;YouTube</h3>
           <a className="is-block" href={`https://youtu.be/${entry.embedID}`}>youtu.be/{entry.embedID}</a>
-          <EntryEditControl />
+          <EntryEditControl entryID={entry.id} />
         </div>
       </div>
     </div>
