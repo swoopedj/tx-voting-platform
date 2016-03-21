@@ -73,13 +73,15 @@ describe('The entries model', () => {
   });
 
   it_('deletes an item in the entries model', function * remove() {
+    yield TestHelper.db('users').create(testUser1);
     const insertResult = yield Entries.create(entry);
+    const insertResult1 = yield Entries.create(entry1);
     expect(insertResult, 'insertResults').to.deep.equal(entry);
     const entryId = insertResult.id;
     const removeResult = yield Entries.remove(entryId);
     expect(removeResult, 'removeResult').to.deep.equal(successTrue);
     const readEntries = yield TestHelper.db('entries').read();
-    expect(readEntries).to.deep.equal([]);
+    expect(readEntries[0]).to.deep.equal(insertResult1);
   });
 
   it_('throws errors when the wrong information is passed into delete', function * remove() {
