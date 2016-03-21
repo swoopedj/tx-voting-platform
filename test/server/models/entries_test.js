@@ -40,7 +40,7 @@ describe('The entries model', () => {
     id: 1,
     title: 'test',
     embedID: '5',
-    thumbnailURL: 'google.com',
+    thumbnailURL: 'yahoo.com',
     statistics: {
       stuff: 'test',
     },
@@ -95,7 +95,9 @@ describe('The entries model', () => {
     yield Users.insert(testUser1);
     yield Entries.create(entry1);
     const entryAndUser = yield Entries.getEntriesWithUsers();
-    expect(entryAndUser[0]).to.include.keys('thumbnailURL', 'embedID', 'userName', 'email');
-    expect(entryAndUser[1]).to.include.keys('thumbnailURL', 'embedID', 'userName', 'email');
+    expect(entryAndUser[0]).to.include.keys('thumbnailURL', 'embedID', 'user');
+    expect(entryAndUser[0].thumbnailURL).to.equal('google.com');
+    expect(entryAndUser[1]).to.include.keys('thumbnailURL', 'embedID', 'user');
+    expect(entryAndUser[1].thumbnailURL).to.equal('yahoo.com');
   });
 });

@@ -11,6 +11,14 @@ const fieldsArray = [
   'userID',
 ];
 
+const userFields = [
+  'userID',
+  'email',
+  'photo',
+  'isAdmin',
+  'authID',
+];
+
 Entry.create = function create(entry) {
   return db('entries').insert(entry, fieldsArray)
   .then((response) => {
@@ -60,7 +68,19 @@ Entry.remove = function remove(id) {
 Entry.getEntriesWithUsers = function getUsersEntries() {
   return db.select('*').from('entries').fullOuterJoin('users', 'users.id', 'entries.userID')
   .then(response => {
-    return response;
+    const entries = response.map(item => {
+      const user = {};
+      const entry = {};
+      userFields.forEach(field => {
+        user[field] = item[field];
+      });
+      fieldsArray.forEach(field => {
+        entry[field] = item[field];
+      });
+      entry.user = user;
+      return entry;
+    });
+    return entries;
   })
   .catch(error => {
     console.log('Error in getEntriesWithUsers:', error);
