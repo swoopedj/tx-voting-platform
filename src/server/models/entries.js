@@ -11,6 +11,14 @@ const fieldsArray = [
   'userID',
 ];
 
+const userFields = [
+  'userID',
+  'email',
+  'photo',
+  'isAdmin',
+  'authID',
+];
+
 Entry.create = function create(entry) {
   return db('entries').insert(entry, fieldsArray)
   .then((response) => {
@@ -34,12 +42,13 @@ Entry.updateByID = function update(id, fields) {
   return db('entries').where('id', id)
   .returning(fieldsArray)
   .update(fields)
-  .then((response) => {
-    return response[0];
-  })
   .catch((error) => {
     console.log('Error in Update:', error);
     throw new Error('Database Update error');
+  })
+  .then((response) => {
+    if (response.length === 0) throw new Error('Attempted to update invalid user');
+    return response[0];
   });
 };
 
@@ -60,7 +69,19 @@ Entry.remove = function remove(id) {
 Entry.getEntriesWithUsers = function getUsersEntries() {
   return db.select('*').from('entries').fullOuterJoin('users', 'users.id', 'entries.userID')
   .then(response => {
-    return response;
+    const entries = response.map(item => {
+      const user = {};
+      const entry = {};
+      userFields.forEach(field => {
+        user[field] = item[field];
+      });
+      fieldsArray.forEach(field => {
+        entry[field] = item[field];
+      });
+      entry.user = user;
+      return entry;
+    });
+    return entries;
   })
   .catch(error => {
     console.log('Error in getEntriesWithUsers:', error);

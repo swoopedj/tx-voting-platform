@@ -40,7 +40,7 @@ describe('The entries model', () => {
     id: 1,
     title: 'test',
     embedID: '5',
-    thumbnailURL: 'google.com',
+    thumbnailURL: 'yahoo.com',
     statistics: {
       stuff: 'test',
     },
@@ -72,14 +72,24 @@ describe('The entries model', () => {
     expect(updateResult).to.contain({ embedID: '10' });
   });
 
+  it_('sends an error when an invlid user id is given', function * errorUpdate() {
+    try {
+      yield Entries.updateByID(20, { embedID: '10' });
+    } catch (error) {
+      expect(error.message).to.deep.equal('Attempted to update invalid user');
+    }
+  });
+
   it_('deletes an item in the entries model', function * remove() {
+    yield TestHelper.db('users').create(testUser1);
     const insertResult = yield Entries.create(entry);
+    const insertResult1 = yield Entries.create(entry1);
     expect(insertResult, 'insertResults').to.deep.equal(entry);
     const entryId = insertResult.id;
     const removeResult = yield Entries.remove(entryId);
     expect(removeResult, 'removeResult').to.deep.equal(successTrue);
     const readEntries = yield TestHelper.db('entries').read();
-    expect(readEntries).to.deep.equal([]);
+    expect(readEntries[0]).to.deep.equal(insertResult1);
   });
 
   it_('throws errors when the wrong information is passed into delete', function * remove() {
@@ -95,7 +105,9 @@ describe('The entries model', () => {
     yield Users.insert(testUser1);
     yield Entries.create(entry1);
     const entryAndUser = yield Entries.getEntriesWithUsers();
-    expect(entryAndUser[0]).to.include.keys('thumbnailURL', 'embedID', 'userName', 'email');
-    expect(entryAndUser[1]).to.include.keys('thumbnailURL', 'embedID', 'userName', 'email');
+    expect(entryAndUser[0]).to.include.keys('thumbnailURL', 'embedID', 'user');
+    expect(entryAndUser[0].thumbnailURL).to.equal('google.com');
+    expect(entryAndUser[1]).to.include.keys('thumbnailURL', 'embedID', 'user');
+    expect(entryAndUser[1].thumbnailURL).to.equal('yahoo.com');
   });
 });
