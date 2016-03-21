@@ -10,7 +10,9 @@ const Header = () => {
         <div className="container">
           {/* Branding */}
           <div className="header-left">
-            <Link to='/' className="header-item logo">Texans<span className="thin">Vote</span></Link>
+            <Link to='/' className="header-item logo">
+              Texans<span className="thin">Vote</span>
+            </Link>
           </div>
           {/* Mobile menu */}
           <span className="header-toggle">
