@@ -72,6 +72,14 @@ describe('The entries model', () => {
     expect(updateResult).to.contain({ embedID: '10' });
   });
 
+  it_('sends an error when an invlid user id is given', function * errorUpdate() {
+    try {
+      yield Entries.updateByID(20, { embedID: '10' });
+    } catch (error) {
+      expect(error.message).to.deep.equal('Attempted to update invalid user');
+    }
+  });
+
   it_('deletes an item in the entries model', function * remove() {
     yield TestHelper.db('users').create(testUser1);
     const insertResult = yield Entries.create(entry);

@@ -42,12 +42,13 @@ Entry.updateByID = function update(id, fields) {
   return db('entries').where('id', id)
   .returning(fieldsArray)
   .update(fields)
-  .then((response) => {
-    return response[0];
-  })
   .catch((error) => {
     console.log('Error in Update:', error);
     throw new Error('Database Update error');
+  })
+  .then((response) => {
+    if (response.length === 0) throw new Error('Attempted to update invalid user');
+    return response[0];
   });
 };
 
