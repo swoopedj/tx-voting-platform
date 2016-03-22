@@ -4,8 +4,10 @@ const Provider = require('react-redux').Provider;
 require('./lib/longStackTraces.js');
 import App from './containers/App';
 import HomeRoute from './containers/HomeRoute';
+import EntriesRoute from './containers/EntriesRoute';
 import GetEntryInfoRoute from './containers/GetEntryInfoRoute';
 import LoginRoute from './containers/LoginRoute';
+import Header from './components/Header';
 import Profile from './components/Profile';
 import NoMatch from './components/NoMatch';
 import EntryViewRoute from './containers/EntryViewRoute';
@@ -21,6 +23,7 @@ ReactDOM.render(
     <Router onUpdate={() => window.scrollTo(0, 0)} history={history}>
       <Route path="/" component={App}>
         <IndexRoute components={{ main: HomeRoute }} />
+        <Route path="/entries" components={{ main: EntriesRoute }} />
         <Route path="/entry/new" components={{ main: GetEntryInfoRoute }} />
         <Route path="/entry/yt/:id" components={{ main: EntryViewRoute }} />
         <Route path="/entry/yt/:is_edit/:id" components={{ main: EntryViewRoute }} />

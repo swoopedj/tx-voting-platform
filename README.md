@@ -137,3 +137,7 @@ View the project roadmap [here](https://github.com/regolithed/react-bedrock/issu
 ## Contributing
 
 See [CONTRIBUTING.md](https://github.com/regolithed/react-bedrock/blob/master/CONTRIBUTING.md) for contribution guidelines.
+
+## Credits
+
+TexansVote icon courtesy of: [Shooting Star by Creative Stall from the Noun Project](https://thenounproject.com/search/?q=star&i=382314)
