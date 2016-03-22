@@ -5,15 +5,17 @@ require('./lib/longStackTraces.js');
 import App from './containers/App';
 import HomeRoute from './containers/HomeRoute';
 import GetEntryInfoRoute from './containers/GetEntryInfoRoute';
-import Login from './components/Login';
+import LoginRoute from './containers/LoginRoute';
 import Profile from './components/Profile';
 import NoMatch from './components/NoMatch';
 import EntryViewRoute from './containers/EntryViewRoute';
+import { requireAuthentication } from './containers/AuthenticatedComponent';
 const { Router, Route, IndexRoute } = require('react-router');
 const configureStore = require('./store/configureStore');
 const configureHistory = require('./lib/configureHistory');
 const store = configureStore();
 const history = configureHistory(store);
+
 ReactDOM.render(
 	<Provider store={store}>
     <Router onUpdate={() => window.scrollTo(0, 0)} history={history}>
@@ -22,8 +24,8 @@ ReactDOM.render(
         <Route path="/entry/new" components={{ main: GetEntryInfoRoute }} />
         <Route path="/entry/yt/:id" components={{ main: EntryViewRoute }} />
         <Route path="/entry/yt/:is_edit/:id" components={{ main: EntryViewRoute }} />
-        <Route path="/login" components={{ main: Login }} />
-        <Route path="/profile" components={{ main: Profile }} />
+        <Route path="/login" components={{ main: LoginRoute }} />
+        <Route path="/profile" components={{ main: requireAuthentication(Profile) }} />
         <Route path="/*" components={{ main: NoMatch }} />
       </Route>
     </Router>

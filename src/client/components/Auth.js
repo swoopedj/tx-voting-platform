@@ -1,9 +1,9 @@
 import React from 'react';
 import AuthUser from './AuthUser';
 
-const Auth = () => {
+const Auth = ({ onLogoutClick }) => {
   return (
-    <AuthUser />
+    <AuthUser onLogoutClick={onLogoutClick} />
   );
 };
 
