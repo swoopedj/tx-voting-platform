@@ -20,9 +20,7 @@ class App extends Component {
     const { main, header, flashMessage } = this.props;
     return (
       <div className="wrapper">
-        <Header 
-          {header}
-          onLogoutClick={this.props.onLogoutClick} />
+        {header}
         <FlashMessage
           {...flashMessage}
           onCloseClick={this.props.onCloseFlashMessage}
