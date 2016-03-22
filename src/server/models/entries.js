@@ -21,9 +21,7 @@ const userFields = [
 
 Entry.create = function create(entry) {
   return db('entries').insert(entry, fieldsArray)
-  .then((response) => {
-    return response[0];
-  })
+  .then(response => response[0])
   .catch((error) => {
     console.log('Error in Create:', error);
     throw new Error('Database Create error');
@@ -42,14 +40,16 @@ Entry.updateByID = function update(id, fields) {
   return db('entries').where('id', id)
   .returning(fieldsArray)
   .update(fields)
-  .catch((error) => {
-    console.log('Error in Update:', error);
-    throw new Error('Database Update error');
-  })
-  .then((response) => {
-    if (response.length === 0) throw new Error('Attempted to update invalid user');
-    return response[0];
-  });
+  .then(
+    (response) => {
+      if (response.length === 0) throw new Error('Attempted to update invalid user');
+      return response[0];
+    },
+    (error) => {
+      console.log('Error in Update:', error);
+      throw new Error('Database Update error');
+    }
+  );
 };
 
 Entry.remove = function remove(id) {

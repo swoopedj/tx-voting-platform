@@ -3,11 +3,10 @@ const unshortener = require('../lib/unshortener');
 const Url = require('url');
 
 const Youtube = module.exports;
-
+const base = 'https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics,player&id=';
 Youtube.getInfo = (url) => {
   'use strict';
   let shortenedUrl;
-  const base = 'https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics,player&id=';
   if (url.indexOf('youtube.com') !== -1) {
     shortenedUrl = Promise.resolve(url);
   } else {
@@ -38,7 +37,6 @@ Youtube.getInfo = (url) => {
 };
 
 Youtube.getBatchInfo = (urlArray) => {
-  const base = 'https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics,player&id=';
   const idString = urlArray.map((url) => {
     return Url.parse(url, true).query.v;
   }).join(',');
