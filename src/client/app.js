@@ -23,13 +23,13 @@ ReactDOM.render(
     <Router onUpdate={() => window.scrollTo(0, 0)} history={history}>
       <Route path="/" component={App}>
         <IndexRoute components={{ main: HomeRoute }} />
-        <Route path="/entries" components={{ main: EntriesRoute, header: Header }} />
-        <Route path="/entry/new" components={{ main: GetEntryInfoRoute, header: Header }} />
-        <Route path="/entry/yt/:id" components={{ main: EntryViewRoute, header: Header }} />
-        <Route path="/entry/yt/:is_edit/:id" components={{ main: EntryViewRoute, header: Header }} />
-        <Route path="/login" components={{ main: LoginRoute, header: Header }} />
-        <Route path="/profile" components={{ main: requireAuthentication(Profile), header: Header }} />
-        <Route path="/*" components={{ main: NoMatch, header: Header }} />
+        <Route path="/entries" components={{ main: EntriesRoute }} />
+        <Route path="/entry/new" components={{ main: GetEntryInfoRoute }} />
+        <Route path="/entry/yt/:id" components={{ main: EntryViewRoute }} />
+        <Route path="/entry/yt/:is_edit/:id" components={{ main: EntryViewRoute }} />
+        <Route path="/login" components={{ main: LoginRoute }} />
+        <Route path="/profile" components={{ main: requireAuthentication(Profile) }} />
+        <Route path="/*" components={{ main: NoMatch }} />
       </Route>
     </Router>
   </Provider>,

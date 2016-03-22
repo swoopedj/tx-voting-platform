@@ -1,12 +1,9 @@
 const React = require('react');
 const EntryCard = require('./EntryCard');
-import Header from './Header';
-
 
 const Home = ({ entries, onCardClick }) => {
   return (
     <div className="home">
-      <Header />
       <div className="home-hero">
         <div className="container">
           hero
