@@ -7,12 +7,14 @@ const processData = (data) => {
   const description = videoData.snippet.description;
   const statistics = videoData.statistics;
   const thumbnailURL = videoData.snippet.thumbnails.high.url;
+  const sortMetric = Number(videoData.statistics.viewCount);
   return {
     thumbnailURL,
     title,
     embedID,
     description,
     statistics,
+    sortMetric,
   };
 };
 

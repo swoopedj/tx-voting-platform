@@ -31,7 +31,8 @@ entryResult.result = {
   title: 'A',
   embedID: '1',
   description: 'B',
-  statistics: { viewCount: '3' } 
+  statistics: { viewCount: '3' },
+  sortMetric: 3 
 }
 
 entryResult.toUpdate = { 
@@ -44,6 +45,7 @@ entryResult.updatedResult = {
   title: 'AAA',
   embedID: '1f3',
   description: 'Bv',
-  statistics: { viewCount: '3' } 
+  statistics: { viewCount: '3' },
+  sortMetric: 3
 }
 /*eslint-enable */
