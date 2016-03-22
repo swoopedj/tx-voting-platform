@@ -12,6 +12,9 @@ const HeaderNav = ({ onLogoutClick }) => {
       <span className="header-item">
         <Link to="/about" activeClassName="active">About</Link>
       </span>
+      <span className="header-item">
+        <Link to="/entry/new" className="button is-primary">Submit Your Entry</Link>
+      </span>
       <Auth onLogoutClick={onLogoutClick} />
     </div>
   );

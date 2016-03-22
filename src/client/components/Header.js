@@ -24,7 +24,6 @@ const Header = ({ onLogoutClick }) => {
           <MainNav onLogoutClick={onLogoutClick} />
         </div>
       </header>
-      <SubNav />
     </div>
   );
 };

@@ -17,15 +17,17 @@ class App extends Component {
     }
   }
   render() {
-    const { main, flashMessage } = this.props;
+    const { main, header, flashMessage } = this.props;
     return (
       <div className="wrapper">
-        <Header onLogoutClick={this.props.onLogoutClick} />
+        <Header 
+          {header}
+          onLogoutClick={this.props.onLogoutClick} />
         <FlashMessage
           {...flashMessage}
           onCloseClick={this.props.onCloseFlashMessage}
         />
-        <div className="container main-content">
+        <div className="main-content">
           {main}
         </div>
         <Footer />

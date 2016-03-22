@@ -1,18 +1,28 @@
 const React = require('react');
 const EntryCard = require('./EntryCard');
+import Header from './Header';
+
 
 const Home = ({ entries, onCardClick }) => {
   return (
-    <div>
-      <h1 className="title">Entries</h1>
-      <div className="columns is-multiline">
-        { entries.map(entry =>
-          <EntryCard
-            key={entry.id}
-            entry={entry}
-            onClick={(event) => onCardClick(event, entry)}
-          />
-        )}
+    <div className="home">
+      <Header />
+      <div className="home-hero">
+        <div className="container">
+          hero
+        </div>
+      </div>
+      <div className="container">
+        <h1 className="title">Latest Entries</h1>
+        <div className="columns is-multiline">
+          { entries.map(entry =>
+            <EntryCard
+              key={entry.id}
+              entry={entry}
+              onClick={(event) => onCardClick(event, entry)}
+            />
+          )}
+        </div>
       </div>
     </div>
   );
