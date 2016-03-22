@@ -17,16 +17,9 @@ const browserifyPath = process.env.NODE_ENV === 'production' ? './dist' : './src
 const assetFolder = Path.resolve(__dirname, '../../public');
 // This handles entry requests.
 
-const apiRouter = express.Router();
-routes.use('/api', apiRouter);
-const channelRouter = express.Router();
-apiRouter.use('/:channel_id', channelRouter);
 
-const entryRouter = require('./apis/entries-api.js');
-channelRouter.use('/entries', entryRouter);
-
-const userRouter = require('./apis/users-api.js');
-channelRouter.use('/users', userRouter);
+routes.use('/api/:channel_id/entries', require('./apis/entries-api.js'));
+routes.use('/api/:channel_id/users',   require('./apis/users-api.js'));
 
 browserify.settings({
   transform: ['babelify'],
