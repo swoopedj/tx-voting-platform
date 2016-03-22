@@ -66,8 +66,10 @@ Entry.remove = function remove(id) {
   });
 };
 
-Entry.getEntriesWithUsers = function getUsersEntries() {
+Entry.getEntriesWithUsers = function getUsersEntries(offset = 1, limit = 12) {
   return db.select('*').from('entries').fullOuterJoin('users', 'users.id', 'entries.userID')
+  .orderBy('sortMetric', 'desc')
+  .offset((offset * limit) - limit).limit(limit)
   .then(response => {
     const entries = response.map(item => {
       const user = {};

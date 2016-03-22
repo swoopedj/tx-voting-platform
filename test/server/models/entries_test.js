@@ -24,7 +24,7 @@ describe('The entries model', () => {
       stuff: 'test',
     },
     description: 'description',
-    sortMetric: 10,
+    sortMetric: 19,
     userID: 0,
   };
 
@@ -45,13 +45,77 @@ describe('The entries model', () => {
       stuff: 'test',
     },
     description: 'description',
-    sortMetric: 10,
+    sortMetric: 100,
     userID: 1,
+  };
+
+  const testUser2 = {
+    id: 2,
+    userName: 'austin',
+    email: 'dylan@test.com',
+    isAdmin: false,
+    authID: 'dhtfx',
+  };
+
+  const entry2 = {
+    id: 2,
+    title: 'test',
+    embedID: '5',
+    thumbnailURL: 'yahoo.com',
+    statistics: {
+      stuff: 'test',
+    },
+    description: 'description',
+    sortMetric: 1000,
+    userID: 2,
   };
 
   const successTrue = {
     success: true,
   };
+
+  const sortedObject = [ { id: 2,
+    thumbnailURL: 'yahoo.com',
+    title: 'test',
+    embedID: '5',
+    description: 'description',
+    statistics: { stuff: 'test' },
+    sortMetric: 1000,
+    userID: 2,
+    user: 
+     { userID: 2,
+       email: 'dylan@test.com',
+       photo: null,
+       isAdmin: false,
+       authID: 'dhtfx' } },
+  { id: 1,
+    thumbnailURL: 'yahoo.com',
+    title: 'test',
+    embedID: '5',
+    description: 'description',
+    statistics: { stuff: 'test' },
+    sortMetric: 100,
+    userID: 1,
+    user: 
+     { userID: 1,
+       email: 'dylan@test.com',
+       photo: null,
+       isAdmin: false,
+       authID: 'lkjh' } },
+  { id: 0,
+    thumbnailURL: 'google.com',
+    title: 'test',
+    embedID: '5',
+    description: 'description',
+    statistics: { stuff: 'test' },
+    sortMetric: 19,
+    userID: 0,
+    user: 
+     { userID: 0,
+       email: 'clay@test.com',
+       photo: null,
+       isAdmin: false,
+       authID: 'qgraerdfb' } } ];
 
   beforeEach_(function * generator() {
     yield TestHelper.emptyDb(db);
@@ -105,9 +169,19 @@ describe('The entries model', () => {
     yield Users.insert(testUser1);
     yield Entries.create(entry1);
     const entryAndUser = yield Entries.getEntriesWithUsers();
-    expect(entryAndUser[0]).to.include.keys('thumbnailURL', 'embedID', 'user');
-    expect(entryAndUser[0].thumbnailURL).to.equal('google.com');
     expect(entryAndUser[1]).to.include.keys('thumbnailURL', 'embedID', 'user');
-    expect(entryAndUser[1].thumbnailURL).to.equal('yahoo.com');
+    expect(entryAndUser[1].thumbnailURL).to.equal('google.com');
+    expect(entryAndUser[0]).to.include.keys('thumbnailURL', 'embedID', 'user');
+    expect(entryAndUser[0].thumbnailURL).to.equal('yahoo.com');
+  });
+
+  it_('returns videos in descending order', function * getVideos() {
+    yield Entries.create(entry);
+    yield Users.insert(testUser1);
+    yield Entries.create(entry1);
+    yield Users.insert(testUser2);
+    yield Entries.create(entry2);
+    const entryAndUser1 = yield Entries.getEntriesWithUsers(1, 3);
+    expect(entryAndUser1).to.deep.equal(sortedObject);
   });
 });
