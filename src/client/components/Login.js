@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 
-const Login = () => {
+const Login = ({ onLoginClick }) => {
   return (
     <div className="columns">
       <div className="column is-half is-offset-quarter">
@@ -12,16 +12,20 @@ const Login = () => {
           </p>
           <br />
           <p>
-            <a href="#" className="button is-large is-danger">
+            <button onClick={onLoginClick} href="#" className="button is-large is-danger">
               <i className="fa fa-google"></i>
               Login With Google
-            </a>
+            </button>
           </p>
           <br />
         </div>
       </div>
     </div>
   );
+};
+
+Login.propTypes = {
+  onLoginClick: PropTypes.func.isRequired,
 };
 
 module.exports = Login;

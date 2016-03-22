@@ -15,11 +15,12 @@ class HomeRoute extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { isFetching, items, error } = state.toJS().entries;
+  const { isFetching, items, error, user } = state.toJS().entries;
   return {
     isLoading: isFetching,
     entries: items,
     error,
+    user,
   };
 };
 

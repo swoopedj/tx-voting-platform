@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import entryActions from '../actionCreators/entries';
 import flashMessageActions from '../actionCreators/flashMessage';
+import userActions from '../actionCreators/users';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import FlashMessage from '../components/FlashMessage';
@@ -19,7 +20,7 @@ class App extends Component {
     const { main, flashMessage } = this.props;
     return (
       <div className="wrapper">
-        <Header />
+        <Header onLogoutClick={this.props.onLogoutClick} />
         <FlashMessage
           {...flashMessage}
           onCloseClick={this.props.onCloseFlashMessage}
@@ -50,6 +51,7 @@ const mapDispatchToProps = (dispatch) => {
     tryToClearFlashMessage: () => dispatch(flashMessageActions.tryToClearFlashMessageOnInterval()),
     fetchEntries: () => dispatch(entryActions.fetchIfNeeded()),
     onCloseFlashMessage: () => dispatch(flashMessageActions.clearFlashMessage()),
+    onLogoutClick: () => dispatch(userActions.logOut()),
   };
 };
 

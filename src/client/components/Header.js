@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import MainNav from './MainNav';
 import SubNav from './SubNav';
 
-const Header = () => {
+const Header = ({ onLogoutClick }) => {
   return (
     <div>
       <header className="header">
@@ -21,7 +21,7 @@ const Header = () => {
             <span></span>
           </span>
           {/* Main navigation */}
-          <MainNav />
+          <MainNav onLogoutClick={onLogoutClick} />
         </div>
       </header>
       <SubNav />
