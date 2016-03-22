@@ -1,4 +1,5 @@
 const React = require('react');
+import { Link } from 'react-router';
 const EntryCard = require('./EntryCard');
 
 const Home = ({ entries, onCardClick }) => {
@@ -6,7 +7,18 @@ const Home = ({ entries, onCardClick }) => {
     <div className="home">
       <div className="home-hero">
         <div className="container">
-          hero
+          <div className="columns">
+            <div className="column is-half is-offset-quarter">
+              <div className="intro is-text-centered">
+                <h2 className="title is-3">Supporting political activism for all Texans through social media and maybe some emojis.
+                </h2>
+                <button className="button is-primary is-large is-primary">Submit Your Entry</button>
+                <br />
+                <br />
+                <Link to="/about">About Us</Link><i className="fa fa-star-o"></i><Link to="/login">Sign Up</Link>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div className="container">
