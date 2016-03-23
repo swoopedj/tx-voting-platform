@@ -10,7 +10,10 @@ const HeaderNav = ({ onLogoutClick, user }) => {
         <Link to="/entries" activeClassName="active">Entries</Link>
       </span>
       <span className="header-item">
-        <Link to="/about" activeClassName="active">About</Link>
+        <Link to="/prizes" activeClassName="active">Prizes</Link>
+      </span>
+      <span className="header-item">
+        <Link to="/about" activeClassName="active">Go Vote!</Link>
       </span>
       <span className="header-item">
         <Link to="/entry/new" className="button is-primary is-small is-outlined">Submit Your Entry</Link>
