@@ -3,9 +3,21 @@ import { createReducer } from '../lib/redux-helpers';
 import { combineReducers } from 'redux-immutable';
 import { info } from './entryInfo';
 
-const items = createReducer(Immutable.fromJS([]), {
+const itemsByID = createReducer(Immutable.fromJS({}), {
   RECEIVE_ENTRIES: (state, action) => {
-    return state.concat(Immutable.fromJS(action.entries));
+    return state.withMutations(itemsByID => {
+      action.entries.map(entry => itemsByID.set(entry.id, Immutable.fromJS(entry)));
+    });
+  },
+  REQUEST_UPDATED_ENTRY: (state, action) => {
+    const updatedEntry = state.get(action.id).withMutations(entry => {
+      Object.keys(action.fields).map(key => entry.set(key, action.fields[key]));
+    });
+    console.log(updatedEntry);
+    return state.set(action.id, updatedEntry);
+  },
+  RECEIVE_UPDATED_ENTRY: (state, action) => {
+    return state.set(action.entry.id, Immutable.fromJS(action.entry));
   },
 });
 
@@ -38,7 +50,7 @@ const inputFields = createReducer(Immutable.fromJS({}), {
 export const entries = combineReducers({
   isWorking,
   info,
-  items,
+  itemsByID,
   isFetching,
   error,
   inputFields,

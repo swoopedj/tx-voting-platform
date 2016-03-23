@@ -12,8 +12,8 @@ class EntryViewEdit extends Component {
       onTitleChange,
       onDescriptionChange,
       inputFields,
+      user,
     } = this.props;
-    console.log(entry);
     const loadingClass = isWorking ? 'is-loading' : '';
     return (
       <div className="columns">
@@ -34,7 +34,7 @@ class EntryViewEdit extends Component {
           <button className="button is-danger is-pulled-right is-outlined"><i className="fa fa-times"></i>Delete Entry</button>
             <button onClick={function clickControl() {
               if (isCreatingNew) {
-                createEntry(entry);
+                createEntry(entry, user.id);
               } else {
                 updateEntry(entry.id, inputFields);     
               }

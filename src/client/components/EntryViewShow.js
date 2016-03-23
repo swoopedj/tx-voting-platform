@@ -17,7 +17,7 @@ const EntryViewShow = ({ entry }) => {
         <div className="column is-4">
           <div className="big-data">
             <p className="title is-3 entry-title">{entry.title}</p>
-            <EntryAuthor />
+            <EntryAuthor user={entry.user}/>
             <hr />
             <h3 className="title is-6 heading"><i className="fa fa-bar-chart"></i>&nbsp;Stats</h3>
             <div className="columns">

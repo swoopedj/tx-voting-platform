@@ -12,12 +12,9 @@ describe('the fetch if needed helper', () => {
   let fetchStub = null;
   let initialState = Immutable.fromJS({
     entries: {
-      items: [
-        {
-          id: 2,
-          message: 'two',
-        },
-      ],
+      itemsByID: {
+        
+      },
     },
   });
   const buildGetState = (input) => {
@@ -44,16 +41,18 @@ describe('the fetch if needed helper', () => {
 
   it('avoids fetch if the required id is set', () => {
     fetchStub.resolves({});
-    const getState = buildGetState(initialState);
+    const updatedState = initialState.setIn(['entries', 'itemsByID', 2], Immutable.fromJS({test: 1}));
+    const getState = buildGetState(updatedState);
     const dispatchFetchIfNeeded = actions.fetchIfNeeded(2);
     dispatchFetchIfNeeded(dispatchSpy, getState);
     // confirm that the request action was dispatched first
     expect(dispatchSpy.callCount).to.equal(0);
   });
 
-  it('avoids fetch if not requried id is provided, and array has items', () => {
+  it('avoids fetch if no requried id is provided, and array has items', () => {
     fetchStub.resolves({});
-    const getState = buildGetState(initialState);
+    const updatedState = initialState.setIn(['entries', 'itemsByID', 2], Immutable.fromJS({test: 1}));
+    const getState = buildGetState(updatedState);
     const dispatchFetchIfNeeded = actions.fetchIfNeeded();
     dispatchFetchIfNeeded(dispatchSpy, getState);
     // confirm that the request action was dispatched first
@@ -71,7 +70,7 @@ describe('the fetch if needed helper', () => {
   });
 
   it('dispatches fetch if the array is empty', () => {
-    const emptyState = initialState.setIn(['entries', 'items'], Immutable.fromJS([]));
+    const emptyState = initialState.setIn(['entries', 'itemsByID'], Immutable.fromJS({}));
     fetchStub.resolves({});
     const getState = buildGetState(emptyState);
     const dispatchFetchIfNeeded = actions.fetchIfNeeded();

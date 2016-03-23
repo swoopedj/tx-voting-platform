@@ -6,21 +6,18 @@ const actions = require(`${__client}/actionCreators/entries`);
 
 describe('The getEntryByID action', () => {
   const initialState = {
-    items: [
-      {
-        id: 1,
-        title: 'one',
-      },
-      {
-        id: 2,
-        title: 'two',
-      },
-    ],
+    entries: {
+      itemsByID: {},
+    },
   };
   it('gets the state for a entry with the matching id', () => {
     const state = Immutable.fromJS(initialState);
-    const foundEntry = actions.findEntryByID(state, 1).toJS();
-    expect(foundEntry).to.deep.equal(initialState.items[0]);
+    const testEntry = {
+      test: 1,
+    };
+    const updatedState = state.setIn(['entries', 'itemsByID', 1], Immutable.fromJS(testEntry));
+    const foundEntry = actions.findEntryByID(updatedState, 1).toJS();
+    expect(foundEntry).to.deep.equal(testEntry);
   });
 });
 
