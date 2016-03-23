@@ -2,6 +2,7 @@
 import React from 'react';
 import DateFormat from './DateFormat';
 import { Link } from 'react-router';
+import numeral from 'numeral';
 
 
 const EntryCard = ({ entry }) => {
@@ -17,7 +18,7 @@ const EntryCard = ({ entry }) => {
         <figure data-hint={entry.user.userName} className="image is-48x48 avatar hint--left hint--rounded">
           <a href="#"><img className="is-round" src={entry.user.photo} alt="Image" /></a>
         </figure>
-        <small><i className="fa fa-eye"></i>&nbsp;23,432&nbsp;&bull;&nbsp;<DateFormat pubDate={ entry.publishedAt } /></small>
+        <small><i className="fa fa-eye"></i>&nbsp;{numeral(entry.sortMetric).format('0,0')}&nbsp;&bull;&nbsp;<DateFormat pubDate={ entry.publishedAt } /></small>
         <p className="title is-5"><Link to={`/entry/yt/${entry.id}`} title={ entry.title }>{ entry.title }</Link></p>
       </div>
     </div>
