@@ -9,7 +9,7 @@ import FlashMessage from '../components/FlashMessage';
 
 class App extends Component {
   componentDidMount() {
-    this.props.fetchEntries();
+    this.props.populateUserData();
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.flashMessage.isVisible && !this.props.flashMessage.isVisible) {
@@ -17,10 +17,10 @@ class App extends Component {
     }
   }
   render() {
-    const { main, header, flashMessage } = this.props;
+    const { main, header, flashMessage, user } = this.props;
     return (
       <div className="wrapper">
-        <Header onLogoutClick={this.props.onLogoutClick} />
+        <Header onLogoutClick={this.props.onLogoutClick} user={user} />
         <FlashMessage
           {...flashMessage}
           onCloseClick={this.props.onCloseFlashMessage}
@@ -48,6 +48,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    populateUserData: () => dispatch(userActions.populateUserData()),
     tryToClearFlashMessage: () => dispatch(flashMessageActions.tryToClearFlashMessageOnInterval()),
     fetchEntries: () => dispatch(entryActions.fetchIfNeeded()),
     onCloseFlashMessage: () => dispatch(flashMessageActions.clearFlashMessage()),

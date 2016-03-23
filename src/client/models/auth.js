@@ -34,20 +34,17 @@ const Auth = {
   login: () => {
     return Auth.loginThroughFacebook()
       .then(Auth.convertAuthUserToDatabaseUser)
-      .then(user => User.insertOrUpdate(user.authID, user)).then(Auth.cacheUser);
+      .then(user => User.insertOrUpdate(user.authID, user))
+      .then(Auth.cacheUser);
   },
   isLoggedIn: () => {
-    return OAuth.create('facebook') !== null;
+    return OAuth.create('facebook') !== false;
   },
   logout: () => {
     Auth.clearCache();
-    return OAuth.clearCache('facebook');
+    OAuth.clearCache('facebook');
   },
-  getUserData: () => {
-    return new Promise((resolve, reject) => {
-      resolve(JSON.parse(localStorage.getItem('db_user')));
-    });
-  },
+  getCachedUser: () => JSON.parse(localStorage.getItem('db_user')),
 };
 
 Auth.initialize();

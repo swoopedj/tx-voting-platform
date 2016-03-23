@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import Auth from './Auth';
 
-const HeaderNav = ({ onLogoutClick }) => {
+const HeaderNav = ({ onLogoutClick, user }) => {
   return (
 
     <div className="header-right header-menu">
@@ -15,7 +15,7 @@ const HeaderNav = ({ onLogoutClick }) => {
       <span className="header-item">
         <Link to="/entry/new" className="button is-primary is-small is-outlined">Submit Your Entry</Link>
       </span>
-      <Auth onLogoutClick={onLogoutClick} />
+      <Auth onLogoutClick={onLogoutClick} user={user} />
     </div>
   );
 };
