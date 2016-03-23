@@ -34,7 +34,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     fetchEntries: (id) => dispatch(actions.fetchIfNeeded(id)),
     onTitleChange: onFieldChange(dispatch, 'title'),
-    onDescripitionChange: onFieldChange(dispatch, 'description'),
+    onDescriptionChange: onFieldChange(dispatch, 'description'),
     updateEntry: (id, inputFields) => {
       dispatch(actions.updateEntry(id, inputFields));
     },
