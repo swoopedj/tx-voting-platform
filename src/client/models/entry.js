@@ -7,18 +7,20 @@ const processData = (data) => {
   const description = videoData.snippet.description;
   const statistics = videoData.statistics;
   const thumbnailURL = videoData.snippet.thumbnails.high.url;
+  const sortMetric = Number(videoData.statistics.viewCount);
   return {
     thumbnailURL,
     title,
     embedID,
     description,
     statistics,
+    sortMetric,
   };
 };
 
 const Entry = {
-  fetch: () => {
-    return request.clientFetch('/api/yt/entries');
+  fetch: (offset, limit) => {
+    return request.clientFetch(request.addParams('http://localhost:4000/api/yt/entries', { offset, limit }));
   },
   create: (entry) => {
     return request.clientFetch('/api/yt/entries', {

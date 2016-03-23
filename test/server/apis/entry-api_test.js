@@ -22,13 +22,14 @@ describe('The Entries API', () => {
 
   describe('GET /entries', () => {
     it_('returns all entries', function * testLinks() {
-      modelStub = sinon.stub(Entry, 'read');
+      modelStub = sinon.stub(Entry, 'getEntriesWithUsers');
       modelStub.resolves(data);
       yield request(app)
-        .get('/api/yt/entries')
+        .get('/api/yt/entries?offset=1&limit=12')
         .expect(200)
         .expect(response => {
           expect(response.body.data).to.deep.equal(data);
+          expect(modelStub.calledWith(1, 12));
         });
     });
   });

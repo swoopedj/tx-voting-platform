@@ -13,19 +13,19 @@ describe('The client entry model', () => {
   const newData = entryResult.toUpdate;
   const dataResult = entryResult.result;
 
-  it_('fetch gets all entries', function * fetchEntry() {
+  it_('gets all entries when fetch is called', function * fetchEntry() {
     const fetch = sinon.stub(request, 'clientFetch');
     const entries = [
       { id: 1 },
     ];
     fetch.resolves(entries);
-    const returnedEntries = yield Entry.fetch();
-    expect(fetch.calledWith('/api/yt/entries')).to.equal(true);
-    expect(returnedEntries).to.deep.equal(entries);
+    const returnedEntries = yield Entry.fetch(1, 12);
+    expect(fetch.calledWith('http://localhost:4000/api/yt/entries?limit=12&offset=1')).to.equal(true);
+    expect(returnedEntries).to.equal(entries);
     fetch.restore();
   });
 
-  it_('create adds an entry', function * createEntry() {
+  it_('adds an entry when create is called', function * createEntry() {
     const fetch = sinon.stub(request, 'clientFetch');
     const entry = { message: 'test' };
     const args = ['/api/yt/entries',
