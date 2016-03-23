@@ -12,7 +12,7 @@ const Home = ({ entries, onCardClick }) => {
               <div className="intro is-text-centered">
                 <h2 className="title is-3">Supporting political activism for all Texans through social media and maybe some emojis.
                 </h2>
-                <button className="button is-primary is-large is-primary">Submit Your Entry</button>
+                <Link to="/entry/new" className="button is-primary is-large">Submit Your Entry</Link>
                 <br />
                 <br />
                 <Link to="/about">About Us</Link><i className="fa fa-star-o"></i><Link to="/login">Sign Up</Link>
@@ -22,7 +22,15 @@ const Home = ({ entries, onCardClick }) => {
         </div>
       </div>
       <div className="container">
-        <h1 className="title">Latest Entries</h1>
+        <div className="columns">
+          <div className="column is-half">
+            <h1 className="title has-icon"><i className="fa fa-youtube"></i>&nbsp;Latest Entries</h1>
+          </div>
+          <div className="column is-half is-text-right">
+            <br />
+            <Link to="/entries">More Entries&nbsp;<i className="fa fa-arrow-right"></i></Link>
+          </div>
+        </div>
         <div className="columns is-multiline">
           { entries.map(entry =>
             <EntryCard

@@ -8,13 +8,13 @@ const Login = ({ onLoginClick }) => {
           <h1 className="title">Login</h1>
           <hr />
           <p className="is-text-large">
-            Login with your <strong>Google</strong> account<br />to submit your entry.
+            Login with your <strong>Facebook</strong> account<br />to join and submit your entry.
           </p>
           <br />
           <p>
-            <button onClick={onLoginClick} href="#" className="button is-large is-danger">
-              <i className="fa fa-google"></i>
-              Login With Google
+            <button onClick={onLoginClick} href="#" className="button is-large is-facebook">
+              <i className="fa fa-facebook"></i>
+              Login With Facebook
             </button>
           </p>
           <br />
