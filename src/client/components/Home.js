@@ -22,23 +22,24 @@ const Home = ({ entries, onCardClick }) => {
         </div>
       </div>
       <div className="container">
-        <div className="columns">
-          <div className="column is-half">
-            <h1 className="title has-icon"><i className="fa fa-youtube"></i>&nbsp;Latest Entries</h1>
+        <div className="box entry-cards-wrapper">
+          <div className="columns">
+            <div className="column is-half">
+              <h1 className="title has-icon"><i className="fa fa-youtube"></i>&nbsp;Latest Entries</h1>
+            </div>
+            <div className="column is-half is-text-right">
+              <Link to="/entries">More Entries&nbsp;<i className="fa fa-arrow-right"></i></Link>
+            </div>
           </div>
-          <div className="column is-half is-text-right">
-            <br />
-            <Link to="/entries">More Entries&nbsp;<i className="fa fa-arrow-right"></i></Link>
+          <div className="columns is-multiline">
+            { entries.map(entry =>
+              <EntryCard
+                key={entry.id}
+                entry={entry}
+                onClick={(event) => onCardClick(event, entry)}
+              />
+            )}
           </div>
-        </div>
-        <div className="columns is-multiline">
-          { entries.map(entry =>
-            <EntryCard
-              key={entry.id}
-              entry={entry}
-              onClick={(event) => onCardClick(event, entry)}
-            />
-          )}
         </div>
       </div>
     </div>
