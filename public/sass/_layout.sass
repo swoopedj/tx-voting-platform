@@ -108,16 +108,34 @@
     top: 3px
 
 .home-hero 
-  height: 440px
   width: 100%
-  margin: -5em auto 2em
-  padding: 8em 2em
-  z-index: 9
+  margin: 0 auto 6em
+  padding: 0 2em 8em
   border-bottom: 1px solid #333
   background-image: url('../../img/hero-bg.png')
   background-repeat: no-repeat
   background-color: $primary_dark
   background-size: cover
+  .intro
+    margin: 3em 0 6em
+    padding: 0 3em
+  .title
+    color: #fff
+    opacity: 0.9
+    // border-bottom: 1px solid rgba(#fff, 0.1)
+    margin-bottom: 2em
+  .button
+    margin: 0 1em
+  a
+    color: #fff
+    opacity: 0.8
+    &:hover
+      opacity: 1
+  .fa 
+    position: relative
+    top: 2px
+    margin: 0 0.5em
+
 
 .main-content
   margin: 3em 0 4em
@@ -138,6 +156,9 @@
     border-radius: 100%
     border: 2px solid $border
     margin-right: 10px
+
+.entry-cards-wrapper
+  margin-top: -15em
 
 .footer
   padding: 40px 20px
