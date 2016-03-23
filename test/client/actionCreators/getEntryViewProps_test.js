@@ -30,26 +30,19 @@ describe('The getEntryViewProps helper', () => {
         expect(props.entry).to.deep.equal({ title: 'test' });
       });
       it('that is pulled entries.items if not creating new', () => {
-        const props = getPropsUsingHelper({
-          initialState: {
-            entries: {
-              inputFields: {},
-              items: [
-                {
-                  id: 1,
-                  title: 'one',
-                },
-                {
-                  id: 2,
-                  title: 'two',
-                },
-              ],
+        const initialState = Immutable.fromJS({
+          entries: {
+            inputFields: {},
+            itemsByID: {
             },
           },
-          routeParams: {
-            id: '2',
-          },
         });
+
+        const stateWithItems = initialState.setIn(['entries', 'itemsByID', 2], Immutable.fromJS({id: 2, title: 'two'}));
+        const routeParams = {
+          id: '2',
+        };
+        const props = getEntryViewProps(stateWithItems, routeParams);
         expect(props.entry).to.deep.equal({ id: 2, title: 'two' });
       });
     });
@@ -123,26 +116,22 @@ describe('The getEntryViewProps helper', () => {
       });
     });
     describe('that always gets entries.inputFields from the state', () => {
-      let input = {
-        initialState: {
-          entries: {
-            inputFields: {
-              title: 'new',
-            },
-            items: [
-              {
-                id: 1,
-                title: 'old',
-              },
-            ],
-            info: { data: {} },
+      const initialState = Immutable.fromJS({
+        entries: {
+          inputFields: {
+            title: 'new',
           },
+          itemsByID: {
+          },
+          info: { data: {} },
         },
-        routeParams: {
-          id: 1,
-        },
+      });
+      const routeParams = {
+        id: 1,
       };
-      const props = getPropsUsingHelper(input);
+      const testItem = Immutable.fromJS({ id: 1, title: 'old' });
+      const stateWithItems = initialState.setIn(['entries', 'itemsByID', 1], testItem);
+      const props = getEntryViewProps(stateWithItems, routeParams);
       it('and returns it', () => {
         expect(props.inputFields).to.deep.equal({ title: 'new' });
       });

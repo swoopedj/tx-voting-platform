@@ -22,10 +22,10 @@ describe('the addEntry and redirect action', () => {
 
   it_('dispatches push after calling addEntry', function * dispatch() {
     dispatchStub.resolves({});
-    const dispatchFunction = actions.addEntryAndRedirect({}, '/');
+    const dispatchFunction = actions.addEntryAndRedirect(1, {}, '/');
     yield dispatchFunction(dispatchStub);
     expect(navigateStub.calledAfter(addEntryStub)).to.equal(true);
     expect(navigateStub.calledWith('/')).to.equal(true);
-    expect(addEntryStub.calledWith({})).to.equal(true);
+    expect(addEntryStub.calledWith(1, {})).to.equal(true);
   });
 });

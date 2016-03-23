@@ -59,9 +59,11 @@ actions.receiveNewEntry = (time = Date.now()) => ({
   time,
 });
 
-actions.requestUpdatedEntry = (time = Date.now()) => ({
+actions.requestUpdatedEntry = (id, fields, time = Date.now()) => ({
   type: 'REQUEST_UPDATED_ENTRY',
   time,
+  id,
+  fields,
 });
 
 actions.receiveUpdatedEntry = (entry, time = Date.now()) => ({
@@ -87,7 +89,7 @@ actions.fetchEntries = () => {
 };
 
 const shouldFetch = (requiredID, state) => {
-  const itemCount = state.get('items').size;
+  const itemCount = state.get('itemsByID').size;
   if (state.get('isFetching')) return false;
   // if there are no items always fetch
   if (itemCount === 0) return true;
@@ -96,15 +98,14 @@ const shouldFetch = (requiredID, state) => {
   if (requiredID === undefined) return itemCount === 0;
   // otherwise, check whether the required id is in the array
   return !state
-    .get('items')
-    .find(item => item.get('id') === requiredID);
+    .getIn(['itemsByID', requiredID]);
 };
 
 actions.fetchIfNeeded = (requiredID) => {
   return (dispatch, getState) => {
     const state = getState();
     if (shouldFetch(requiredID, state.get('entries'))) return dispatch(actions.fetchEntries());
-    return Promise.resolve(state.getIn('entries', 'items'));
+    return Promise.resolve(state.getIn('entries', 'itemsByID'));
   };
 };
 
@@ -129,7 +130,7 @@ actions.updateEntry = (id, fields) => {
     request: () => Entry.update(id, fields),
     onRequest: () => [
       actions.navigateToEntry(id),
-      actions.requestUpdatedEntry(),
+      actions.requestUpdatedEntry(id, fields),
     ],
     onSuccess: (updatedEntry) => actions.receiveUpdatedEntry(updatedEntry),
     onError: (error) => [
@@ -139,9 +140,9 @@ actions.updateEntry = (id, fields) => {
   });
 };
 
-actions.addEntry = (entry) => {
+actions.addEntry = (entry, userID) => {
   const newEntry = {
-    userID: 1,
+    userID,
     sortMetric: 10,
     ...entry,
   };
@@ -169,16 +170,15 @@ actions.navigate = (path) => {
   };
 };
 
-actions.addEntryAndRedirect = (entry, path) => {
+actions.addEntryAndRedirect = (entry, userID, path) => {
   return dispatch => {
-    return dispatch(actions.addEntry(entry))
+    return dispatch(actions.addEntry(entry, userID))
     .then(dispatch(actions.navigate(path)));
   };
 };
 
 actions.findEntryByID = (state, id) => {
-  return state.get('items')
-  .find(item => item.get('id') === id) || Immutable.fromJS({});
+  return state.getIn(['entries', 'itemsByID', id]) || Immutable.fromJS({});
 };
 
 actions.navigateToEntry = (id) => {
@@ -191,7 +191,7 @@ actions.navigateToEntryEdit = (id) => {
 
 const getCurrentEntry = (isCreatingNew, state, id) => {
   if (isCreatingNew) return state.getIn(['entries', 'info', 'data']);
-  return actions.findEntryByID(state.get('entries'), id);
+  return actions.findEntryByID(state, id);
 };
 
 const getEntryWithInputFieldsMixedIn = (isCreatingNew, state, id, inputFields) => {
@@ -205,6 +205,7 @@ actions.getEntryViewProps = (state, routeParams) => {
   const inEditMode = routeParams.is_edit === 'edit' || isCreatingNew;
   const inputFields = state.getIn(['entries', 'inputFields']).toJS();
   const entry = getEntryWithInputFieldsMixedIn(isCreatingNew, state, id, inputFields).toJS();
+  const user = state.getIn(['user', 'data']);
   return {
     id,
     isCreatingNew,
@@ -212,6 +213,7 @@ actions.getEntryViewProps = (state, routeParams) => {
     isWorking: state.getIn(['entries', 'isWorking']),
     entry,
     inputFields,
+    user: user ? user.toJS() : {},
   };
 };
 

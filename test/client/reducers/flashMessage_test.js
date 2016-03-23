@@ -100,7 +100,7 @@ describe('The flash message reducer', () => {
       assertInfoMessage(
         initialState,
         'Updating Entry...',
-        entryActions.requestUpdatedEntry(1000),
+        entryActions.requestUpdatedEntry(1, {}, 1000),
       );
     });
   });

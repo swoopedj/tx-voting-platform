@@ -38,8 +38,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     updateEntry: (id, inputFields) => {
       dispatch(actions.updateEntry(id, inputFields));
     },
-    createEntry: (entry) => {
-      dispatch(actions.addEntryAndRedirect(entry, '/'));
+    createEntry: (entry, userID) => {
+      dispatch(actions.addEntryAndRedirect(entry, userID, '/'));
     },
   };
 };

@@ -25,8 +25,8 @@ describe('The updateEntry async action', () => {
   };
   let dispatchSpy = null;
   let updateEntryStub = null;
-  const url = 'http://google.com';
-  const requestAction = requestUpdatedEntry(0);
+  const inputFields = { title: 'updated', description: 'updated' };
+  const requestAction = requestUpdatedEntry(1, inputFields, 0);
   const navigationAction = navigateToEntry(1);
   const editNavigationAction = navigateToEntryEdit(1);
 
@@ -35,7 +35,7 @@ describe('The updateEntry async action', () => {
   // fake we've set
   const errorAction = receiveUpdatedEntryError(error, 0);
   const receiveAction = receiveUpdatedEntry(infoResponse, 0);
-  const dispatchUpdateEntry = updateEntry(1, { title: 'updated', description: 'updated' });
+  const dispatchUpdateEntry = updateEntry(1, inputFields);
   let clock = null;
   beforeEach(() => {
     clock = sinon.useFakeTimers();
@@ -48,7 +48,7 @@ describe('The updateEntry async action', () => {
     updateEntryStub.restore();
   });
 
-  it_('dispatches receive link info on success', function * testAction() {
+  it_('dispatches recieve update entry on success', function * testAction() {
     updateEntryStub.resolves(infoResponse);
     yield dispatchUpdateEntry(dispatchSpy);
     // confirm that the request action was dispatched first
@@ -57,7 +57,7 @@ describe('The updateEntry async action', () => {
     // confirm that the receive action was dispatched next
     expect(dispatchSpy.thirdCall.calledWith(receiveAction), 'onSuccess').to.equal(true);
   });
-  it_('dispatches link info error on failure', function * testAction() {
+  it_('dispatches receive updated entry error on failure', function * testAction() {
     updateEntryStub.rejects(error);
     try {
       yield dispatchUpdateEntry(dispatchSpy);

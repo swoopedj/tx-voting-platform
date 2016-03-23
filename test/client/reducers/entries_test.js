@@ -10,15 +10,33 @@ describe('The entries reducer', () => {
     const entryResponse = [
       {
         id: 1,
-        title: 'one',
+        title: 'updated',
       },
       {
         id: 2,
         title: 'two',
       },
     ];
-    const state = entries(Immutable.fromJS({}), actions.receiveEntries(entryResponse)).toJS();
-    expect(state.items).to.deep.equal(entryResponse);
+
+    const initialState = {
+      itemsByID: {
+        1: {
+          id: 1,
+          title: 'one',
+        },
+      },
+    }; 
+    const state = entries(Immutable.fromJS(initialState), actions.receiveEntries(entryResponse)).toJS();
+    expect(state.itemsByID).to.deep.equal({
+      1: {
+        id: 1,
+        title: 'updated',
+      },
+      2: {
+        id: 2,
+        title: 'two',
+      },
+    });
     expect(state.isFetching).to.equal(false);
     expect(state.error).to.equal(null);
   });
@@ -31,11 +49,27 @@ describe('The entries reducer', () => {
     expect(state.isFetching).to.equal(false);
     expect(state.error).to.deep.equal(error);
   });
-
+  it('updates entries when requesting an updated entry', () => {
+    const initialState = Immutable.fromJS({});
+    const updateFields = {
+      title: 'new',
+      foo: 'bar',
+    };
+    const updatedState = initialState.setIn(['itemsByID', 1], Immutable.fromJS({
+      title: 'old',
+      id: 1,
+    }));
+    const state = entries(updatedState, actions.requestUpdatedEntry(1, updateFields)).toJS();
+    expect(state.itemsByID[1]).to.deep.equal({
+      title: 'new',
+      foo: 'bar',
+      id: 1,
+    });
+  });
   it('sets loading on request', () => {
     const state = entries(Immutable.fromJS({}), actions.requestEntries()).toJS();
     expect(state.isFetching).to.equal(true);
-    expect(state.items).to.deep.equal([]);
+    expect(state.itemsByID).to.deep.equal({});
   });
 
   it('sets isWorking on create new entry', () => {
@@ -77,7 +111,7 @@ describe('The entries reducer', () => {
         confirmEmptyAfterAction(actions.receiveNewEntry());
       });
       it('on receiveUpdatedEntry', () => {
-        confirmEmptyAfterAction(actions.receiveUpdatedEntry());
+        confirmEmptyAfterAction(actions.receiveUpdatedEntry(1, {}));
       });
     });
   });
