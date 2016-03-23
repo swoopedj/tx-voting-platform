@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import GetEntryInfo from '../components/GetEntryInfo';
-import { getEntryInfo } from '../actionCreators/entries';
+import actions from '../actionCreators/entries';
 import { connect } from 'react-redux';
+
 
 class GetEntryInfoRoute extends Component {
   render() {
@@ -9,6 +10,9 @@ class GetEntryInfoRoute extends Component {
   }
 }
 
+GetEntryInfoRoute.propTypes = {
+  redirectIfNotLoggedIn: PropTypes.func.isRequired,
+};
 
 const mapStateToProps = (state, ownProps) => {
   const { entries } = state.toJS();
@@ -21,7 +25,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onSubmit: (link) => {
-      dispatch(getEntryInfo(link));
+      dispatch(actions.getEntryInfo(link));
     },
   };
 };

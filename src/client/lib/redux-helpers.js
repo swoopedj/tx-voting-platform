@@ -29,6 +29,7 @@ const getAsyncAction = ({ dispatch, request, onRequest, onSuccess, onError }) =>
       return response;
     })
     .catch(error => {
+      throw error;
       console.log(error);
     });
 };

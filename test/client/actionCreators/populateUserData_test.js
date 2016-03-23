@@ -3,6 +3,7 @@
 require(TEST_HELPER);
 const jsdom = require('jsdom-global');
 jsdom();
+import MockLocalStorage from 'mock-localstorage';
 import Immutable from 'immutable';
 const Auth = require(`${__client}/models/auth`);
 const userActions = require(`${__client}/actionCreators/users`);
@@ -10,29 +11,23 @@ const sinon = require('sinon');
 require('sinon-as-promised');
 
 describe('the populate user data helper', () => {
-  let dispatchStub = null;
-  let getUserDataStub = null;
+  let dispatchSpy = null;
   let isLoggedInStub = null;
-  let getCachedUserStub = null;
 
   const buildGetState = (input) => {
     return () => input;
   };
   beforeEach(() => {
-    dispatchStub = sinon.stub();
-    dispatchStub.resolves({});
-    getCachedUserStub = sinon.stub(userActions, 'getCachedUser');
-    getUserDataStub = sinon.stub(Auth, 'getUserData');
+    global.localStorage = new MockLocalStorage();
+    dispatchSpy = sinon.spy();
     isLoggedInStub = sinon.stub(Auth, 'isLoggedIn');
   });
 
   afterEach(() => {
-    getUserDataStub.restore();
     isLoggedInStub.restore();
-    getCachedUserStub.restore();
   });
 
-  it_('does nothing if already populated', function * generator() {
+  it('does nothing if already populated', () => {
     // const navigateAction = entryActions.navigate('/login');
     
     const initialState = Immutable.fromJS({
@@ -43,12 +38,11 @@ describe('the populate user data helper', () => {
     });
     const getState = buildGetState(initialState);
     const dispatchPopulate = userActions.populateUserData();
-    yield dispatchPopulate(dispatchStub, getState);
-    // confirm that the navigate action is called
-    expect(dispatchStub.callCount).to.equal(0);
+    dispatchPopulate(dispatchSpy, getState);
+    expect(dispatchSpy.callCount).to.equal(0);
   });
 
-  it_('sets login status if not logged and not populated', function * generator() {
+  it('sets login status if not logged and not populated', () => {
     // const navigateAction = entryActions.navigate('/login');
     const initialState = Immutable.fromJS({
       user: {
@@ -60,27 +54,30 @@ describe('the populate user data helper', () => {
     const setStatusAction = userActions.receiveLoggedInStatus(false);
     const getState = buildGetState(initialState);
     const dispatchPopulate = userActions.populateUserData();
-    yield dispatchPopulate(dispatchStub, getState);
+    dispatchPopulate(dispatchSpy, getState);
     // confirm that the navigate action is called
-    expect(dispatchStub.firstCall.calledWith(setStatusAction)).to.equal(true);
+    expect(dispatchSpy.firstCall.calledWith(setStatusAction)).to.equal(true);
   });
 
-  it_('sets login status and user data if logged in and not populated', function * generator() {
+  it('sets login status and user data if logged in and not populated', () => {
     // const navigateAction = entryActions.navigate('/login');
+    const sampleData = {
+      name: 'Clay', 
+    };
+    localStorage.setItem('db_user', JSON.stringify(sampleData));
     const initialState = Immutable.fromJS({
       user: {
         isPopulated: false,
       },
     });
-    getCachedUserStub.resolves({});
     isLoggedInStub.returns(true);
     const setStatusAction = userActions.receiveLoggedInStatus(true);
+    const setDataAction = userActions.receiveLoggedInUser(sampleData);
     const getState = buildGetState(initialState);
     const dispatchPopulate = userActions.populateUserData();
-    yield dispatchPopulate(dispatchStub, getState);
+    dispatchPopulate(dispatchSpy, getState);
     // confirm that the navigate action is called
-    expect(dispatchStub.firstCall.calledWith(setStatusAction)).to.equal(true);
-    expect(getCachedUserStub.callCount).to.equal(1);
+    expect(dispatchSpy.firstCall.calledWith(setStatusAction)).to.equal(true);
+    expect(dispatchSpy.secondCall.calledWith(setDataAction)).to.equal(true);
   });
-
 });

@@ -1,8 +1,6 @@
 import React, { PropTypes } from 'react';
-import Home from '../components/Home';
 import { connect } from 'react-redux';
 import actions from '../actionCreators/users';
-import { push } from 'react-router-redux';
 
 const mapStateToProps = (state) => {
   return state.get('user').toJS();
@@ -10,15 +8,15 @@ const mapStateToProps = (state) => {
 
 const matchDispatchToProps = (dispatch) => {
   return {
-    populateUserData: () => dispatch(actions.populateUserData()),
+    redirectIfNotLoggedIn: () => dispatch(actions.redirectIfNotLoggedIn()),
   };
 };
 
 
 export const requireAuthentication = (Component) => {
   class AuthenticatedComponent extends React.Component {
-    componentWillMount() {
-      this.props.populateUserData();
+    componentDidMount() {
+      this.props.redirectIfNotLoggedIn();
     }
     render() {
       return <Component {...this.props} />;
@@ -26,7 +24,7 @@ export const requireAuthentication = (Component) => {
   }
 
   AuthenticatedComponent.propTypes = {
-    populateUserData: PropTypes.func.isRequired,
+    redirectIfNotLoggedIn: PropTypes.func.isRequired,
   };
 
   return connect(mapStateToProps, matchDispatchToProps)(AuthenticatedComponent);
