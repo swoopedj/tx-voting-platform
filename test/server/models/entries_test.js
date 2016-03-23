@@ -16,7 +16,7 @@ describe('The entries model', () => {
   };
 
   const entry = {
-    id: 0,
+    id: 8,
     title: 'test',
     embedID: '5',
     thumbnailURL: 'google.com',
@@ -37,7 +37,7 @@ describe('The entries model', () => {
   };
 
   const entry1 = {
-    id: 1,
+    id: 9,
     title: 'test',
     embedID: '5',
     thumbnailURL: 'yahoo.com',
@@ -58,7 +58,7 @@ describe('The entries model', () => {
   };
 
   const entry2 = {
-    id: 2,
+    id: 10,
     title: 'test',
     embedID: '5',
     thumbnailURL: 'yahoo.com',
@@ -70,11 +70,32 @@ describe('The entries model', () => {
     userID: 2,
   };
 
+  const testUser3 = {
+    id: 3,
+    userName: 'Notaustin',
+    email: 'dylajn@test.com',
+    isAdmin: false,
+    authID: 'dhtkx',
+  };
+
+  const entry3 = {
+    id: 13,
+    title: 'test',
+    embedID: '5',
+    thumbnailURL: 'yahoso.com',
+    statistics: {
+      stuff: 'test',
+    },
+    description: 'description',
+    sortMetric: 10000,
+    userID: null,
+  };
+
   const successTrue = {
     success: true,
   };
 
-  const sortedObject = [ { id: 2,
+  const sortedObject = [{ id: 10,
     thumbnailURL: 'yahoo.com',
     title: 'test',
     embedID: '5',
@@ -82,13 +103,13 @@ describe('The entries model', () => {
     statistics: { stuff: 'test' },
     sortMetric: 1000,
     userID: 2,
-    user: 
+    user:
      { userID: 2,
        email: 'dylan@test.com',
        photo: null,
        isAdmin: false,
        authID: 'dhtfx' } },
-  { id: 1,
+  { id: 9,
     thumbnailURL: 'yahoo.com',
     title: 'test',
     embedID: '5',
@@ -96,13 +117,13 @@ describe('The entries model', () => {
     statistics: { stuff: 'test' },
     sortMetric: 100,
     userID: 1,
-    user: 
+    user:
      { userID: 1,
        email: 'dylan@test.com',
        photo: null,
        isAdmin: false,
        authID: 'lkjh' } },
-  { id: 0,
+  { id: 8,
     thumbnailURL: 'google.com',
     title: 'test',
     embedID: '5',
@@ -110,12 +131,12 @@ describe('The entries model', () => {
     statistics: { stuff: 'test' },
     sortMetric: 19,
     userID: 0,
-    user: 
+    user:
      { userID: 0,
        email: 'clay@test.com',
        photo: null,
        isAdmin: false,
-       authID: 'qgraerdfb' } } ];
+       authID: 'qgraerdfb' } }];
 
   beforeEach_(function * generator() {
     yield TestHelper.emptyDb(db);
@@ -132,7 +153,7 @@ describe('The entries model', () => {
 // updates an item in the entries model given an id and an object with the fields to update
   it_('updates an item in the entries model', function * update() {
     yield Entries.create(entry);
-    const updateResult = yield Entries.updateByID(0, { embedID: '10' });
+    const updateResult = yield Entries.updateByID(8, { embedID: '10' });
     expect(updateResult).to.contain({ embedID: '10' });
   });
 
@@ -181,7 +202,8 @@ describe('The entries model', () => {
     yield Entries.create(entry1);
     yield Users.insert(testUser2);
     yield Entries.create(entry2);
-    const entryAndUser1 = yield Entries.getEntriesWithUsers(1, 3);
+    yield Users.insert(testUser3);
+    const entryAndUser1 = yield Entries.getEntriesWithUsers(0, 3);
     expect(entryAndUser1).to.deep.equal(sortedObject);
   });
 });

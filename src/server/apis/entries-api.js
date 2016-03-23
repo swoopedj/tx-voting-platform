@@ -6,7 +6,7 @@ const respond = require('../lib/responseHandler').respond;
 // These handle all of the requests to the database.
 
 router.get('/', (req, res) => {
-  respond(Entry.read(), res);
+  respond(Entry.getEntriesWithUsers(req.query.offset, req.query.limit), res);
 });
 
 router.delete('/:id', (req, res) => {
