@@ -1,10 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 const AuthLogin = () => {
   return (
     <span className="header-item">
-      <Link to='/login' activeClassName='active'>Login</Link>
-      <Link to='/login' className='button is-outline'>Signup</Link>
+      <Link to="/login" activeClassName="active">Login</Link>
     </span>
   );
 };
