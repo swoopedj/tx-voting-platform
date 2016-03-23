@@ -143,7 +143,6 @@ actions.updateEntry = (id, fields) => {
 actions.addEntry = (entry, userID) => {
   const newEntry = {
     userID,
-    sortMetric: 10,
     ...entry,
   };
   return dispatch => getAsyncAction({
