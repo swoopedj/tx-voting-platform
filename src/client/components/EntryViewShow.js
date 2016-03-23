@@ -1,8 +1,11 @@
 const React = require('react');
 const EntryAuthor = require('./EntryAuthor');
 const EntryEditControl = require('./EntryEditControl');
+const numeral = require('numeral');
 
 const EntryViewShow = ({ entry }) => {
+  console.log(entry);
+  const statistics = entry.statistics || {};
   return (
     <div className="container">
       <div className="columns">
@@ -22,11 +25,11 @@ const EntryViewShow = ({ entry }) => {
             <h3 className="title is-6 heading"><i className="fa fa-bar-chart"></i>&nbsp;Stats</h3>
             <div className="columns">
               <div className="column is-half">
-                <p className="number">21,233</p>
+                <p className="number">{numeral(statistics.viewCount).format('0,0')}</p>
                 <small>Views</small>
               </div>
               <div className="column is-half">
-                <p className="number">33</p>
+                <p className="number">{numeral(statistics.likeCount).format('0,0')}</p>
                 <small>Likes</small>
               </div>
             </div>
