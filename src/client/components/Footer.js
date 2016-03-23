@@ -8,7 +8,7 @@ const Footer = () => {
       <footer className="footer">
         <div className="container">
           <div className="columns">
-            <div className="column is-half is-offset-quarter">
+            <div className="column is-8 is-offset-2">
               <nav className="navbar">
                 <p className="navbar-item is-text-centered">
                   <Link to="/" className="link is-info">Home</Link>
@@ -17,13 +17,16 @@ const Footer = () => {
                   <Link to="/entries" className="link is-info">Entries</Link>
                 </p>
                 <p className="navbar-item is-text-centered">
-                  <Link to="/about" className="link is-info">About</Link>
+                  <Link to="/entry/new" className="link is-info">Submit&nbsp;Your&nbsp;Entry</Link>
                 </p>
                 <p className="navbar-item is-text-centered">
-                  <Link to="/privacy" className="link is-info">Privacy</Link>
+                  <Link to="/entries" className="link is-info">Blog</Link>
                 </p>
                 <p className="navbar-item is-text-centered">
-                  <Link to="/tos" className="link is-info">Terms</Link>
+                  <Link to="/about" className="link is-info">Contest&nbsp;Rules</Link>
+                </p>
+                <p className="navbar-item is-text-centered">
+                  <Link to="/privacy" className="link is-info">Contact</Link>
                 </p>
               </nav>
               <p className="is-text-centered">
