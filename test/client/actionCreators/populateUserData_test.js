@@ -10,7 +10,7 @@ const userActions = require(`${__client}/actionCreators/users`);
 const sinon = require('sinon');
 require('sinon-as-promised');
 
-describe.only('the populate user data helper', () => {
+describe('the populate user data helper', () => {
   let dispatchSpy = null;
   let isLoggedInStub = null;
 
