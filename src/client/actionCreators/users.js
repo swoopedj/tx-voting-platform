@@ -51,27 +51,22 @@ actions.login = () => {
   });
 };
 
-actions.getCachedUser = () => {
-  return dispatch => getAsyncAction({
-    dispatch,
-    request: () => Auth.getUserData(),
-    onRequest: () => actions.requestLoggedInUser(),
-    onSuccess: (user) => actions.receiveLoggedInUser(user),
-    onError: (error) => actions.receiveLoggedInUserError(error),
-  });
+actions.redirectIfNotLoggedIn = () => {
+  return dispatch => {
+    if (!Auth.isLoggedIn()) {
+      dispatch(push('/login'));
+    }
+  };
 };
 
 actions.populateUserData = () => {
   return (dispatch, getState) => {
-    const user = getState().get('user');
-    if (user.get('isPopulated')) return Promise.resolve(user.get('data').toJS());
     const isLoggedIn = Auth.isLoggedIn();
-    dispatch(actions.receiveLoggedInStatus(isLoggedIn));
-    if (!isLoggedIn) {
-      dispatch(push('/login'));
-      return Promise.resolve({});
+    const user = getState().get('user');
+    if (!user.get('isPopulated')) {
+      dispatch(actions.receiveLoggedInStatus(isLoggedIn));
+      if (isLoggedIn) dispatch(actions.receiveLoggedInUser(Auth.getCachedUser()));     
     }
-    return dispatch(actions.getCachedUser());
   };
 };
 
