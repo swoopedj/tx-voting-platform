@@ -4,6 +4,7 @@ const Entry = require('../models/entry');
 const { push } = require('react-router-redux');
 const Immutable = require('immutable');
 const actions = {};
+const sweetAlert = require('sweetalert');
 
 actions.requestEntries = () => ({
   type: 'REQUEST_ENTRIES',
@@ -75,6 +76,22 @@ actions.receiveUpdatedEntry = (entry, time = Date.now()) => ({
 actions.receiveUpdatedEntryError = (error, time = Date.now()) => ({
   type: 'RECEIVE_UPDATED_ENTRY_ERROR',
   error,
+  time,
+});
+
+actions.requestEntryDelete = (time = Date.now()) => ({
+  type: 'REQUEST_ENTRY_DELETE',
+  time,
+});
+
+actions.receiveEntryDelete = (id, time = Date.now()) => ({
+  type: 'RECEIVE_ENTRY_DELETE',
+  id,
+  time,
+});
+
+actions.receiveEntryDeleteError = (time = Date.now()) => ({
+  type: 'RECEIVE_ENTRY_DELETE_ERROR',
   time,
 });
 
@@ -153,6 +170,47 @@ actions.addEntry = (entry, userID) => {
     onError: (error) => actions.receiveNewEntryError(error),
   });
 };
+
+actions.deleteEntry = entryID => {
+  return dispatch => getAsyncAction({
+    dispatch,
+    request: () => Entry.delete(entryID),
+    onRequest: () => [
+      push('/'),
+      actions.requestEntryDelete(),
+    ],
+    onSuccess: () => actions.receiveEntryDelete(entryID),
+    onError: (error) => [
+      push('/'),
+      actions.navigateToEntryEdit(entryID),
+      actions.receiveEntryDeleteError(error),
+    ],
+  });
+};
+
+actions.tryToDeleteEntry = entryID => {
+  return dispatch => {
+    sweetAlert(
+      {
+        title: 'Are you sure?',
+        text: 'You will not be able to recover this entry',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#DD6B55',
+        confirmButtonText: 'Delete',
+        cancelButtonText: 'Cancel',
+        closeOnConfirm: true,
+        closeOnCancel: true,
+      },
+      (isConfirm) => {
+        if (isConfirm) {
+          dispatch(actions.deleteEntry(entryID));
+        }
+      },
+    );
+  };
+};
+
 
 // expects an immutable object representing the entry
 actions.mixInputFieldsIntoEntry = (entry, fields) => {

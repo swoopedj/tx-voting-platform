@@ -32,6 +32,7 @@ const onFieldChange = (dispatch, fieldName) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
+    onDeleteClick: (id) => dispatch(actions.tryToDeleteEntry(id)),
     fetchEntries: (id) => dispatch(actions.fetchIfNeeded(id)),
     onTitleChange: onFieldChange(dispatch, 'title'),
     onDescriptionChange: onFieldChange(dispatch, 'description'),

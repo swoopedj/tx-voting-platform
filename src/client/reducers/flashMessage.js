@@ -8,15 +8,18 @@ const errorMap = {
   RECEIVE_ENTRIES_ERROR: () => 'Something went wrong while fetching entries',
   RECEIVE_ENTRY_INFO_ERROR: (action) => action.error.message,
   RECEIVE_UPDATED_ENTRY_ERROR: () => 'Update failed, please try again',
+  RECEIVE_ENTRY_DELETE: () => 'Entry delete failed, please try again',
 };
 
 const successMap = {
   RECEIVE_NEW_ENTRY: () => 'Entry created successfully!',
   RECEIVE_UPDATED_ENTRY: () => 'Entry updated successfully!',
+  RECEIVE_ENTRY_DELETE: () => 'Entry deleted successfully!',
 };
 
 const infoMap = {
   REQUEST_UPDATED_ENTRY: () => 'Updating Entry...',
+  REQUEST_ENTRY_DELETE: () => 'Deleting Entry...',
 };
 
 // if the getter is a function
