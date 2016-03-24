@@ -4,6 +4,8 @@ process.env.NODE_ENV = 'test';
 const dbCleaner = require('knex-cleaner');
 const chai = require('chai');
 const express = require('express');
+const jsdom = require('jsdom-global');
+jsdom();
 
 const Bluebird = require('bluebird');
 

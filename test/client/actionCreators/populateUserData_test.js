@@ -1,8 +1,6 @@
 /* global TEST_HELPER describe it it_ TestHelper __server __client beforeEach afterEach expect */
 'use strict';
 require(TEST_HELPER);
-const jsdom = require('jsdom-global');
-jsdom();
 import MockLocalStorage from 'mock-localstorage';
 import Immutable from 'immutable';
 const Auth = require(`${__client}/models/auth`);
