@@ -4,6 +4,7 @@ require(TEST_HELPER);
 const Users = require(`${__server}/models/users`);
 require('sinon-as-promised');
 const db = require(`${__server}/lib/db`);
+const Entries = require(`${__server}/models/entries`);
 
 const fakeUser = {
   id: 1,
@@ -40,6 +41,19 @@ const updatedFakeUser = {
   authID: 'asdgq',
 };
 
+const entry = {
+  id: 8,
+  title: 'test',
+  embedID: '5',
+  thumbnailURL: 'google.com',
+  statistics: {
+    stuff: 'test',
+  },
+  description: 'description',
+  sortMetric: 19,
+  userID: 1,
+};
+
 describe('The User Model (server)', () => {
 
   beforeEach_(function * generator() {
@@ -54,7 +68,6 @@ describe('The User Model (server)', () => {
       const readUser = yield TestHelper.db('users').read();
       expect(readUser[0]).to.deep.equal(insertedUser);
       // error handled if incorrect info provided
-
     });
 
     it_('throws an error if required fields are missing', function * updatesUser() {
@@ -140,6 +153,23 @@ describe('The User Model (server)', () => {
       yield Users.insert(fakeUser);
       const foundUser3 = yield Users.insertOrUpdateUsingAuthID('asdgq', newUserInfo);
       expect(foundUser3).to.deep.equal(updatedFakeUser);
+    });
+  });
+
+  describe('when calling getEntriesForUser', () => {
+    it_('returns all entries associated with a user', function * getUserEntries() {
+      yield Users.insert(fakeUser);
+      yield Entries.create(entry);
+      const gotEntries = yield Users.getEntriesForUser('asdgq');
+      expect(gotEntries[0]).to.deep.equal(entry);
+    });
+
+    it_('throws error if authID not in database', function * errorOnFind() {
+      try {
+        yield Users.getEntriesForUser('kmpip');
+      } catch (error) {
+        expect(error.message).to.equal('user database insert error');
+      }
     });
   });
 });

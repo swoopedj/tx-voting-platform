@@ -1,4 +1,4 @@
-/* global TEST_HELPER describe it_ db TestHelper __server beforeEach beforeEach_ expect */
+/* global TEST_HELPER describe it_ db TestHelper __server afterEach beforeEach_ expect */
 'use strict';
 require(TEST_HELPER);
 const Entries = require(`${__server}/models/entries`);
@@ -141,6 +141,10 @@ describe('The entries model', () => {
   beforeEach_(function * generator() {
     yield TestHelper.emptyDb(db);
     yield TestHelper.db('users').create(testUser);
+  });
+
+  afterEach(function * generator() {
+    yield TestHelper.db('users').remove(testUser);
   });
 
   it_('inserts an item into the database and reads it back', function * insert() {
