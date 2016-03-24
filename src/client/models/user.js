@@ -17,6 +17,9 @@ const User = {
   delete: (id) => {
     return request.clientFetch(`/api/yt/users/${id}`);
   },
+  getEntriesForUser: (authID) => {
+    return request.clientFetch(`/api/yt/users/entries/${authID}`);
+  },
 };
 
 module.exports = User;

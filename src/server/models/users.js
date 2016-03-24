@@ -63,20 +63,39 @@ Users.findByAuthID = (authID) => {
 
 Users.insertOrUpdateUsingAuthID = (authID, fields) => {
   return Users.findByAuthID(authID)
-  .then(user => {
+  .then(() => {
     return Users.update(authID, fields);
   })
   .catch(error => {
     // this is how we know that the user
     // doesnt' exist
-    if (error.message === 'User does not exist') {
-      return Users.insert(fields);
-    } else {
+    if (error.message !== 'User does not exist') {
       throw error;
+    } else {
+      return Users.insert(fields);
     }
   })
   .catch(error => {
     console.log('Insert error in insertOrUpdate:', error);
+    throw new Error('user database insert error');
+  });
+};
+
+Users.getEntriesForUser = (authID) => {
+  return db('users').where('authID', authID)
+  .then(user => {
+    return db.select('*').from('entries')
+    .where('userID', user[0].id)
+    .then(entries => {
+      return entries;
+    })
+    .catch(error => {
+      console.log('Insert error in getEntriesForUser:', error);
+      throw new Error('user database insert error');
+    });
+  })
+  .catch(error => {
+    console.log('Insert error in getEntriesForUser:', error);
     throw new Error('user database insert error');
   });
 };

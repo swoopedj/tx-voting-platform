@@ -74,6 +74,19 @@ const invalidUser1 = {
   },
 };
 
+const entry = {
+  id: 8,
+  title: 'test',
+  embedID: '5',
+  thumbnailURL: 'google.com',
+  statistics: {
+    stuff: 'test',
+  },
+  description: 'description',
+  sortMetric: 19,
+  userID: 1,
+};
+
 describe('The Users API', () => {
   let fetch = null;
 
@@ -132,6 +145,16 @@ describe('The Users API', () => {
       fetch.resolves(returnedFakeUser2);
       const noUser = yield User.delete(2);
       expect(noUser).to.deep.equal(returnedFakeUser2);
+    });
+  });
+
+  describe('The client User model getEntriesForUser', () => {
+    it_('returns all entries associated with a user', function * getUserEntries() {
+      fetch = sinon.stub(request, 'clientFetch');
+      fetch.resolves(entry);
+      const gotEntry = yield User.getEntriesForUser('asdgq');
+      expect(fetch.calledWith('/api/yt/users/entries/asdgq')).to.equal(true);
+      expect(gotEntry).to.deep.equal(entry);
     });
   });
 });

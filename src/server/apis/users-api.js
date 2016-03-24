@@ -15,6 +15,10 @@ router.delete('/:id', (req, res) => {
   responseHandler.respond(User.delete(req.params.id), res);
 });
 
+router.get('/entries/:id', (req, res) => {
+  responseHandler.respond(User.getEntriesForUser(req.params.id), res);
+});
+
 
 module.exports = router;
 

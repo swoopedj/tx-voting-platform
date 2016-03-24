@@ -21,6 +21,8 @@ const testError1 = 'user database insert error';
 
 const testError2 = 'Attempted to delete invalid user id';
 
+const testError3 = 'user database insert error';
+
 const success = { success: true, id: 1 };
 
 describe('The Users API', () => {
@@ -103,6 +105,30 @@ describe('The Users API', () => {
       .expect(200)
       .expect(response => {
         expect(response.body.error.message).to.deep.equal(testError2);
+      });
+    });
+  });
+
+  describe('when calling getEntriesForUser', () => {
+    it_('returns a success object containing the user\'s entries', function * getEntries() {
+      modelStub = sinon.stub(User, 'getEntriesForUser');
+      modelStub.resolves(success);
+      yield request(app)
+      .get('/api/yt/users/entries/1')
+      .expect(200)
+      .expect(response => {
+        expect(modelStub.calledWith('1')).to.equal(true);
+        expect(response.body.data).to.deep.equal(success);
+      });
+    });
+    it_('returns an error if the user id is invalid', function * delUser() {
+      modelStub = sinon.stub(User, 'getEntriesForUser');
+      modelStub.rejects(testError3);
+      yield request(app)
+      .get('/api/yt/users/entries/1')
+      .expect(200)
+      .expect(response => {
+        expect(response.body.error.message).to.deep.equal(testError3);
       });
     });
   });
