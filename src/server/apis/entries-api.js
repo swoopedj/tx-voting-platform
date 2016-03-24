@@ -10,11 +10,14 @@ router.get('/', (req, res) => {
 });
 
 router.delete('/:id', (req, res) => {
+  const entryID = req.params.id;
   const confirmSession = (session) => {
-    // find by id
-    // confirm that the userID for the entry matches the user id in the session
+    return Entry.createdByUser(entryID, session.userID)
+      .then(createdByUser => {
+        return createdByUser || Promise.reject(new Error("Not allowed to delete this entry"));
+      })
   };
-  respond(req, res, Entry.remove(req.params.id), true, );
+  respond(req, res, Entry.remove(req.params.id), true, confirmSession);
 });
 
 router.put('/:id', (req, res) => {
