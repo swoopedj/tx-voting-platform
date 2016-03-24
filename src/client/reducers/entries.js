@@ -5,19 +5,21 @@ import { info } from './entryInfo';
 
 const itemsByID = createReducer(Immutable.fromJS({}), {
   RECEIVE_ENTRIES: (state, action) => {
-    return state.withMutations(itemsByID => {
-      action.entries.map(entry => itemsByID.set(entry.id, Immutable.fromJS(entry)));
+    return state.withMutations(items => {
+      action.entries.map(entry => items.set(entry.id, Immutable.fromJS(entry)));
     });
   },
   REQUEST_UPDATED_ENTRY: (state, action) => {
     const updatedEntry = state.get(action.id).withMutations(entry => {
       Object.keys(action.fields).map(key => entry.set(key, action.fields[key]));
     });
-    console.log(updatedEntry);
     return state.set(action.id, updatedEntry);
   },
   RECEIVE_UPDATED_ENTRY: (state, action) => {
     return state.set(action.entry.id, Immutable.fromJS(action.entry));
+  },
+  RECEIVE_ENTRY_DELETE: (state, action) => {
+    return state.delete(action.id);
   },
 });
 

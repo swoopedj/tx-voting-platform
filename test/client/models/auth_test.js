@@ -2,9 +2,7 @@
 'use strict';
 require(TEST_HELPER);
 const MockLocalStorage = require('mock-localstorage');
-const jsdom = require('jsdom-global');
 const sinon = require('sinon');
-jsdom();
 const OAuth = require('oauthio-web').OAuth;
 const Auth = require(`${__client}/models/auth`);
 const User = require(`${__client}/models/user`);

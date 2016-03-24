@@ -4,6 +4,7 @@ import React, { Component, PropTypes } from 'react';
 class EntryViewEdit extends Component {
   render() {
     const {
+      onDeleteClick,
       isCreatingNew,
       isWorking,
       updateEntry,
@@ -31,7 +32,11 @@ class EntryViewEdit extends Component {
             <textarea onChange={onDescriptionChange} className="textarea" value={entry.description}></textarea>
           </p>
           <p className="control">
-          <button className="button is-danger is-pulled-right is-outlined"><i className="fa fa-times"></i>Delete Entry</button>
+          <button onClick={ function deleteClick() {
+            onDeleteClick(entry.id);
+          }} className="button is-danger is-pulled-right is-outlined">
+            <i className="fa fa-times"></i>Delete Entry
+          </button>
             <button onClick={function clickControl() {
               if (isCreatingNew) {
                 createEntry(entry, user.id);
