@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 const Profile = () => {
   return (
@@ -10,7 +11,7 @@ const Profile = () => {
               <img className="image is-64x64 is-rounded is-pulled-left" src="https://avatars2.githubusercontent.com/u/1420404?v=3&s=400" />
               <h1 className="title is-2">Clay Branch</h1>
             </div>
-            <div className="column is-5 is-offset-3">
+            <div className="column is-5">
               <nav className="navbar">
                 <div className="navbar-item is-text-centered">
                   <p className="heading">Entries</p>
@@ -25,6 +26,9 @@ const Profile = () => {
                   <p className="title">45</p>
                 </div>
               </nav>
+            </div>
+            <div className="column is-3 is-text-right">
+              <Link to="/" className="button has-icon">Logout&nbsp;<i className="fa fa-sign-out"></i></Link>
             </div>
           </div>
         </div>
