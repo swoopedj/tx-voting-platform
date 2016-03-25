@@ -2,8 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import Auth from './Auth';
 
-const HeaderNav = ({ onLogoutClick, user }) => {
-  
+const HeaderNav = ({ onLogoutClick, user }) => { 
   return (
 
     <div className="header-right header-menu">
