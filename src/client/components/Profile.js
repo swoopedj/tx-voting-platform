@@ -1,15 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-const Profile = () => {
+const Profile = ({ user = {}, entries, onLogoutClick }) => {
+  const userData = user.data || {};
   return (
     <div>
       <div className="profile-header">
         <div className="container">
           <div className="columns">
             <div className="column is-4">
-              <img className="image is-64x64 is-rounded is-pulled-left" src="https://avatars2.githubusercontent.com/u/1420404?v=3&s=400" />
-              <h1 className="title is-2">Clay Branch</h1>
+              <img className="image is-64x64 is-rounded is-pulled-left" src={userData.photo} />
+              <h1 className="title is-2">{userData.userName}</h1>
             </div>
             <div className="column is-5">
               <nav className="navbar">
@@ -28,7 +29,7 @@ const Profile = () => {
               </nav>
             </div>
             <div className="column is-3 is-text-right">
-              <Link to="/" className="button has-icon">Logout&nbsp;<i className="fa fa-sign-out"></i></Link>
+              <Link to="/" onClick={onLogoutClick} onclassName="button has-icon">Logout&nbsp;<i className="fa fa-sign-out"></i></Link>
             </div>
           </div>
         </div>

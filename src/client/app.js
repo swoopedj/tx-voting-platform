@@ -10,6 +10,7 @@ import LoginRoute from './containers/LoginRoute';
 import Profile from './components/Profile';
 import About from './components/About';
 import NoMatch from './components/NoMatch';
+import ProfileRoute from './containers/ProfileRoute';
 import EntryViewRoute from './containers/EntryViewRoute';
 import { requireAuthentication } from './containers/AuthenticatedComponent';
 const { Router, Route, IndexRoute } = require('react-router');
@@ -28,7 +29,7 @@ ReactDOM.render(
         <Route path="/entry/yt/:id" components={{ main: EntryViewRoute }} />
         <Route path="/entry/yt/:is_edit/:id" components={{ main: requireAuthentication(EntryViewRoute) }} />
         <Route path="/login" components={{ main: LoginRoute }} />
-        <Route path="/profile" components={{ main: requireAuthentication(Profile) }} />
+        <Route path="/profile/:auth_id" components={{ main: ProfileRoute }} />
         <Route path="/about" components={{ main: About }} />
         <Route path="/*" components={{ main: NoMatch }} />
       </Route>

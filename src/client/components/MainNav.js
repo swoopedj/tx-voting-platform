@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import Auth from './Auth';
 
 const HeaderNav = ({ onLogoutClick, user }) => {
+  
   return (
 
     <div className="header-right header-menu">
@@ -16,7 +17,7 @@ const HeaderNav = ({ onLogoutClick, user }) => {
         <a href="http://blog.texans.vote/govote" title="Go Vote!">Go Vote!</a>
       </span>
       <span className="header-item">
-        <Link to="/profile" activeClassName="active" title="Account">Account</Link>
+          <Link to={user.isLoggedIn ? `/profile/${user.data.authID}` : '/login'} activeClassName="active" title="Account">Account</Link>
       </span>
       <span className="header-item">
         <a href="http://blog.texans.vote/share" className="button is-outlined" title="Share">Share</a>
