@@ -12,9 +12,17 @@ describe('The client entry model', () => {
   const updated = entryResult.updatedResult;
   const newData = entryResult.toUpdate;
   const dataResult = entryResult.result;
+  let fetch = null;
+  
+  beforeEach(() => {
+    fetch = sinon.stub(request, 'clientFetch');
+  });
+
+  afterEach(() => {
+    fetch.restore();
+  });
 
   it_('gets all entries when fetch is called', function * fetchEntry() {
-    const fetch = sinon.stub(request, 'clientFetch');
     const entries = [
       { id: 1 },
     ];
@@ -22,11 +30,9 @@ describe('The client entry model', () => {
     const returnedEntries = yield Entry.fetch(1, 12);
     expect(fetch.calledWith('/api/yt/entries?limit=12&offset=1')).to.equal(true);
     expect(returnedEntries).to.equal(entries);
-    fetch.restore();
   });
 
   it_('adds an entry when create is called', function * createEntry() {
-    const fetch = sinon.stub(request, 'clientFetch');
     const entry = { message: 'test' };
     const args = ['/api/yt/entries',
       { method: 'POST',
@@ -41,20 +47,16 @@ describe('The client entry model', () => {
     const createAnEntry = yield Entry.create(entry);
     expect(fetch.calledWith(args[0], args[1])).to.equal(true);
     expect(createAnEntry.message).to.equal('test');
-    fetch.restore();
   });
 
   it_('takes a url and gets info from Youtube', function * getYTInfo() {
-    const fetch = sinon.stub(request, 'clientFetch');
     fetch.resolves(data);
     const ytInfo = yield Entry.getInfo('http://bit.ly');
-    expect(fetch.calledWith('http://localhost:4000/api/yt/entries/info?url=http%3A%2F%2Fbit.ly')).to.equal(true);
-    expect(ytInfo).to.deep.equal(dataResult);
-    fetch.restore();
+    expect(fetch.calledWith('/api/yt/entries/info?url=http%3A%2F%2Fbit.ly'), 'bitly url').to.equal(true);
+    expect(ytInfo, 'data result').to.deep.equal(dataResult);
   });
 
   it_('updates an entry given an id and fields to update', function * updateEntry() {
-    const fetch = sinon.stub(request, 'clientFetch');
     fetch.resolves(updated);
     const args = [`/api/yt/entries/${1}`,
       { method: 'PUT',
@@ -68,15 +70,12 @@ describe('The client entry model', () => {
     const updatedEntry = yield Entry.update(1, newData);
     expect(fetch.calledWith(args[0], args[1]), 'passed into entry model').to.equal(true);
     expect(updatedEntry, 'entry output').to.deep.equal(updated);
-    fetch.restore();
   });
 
   it_('deletes an entry from the database', function * deleteEntry() {
-    const fetch = sinon.stub(request, 'clientFetch');
     fetch.resolves(dataResult);
     const removedEntry = yield Entry.delete(1);
     expect(fetch.calledWith(`/api/yt/entries/${1}`)).to.equal(true);
     expect(removedEntry).to.deep.equal(dataResult);
-    fetch.restore();
   });
 });

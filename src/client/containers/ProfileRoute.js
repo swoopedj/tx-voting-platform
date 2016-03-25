@@ -32,8 +32,8 @@ const matchDispatchToProps = (dispatch) => {
   return {
     onLogoutClick: () => dispatch(userActions.logOut()),
     handleAuthID: (authID, user) => {
-      if (!authID && !user.isLoggedIn) return dispatch(push('/login'));
-      if (!authID) dispatch(push(`/profile/${user.data.authID}`));
+      if (!authID && !user.isLoggedIn && user.isPopulated) return dispatch(push('/login'));
+      if (!authID && user.isPopulated) dispatch(push(`/profile/${user.data.authID}`));
     },
   };
 };
