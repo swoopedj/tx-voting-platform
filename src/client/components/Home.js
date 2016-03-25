@@ -10,7 +10,7 @@ const Home = ({ entries, onCardClick }) => {
           <div className="columns">
             <div className="column is-half is-offset-quarter">
               <div className="intro is-text-centered">
-                <h2 className="title is-3">Supporting political activism for all Texans through social media and maybe some emojis.
+                <h2 className="title is-4">Enter the<br /><strong>Texans.Vote 2016 Get Out the Vote Contest</strong> and wield the power of social media to motivate Texans to vote in 2016.
                 </h2>
                 <Link to="/entry/new" className="button is-primary is-large">Submit Your Entry</Link>
                 <br />
