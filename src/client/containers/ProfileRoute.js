@@ -3,11 +3,11 @@ import Profile from '../components/Profile';
 import { connect } from 'react-redux';
 import entryActions from '../actionCreators/entries';
 import userActions from '../actionCreators/users';
+import { push } from 'react-router-redux';
 
 class ProfileRoute extends Component {
-  componentDidMount() {
-    // const { fetchEntries } = this.props;
-    // fetchEntries();
+  componentWillReceiveProps() {
+    this.props.handleAuthID(this.props.authID, this.props.user);
   }
   render() {
     return <Profile {...this.props} />;
@@ -31,9 +31,12 @@ const mapStateToProps = (state, ownProps) => {
 const matchDispatchToProps = (dispatch) => {
   return {
     onLogoutClick: () => dispatch(userActions.logOut()),
+    handleAuthID: (authID, user) => {
+      if (!authID && !user.isLoggedIn) return dispatch(push('/login'));
+      if (!authID) dispatch(push(`/profile/${user.data.authID}`));
+    },
   };
 };
-
 
 ProfileRoute.propTypes = {
   onLogoutClick: PropTypes.func.isRequired,

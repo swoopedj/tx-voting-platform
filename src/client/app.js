@@ -29,6 +29,7 @@ ReactDOM.render(
         <Route path="/entry/yt/:id" components={{ main: EntryViewRoute }} />
         <Route path="/entry/yt/:is_edit/:id" components={{ main: requireAuthentication(EntryViewRoute) }} />
         <Route path="/login" components={{ main: LoginRoute }} />
+        <Route path="/profile" components={{ main: ProfileRoute }} />
         <Route path="/profile/:auth_id" components={{ main: ProfileRoute }} />
         <Route path="/about" components={{ main: About }} />
         <Route path="/*" components={{ main: NoMatch }} />
