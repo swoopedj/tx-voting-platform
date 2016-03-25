@@ -43,7 +43,7 @@ const Entry = {
     });
   },
   getInfo: (url) => {
-    return request.clientFetch(request.addParams('http://localhost:4000/api/yt/entries/info', { url }))
+    return request.clientFetch(request.addParams('/api/yt/entries/info', { url }))
       .then(processData);
   },
   delete: (id) => {
