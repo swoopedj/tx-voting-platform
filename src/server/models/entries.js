@@ -26,7 +26,6 @@ Entry.create = function create(entry) {
   const { userAuthID } = entry;
   delete entry.userAuthID;
   return User.findByAuthID(userAuthID).then(user => {
-    console.log('user', user)
     entry.userID = user.id;
     return entry;
   })

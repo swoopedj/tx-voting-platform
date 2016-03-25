@@ -100,7 +100,6 @@ Users.insertOrUpdateUsingAuthID = (authID, fields) => {
 Users.getEntriesForUser = (authID) => {
   return db('users').where('authID', authID)
   .then(user => {
-    console.log('fsadfasdfas', user)
     return db.select('*').from('entries')
     .where('userID', user[0].id)
     .then(entries => {
