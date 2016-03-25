@@ -10,16 +10,16 @@ const HeaderNav = ({ onLogoutClick, user }) => {
         <Link to="/entries" activeClassName="active">Entries</Link>
       </span>
       <span className="header-item">
-        <Link to="/prizes" activeClassName="active">Prizes</Link>
+        <a href="http://blog.texans.vote/entries" title="Prizes">Prizes</a>
       </span>
       <span className="header-item">
-        <Link to="/about" activeClassName="active">Go Vote!</Link>
+        <a href="http://blog.texans.vote/govote" title="Go Vote!">Go Vote!</a>
       </span>
       <span className="header-item">
         <Link to="/profile" activeClassName="active">Account</Link>
       </span>
       <span className="header-item">
-        <Link to="/share" className="button is-outlined">Share</Link>
+        <a href="http://blog.texans.vote/share" title="Go Vote!">Share</a>
       </span>
       {/*<Auth onLogoutClick={onLogoutClick} user={user} />*/}
     </div>
