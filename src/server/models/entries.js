@@ -14,6 +14,7 @@ const fieldsArray = [
 
 const userFields = [
   'userID',
+  'userName',
   'email',
   'photo',
   'isAdmin',

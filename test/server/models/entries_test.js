@@ -105,6 +105,7 @@ describe('The entries model', () => {
     userID: 2,
     user:
      { userID: 2,
+       userName: 'austin',
        email: 'dylan@test.com',
        photo: null,
        isAdmin: false,
@@ -119,6 +120,7 @@ describe('The entries model', () => {
     userID: 1,
     user:
      { userID: 1,
+       userName: 'dylan',
        email: 'dylan@test.com',
        photo: null,
        isAdmin: false,
@@ -133,6 +135,7 @@ describe('The entries model', () => {
     userID: 0,
     user:
      { userID: 0,
+       userName: 'clay',
        email: 'clay@test.com',
        photo: null,
        isAdmin: false,
