@@ -20,7 +20,7 @@ const processData = (data) => {
 
 const Entry = {
   fetch: (offset, limit) => {
-    return request.clientFetch(request.addParams('http://localhost:4000/api/yt/entries', { offset, limit }));
+    return request.clientFetch(request.addParams('/api/yt/entries', { offset, limit }));
   },
   create: (entry) => {
     return request.clientFetch('/api/yt/entries', {
