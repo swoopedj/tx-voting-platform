@@ -54,7 +54,7 @@ const EntryViewShow = ({ entry }) => {
 
               </div>
             </div>
-            <EntryEditControl entryID={entry.id} />
+            {entry.isCreatedByUser ? (<EntryEditControl entryID={entry.id} />) : null}
           </div>
         </div>
       </div>
