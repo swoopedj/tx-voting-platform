@@ -52,7 +52,6 @@ const mapDispatchToProps = (dispatch) => {
     tryToClearFlashMessage: () => dispatch(flashMessageActions.tryToClearFlashMessageOnInterval()),
     fetchEntries: () => dispatch(entryActions.fetchIfNeeded()),
     onCloseFlashMessage: () => dispatch(flashMessageActions.clearFlashMessage()),
-    onLogoutClick: () => dispatch(userActions.logOut()),
   };
 };
 
