@@ -161,18 +161,18 @@ describe('The entries model', () => {
       userAuthID: 'qgraerdfb',
     };
     const insertResult = yield Entries.create(newEntry);
-    const expectedEntry  = {
+    const expectedEntry = {
       ...newEntry,
       userID: 0,
     };
-    expect(insertResult, 'insertResults').to.deep.equal(expectedEntry);
+    expect(insertResult, 'insertResults').to.deep.equal(newEntry);
     const readEntries = yield Entries.read();
     expect(readEntries[0]).to.deep.equal(expectedEntry);
   });
 
 // updates an item in the entries model given an id and an object with the fields to update
   it_('updates an item in the entries model', function * update() {
-    yield Entries.create(entry);
+    yield TestHelper.db('entries').create(entry);
     const updateResult = yield Entries.updateByID(8, { embedID: '10' });
     expect(updateResult).to.contain({ embedID: '10' });
   });
@@ -187,14 +187,14 @@ describe('The entries model', () => {
 
   it_('deletes an item in the entries model', function * remove() {
     yield TestHelper.db('users').create(testUser1);
-    const insertResult = yield Entries.create(entry);
-    const insertResult1 = yield Entries.create(entry1);
-    expect(insertResult, 'insertResults').to.deep.equal(entry);
-    const entryId = insertResult.id;
+    const insertResult = yield TestHelper.db('entries').create(entry);
+    const insertResult1 = yield TestHelper.db('entries').create(entry1);
+    expect(insertResult[0], 'insertResults').to.deep.equal(entry);
+    const entryId = insertResult[0].id;
     const removeResult = yield Entries.remove(entryId);
     expect(removeResult, 'removeResult').to.deep.equal(successTrue);
     const readEntries = yield TestHelper.db('entries').read();
-    expect(readEntries[0]).to.deep.equal(insertResult1);
+    expect(readEntries).to.deep.equal(insertResult1);
   });
 
   it_('throws errors when the wrong information is passed into delete', function * remove() {
@@ -206,9 +206,9 @@ describe('The entries model', () => {
   });
 
   it_('returns user data with entry data', function * allData() {
-    yield Entries.create(entry);
+    yield TestHelper.db('entries').create(entry);
     yield Users.insert(testUser1);
-    yield Entries.create(entry1);
+    yield TestHelper.db('entries').create(entry1);
     const entryAndUser = yield Entries.getEntriesWithUsers();
     expect(entryAndUser[1]).to.include.keys('thumbnailURL', 'embedID', 'user');
     expect(entryAndUser[1].thumbnailURL).to.equal('google.com');
@@ -217,30 +217,30 @@ describe('The entries model', () => {
   });
 
   it_('returns videos in descending order', function * getVideos() {
-    yield Entries.create(entry);
+    yield TestHelper.db('entries').create(entry);
     yield Users.insert(testUser1);
-    yield Entries.create(entry1);
+    yield TestHelper.db('entries').create(entry1);
     yield Users.insert(testUser2);
-    yield Entries.create(entry2);
+    yield TestHelper.db('entries').create(entry2);
     yield Users.insert(testUser3);
     const entryAndUser1 = yield Entries.getEntriesWithUsers(0, 3);
     expect(entryAndUser1).to.deep.equal(sortedObject);
   });
 
   it_('fetches an entry by id', function * getVideos() {
-    yield Entries.create(entry);
+    yield TestHelper.db('entries').create(entry);
     const foundEntry = yield Entries.fetchByID(8);
     expect(foundEntry).to.deep.equal(entry);
   });
 
   describe('the createdByUser helper', () => {
     it_('returns true if an entry was created by a user', function * getVideos() {
-      yield Entries.create(entry);
+      yield TestHelper.db('entries').create(entry);
       const isCreatedByUser = yield Entries.createdByUser(8, 0);
       expect(isCreatedByUser).to.equal(true);
     });
     it_('returns false if an entry was not created by a user', function * getVideos() {
-      yield Entries.create(entry);
+      yield TestHelper.db('entries').create(entry);
       const isCreatedByUser = yield Entries.createdByUser(8, 2);
       expect(isCreatedByUser).to.equal(false);
     });
