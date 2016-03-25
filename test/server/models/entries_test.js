@@ -148,7 +148,6 @@ describe('The entries model', () => {
   });
 
   it_('inserts an item into the database and reads it back', function * insert() {
-<<<<<<< 6f982e969739a754667b0b0eabe134455bce6e9a
     const newEntry = {
       id: 0,
       title: 'test',
@@ -162,13 +161,11 @@ describe('The entries model', () => {
       userAuthID: 'qgraerdfb',
     };
     const insertResult = yield Entries.create(newEntry);
-    const expectedEntry  = {
+    const expectedEntry = {
       ...newEntry,
       userID: 0,
     };
-    expect(insertResult, 'insertResults').to.deep.equal(expectedEntry);
-    const insertResult = yield TestHelper.db('entries').create(entry);
-    expect(insertResult[0], 'insertResults').to.deep.equal(entry);
+    expect(insertResult, 'insertResults').to.deep.equal(newEntry);
     const readEntries = yield Entries.read();
     expect(readEntries[0]).to.deep.equal(expectedEntry);
   });

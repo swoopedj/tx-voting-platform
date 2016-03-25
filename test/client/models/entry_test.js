@@ -20,7 +20,7 @@ describe('The client entry model', () => {
     ];
     fetch.resolves(entries);
     const returnedEntries = yield Entry.fetch(1, 12);
-    expect(fetch.calledWith('http://localhost:4000/api/yt/entries?limit=12&offset=1')).to.equal(true);
+    expect(fetch.calledWith('/api/yt/entries?limit=12&offset=1')).to.equal(true);
     expect(returnedEntries).to.equal(entries);
     fetch.restore();
   });

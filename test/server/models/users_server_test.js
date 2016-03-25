@@ -52,6 +52,7 @@ const entry = {
   description: 'description',
   sortMetric: 19,
   userID: 1,
+  userAuthID: 'asdgq',
 };
 
 describe('The User Model (server)', () => {

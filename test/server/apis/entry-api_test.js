@@ -61,6 +61,8 @@ describe('The Entries API', () => {
     it_('updates an entry', function * updateLink() {
       modelStub = sinon.stub(Entry, 'updateByID');
       modelStub.resolves(data);
+      const isAllowed = sinon.stub(Entry, 'userIsAllowedAccess');
+      isAllowed.resolves(1);
       yield request(app)
         .put('/api/yt/entries/1')
         .expect(200)
@@ -68,6 +70,7 @@ describe('The Entries API', () => {
           expect(modelStub.calledWith('1')).to.equal(true);
           expect(response.body.data).to.include(data);
         });
+        isAllowed.restore()
     });
   });
 
