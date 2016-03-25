@@ -52,7 +52,7 @@ const EntryViewShow = ({ entry }) => {
                     <a target="_new" data-hint="Share on Reddit" className="hint--top hint--rounded" href={`https://www.reddit.com/submit?url=http://texans.vote/entry/yt/${entry.id}&title=${entry.title}`}><span className="icon"><i className="fa fa-reddit-square"></i></span></a>
                   </li>
                   <li>
-                    <a href="https://www.facebook.com/dialog/share?app_id=588640414562288&amp;display=popup&amp;href=http://texans.vote/entry/yt/4&amp;redirect_uri=http://texans.vote/entry/yt/4">share</a>
+                    <a href="https://www.facebook.com/dialog/share?app_id=1702211000018645&amp;display=popup&amp;href=http://texans.vote/entry/yt/4&amp;redirect_uri=http://texans.vote/entry/yt/4">share</a>
                   </li>
                 </ul>
               </div>
