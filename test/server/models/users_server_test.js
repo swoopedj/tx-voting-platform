@@ -1,8 +1,10 @@
-/* global TEST_HELPER describe it_ db TestHelper __server beforeEach beforeEach_ expect */
+/* global TEST_HELPER describe it_ db afterEach TestHelper __server beforeEach beforeEach_ expect */
 'use strict';
 require(TEST_HELPER);
 const Users = require(`${__server}/models/users`);
+const Sessions = require(`${__server}/models/sessions`);
 require('sinon-as-promised');
+const sinon = require('sinon');
 const db = require(`${__server}/lib/db`);
 const Entries = require(`${__server}/models/entries`);
 
@@ -163,6 +165,55 @@ describe('The User Model (server)', () => {
       yield Entries.create(entry);
       const gotEntries = yield Users.getEntriesForUser('asdgq');
       expect(gotEntries[0]).to.deep.equal(entry);
+    });
+
+    it_('throws error if authID not in database', function * errorOnFind() {
+      try {
+        yield Users.getEntriesForUser('kmpip');
+      } catch (error) {
+        expect(error.message).to.equal('user database insert error');
+      }
+    });
+  });
+
+  describe('when calling User.login', () => {
+    let insertStub = null;
+    let deleteStub = null;
+    let createSessionStub = null;
+    let getIDStub = null;
+    beforeEach(() => {
+      getIDStub = sinon.stub(Sessions, 'getID');
+      insertStub = sinon.stub(Users, 'insertOrUpdateUsingAuthID');
+      deleteStub = sinon.stub(Sessions, 'deleteByUserID');
+      createSessionStub = sinon.stub(Sessions, 'create');
+    });
+
+    afterEach(() => {
+      getIDStub.restore();
+      insertStub.restore();
+      deleteStub.restore();
+      createSessionStub.restore();
+    });
+
+    it_('deletes an existing session, creates a new session and retuns the session id', function * login() {
+      insertStub.resolves({
+        id: 1,
+        isAdmin: false,
+        photo: 'test.jpg',
+      });
+      deleteStub.resolves(1);
+      getIDStub.returns('test');
+      createSessionStub.resolves('test');
+      const authID = 'auth';
+      const userData = {
+        photo: 'test.jpg',
+      };
+      const result = yield Users.login(authID, userData);
+      expect(createSessionStub.calledWith({ isAdmin: false, userID: 1 }), 'passed into create session').to.equal(true);
+      expect(insertStub.calledWith(authID, userData), 'passed into insert').to.equal(true);
+      expect(deleteStub.calledWith(1), 'passed into delete');
+      expect(result.sessionID, 'session ID').to.equal('test');
+      expect(result.userData, 'userData').to.deep.equal({ isAdmin: false, photo: 'test.jpg' });
     });
 
     it_('throws error if authID not in database', function * errorOnFind() {
