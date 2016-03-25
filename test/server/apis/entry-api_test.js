@@ -44,7 +44,6 @@ describe('The Entries API', () => {
     it_('deletes an entry', function * deletesLinks() {
       modelStub = sinon.stub(Entry, 'remove');
       modelStub.resolves({ success: true });
-      // console.log('sessions', session)
       yield request(app)
         .delete('/api/yt/entries/1')
         .expect(200)
