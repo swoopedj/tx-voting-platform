@@ -165,6 +165,7 @@ actions.updateEntry = (id, fields) => {
 };
 
 actions.addEntry = (entry, userAuthID) => {
+  delete entry.isCreatedByUser; 
   const newEntry = {
     userAuthID,
     ...entry,
