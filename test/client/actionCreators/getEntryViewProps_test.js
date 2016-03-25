@@ -4,7 +4,7 @@ require(TEST_HELPER);
 const Immutable = require('immutable');
 const { getEntryViewProps } = require(`${__client}/actionCreators/entries`);
 
-describe('The getEntryViewProps helper', () => {
+describe.only('The getEntryViewProps helper', () => {
   const getPropsUsingHelper = (assertOptions) => {
     const state = Immutable.fromJS(assertOptions.initialState);
     return getEntryViewProps(state, assertOptions.routeParams);
@@ -36,14 +36,26 @@ describe('The getEntryViewProps helper', () => {
             itemsByID: {
             },
           },
+          user: {
+            data: {
+              authID: 'test',
+            },
+            isLoggedIn: true,
+          },
         });
-
-        const stateWithItems = initialState.setIn(['entries', 'itemsByID', 2], Immutable.fromJS({id: 2, title: 'two'}));
+        const sampleEntry = Immutable.fromJS({
+          id: 2,
+          title: 'two',
+          user: {
+            authID: 'test',
+          },
+        });
+        const stateWithItems = initialState.setIn(['entries', 'itemsByID', 2], sampleEntry);
         const routeParams = {
           id: '2',
         };
         const props = getEntryViewProps(stateWithItems, routeParams);
-        expect(props.entry).to.deep.equal({ id: 2, title: 'two' });
+        expect(props.entry).to.deep.equal(sampleEntry.set('isCreatedByUser', true).toJS());
       });
     });
     describe('that returns inEditMode', () => {
@@ -63,6 +75,12 @@ describe('The getEntryViewProps helper', () => {
             ],
             info: {
               data: {},
+            },
+          },
+          user: {
+            isLoggedIn: true,
+            data: {
+              authID: 'test',
             },
           },
         },
@@ -98,6 +116,11 @@ describe('The getEntryViewProps helper', () => {
             items: [],
             info: { data: {} },
           },
+          user: {
+            data: {
+              authID: 'test',
+            },
+          },
         },
         routeParams: {
           id: 'create',
@@ -124,6 +147,11 @@ describe('The getEntryViewProps helper', () => {
           itemsByID: {
           },
           info: { data: {} },
+        },
+        user: {
+          data: {
+            authID: 'test',
+          },
         },
       });
       const routeParams = {

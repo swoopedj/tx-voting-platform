@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router';
+import numeral from 'numeral';
+const EntryCard = require('./EntryCard');
 
-const Profile = ({ user = {}, entries, onLogoutClick }) => {
+const Profile = ({ user = {}, entries, onLogoutClick, userStats }) => {
   const userData = user.data || {};
   return (
     <div>
@@ -16,15 +18,15 @@ const Profile = ({ user = {}, entries, onLogoutClick }) => {
               <nav className="navbar">
                 <div className="navbar-item is-text-centered">
                   <p className="heading">Entries</p>
-                  <p className="title">3</p>
+                  <p className="title">{entries.length}</p>
                 </div>
                 <div className="navbar-item is-text-centered">
                   <p className="heading">Total Views</p>
-                  <p className="title">2,123</p>
+                  <p className="title">{numeral(userStats.views).format('0,0')}</p>
                 </div>
                 <div className="navbar-item is-text-centered">
                   <p className="heading">Total Likes</p>
-                  <p className="title">45</p>
+                  <p className="title">{numeral(userStats.likes).format('0,0')}</p>
                 </div>
               </nav>
             </div>
@@ -38,6 +40,15 @@ const Profile = ({ user = {}, entries, onLogoutClick }) => {
         <div className="column">
           <h1 className="title">Entries</h1>
           <hr />
+          <div className="columns is-multiline">
+            { entries.map(entry =>
+              <EntryCard
+                key={entry.id}
+                entry={entry}
+                // onClick={(event) => onCardClick(event, entry)}
+              />
+            )}
+          </div>
         </div>
       </div>
     </div>

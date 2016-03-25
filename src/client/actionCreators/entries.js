@@ -1,6 +1,7 @@
 const { getAsyncAction } = require('../lib/redux-helpers');
 require('es6-promise').polyfill();
 const Entry = require('../models/entry');
+const User = require('../models/user');
 const { push } = require('react-router-redux');
 const Immutable = require('immutable');
 const actions = {};
@@ -12,6 +13,11 @@ actions.requestEntries = () => ({
 
 actions.receiveEntries = (entries) => ({
   type: 'RECEIVE_ENTRIES',
+  entries,
+});
+
+actions.receiveEntriesForUser = (entries) => ({
+  type: 'RECEIVE_ENTRIES_FOR_USER',
   entries,
 });
 
@@ -189,6 +195,22 @@ actions.deleteEntry = entryID => {
   });
 };
 
+actions.getEntriesForUser = authID => {
+  return dispatch => getAsyncAction({
+    dispatch,
+    request: () => User.getEntriesForUser(authID),
+    onRequest: () => [
+      // actions.requestEntryDelete(),
+    ],
+    onSuccess: (entries) => actions.receiveEntriesForUser(entries),
+    onError: (error) => [
+      // push('/'),
+      // actions.navigateToEntryEdit(entryID),
+      actions.receiveEntryDeleteError(error),
+    ],
+  });
+};
+
 actions.tryToDeleteEntry = entryID => {
   return dispatch => {
     sweetAlert(
@@ -257,21 +279,28 @@ const getEntryWithInputFieldsMixedIn = (isCreatingNew, state, id, inputFields) =
   return actions.mixInputFieldsIntoEntry(entry, inputFields);
 };
 
+const setCreatedByUserForEntry = (isCreatingNew, entry, user) => {
+  const isLoggedIn = user.get('isLoggedIn');
+  const createdByUser = (!isLoggedIn || isCreatingNew) ? false : entry.getIn(['user', 'authID']) === user.getIn(['data', 'authID']);
+  return entry.set('isCreatedByUser', createdByUser);
+};
+
 actions.getEntryViewProps = (state, routeParams) => {
   const isCreatingNew = routeParams.id === 'create';
   const id = parseInt(routeParams.id, 0);
   const inEditMode = routeParams.is_edit === 'edit' || isCreatingNew;
   const inputFields = state.getIn(['entries', 'inputFields']).toJS();
-  const entry = getEntryWithInputFieldsMixedIn(isCreatingNew, state, id, inputFields).toJS();
-  const user = state.getIn(['user', 'data']);
+  const entry = getEntryWithInputFieldsMixedIn(isCreatingNew, state, id, inputFields);
+  const user = state.get('user');
+  const entryWithCreatedByUser = setCreatedByUserForEntry(isCreatingNew, entry, user);
   return {
     id,
     isCreatingNew,
     inEditMode,
     isWorking: state.getIn(['entries', 'isWorking']),
-    entry,
+    entry: entryWithCreatedByUser.toJS(),
     inputFields,
-    user: user ? user.toJS() : {},
+    user: user ? user.get('data').toJS() : {},
   };
 };
 
