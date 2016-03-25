@@ -12,7 +12,7 @@ const AuthUser = ({ onLogoutClick, userData }) => {
       <ul>
         <li className="arrow-down"><i className="fa fa-sort-down arrow"></i></li>
         <li><Link to="/profile">My Profile<i className="fa fa-user"></i></Link></li>
-        <li><Link to="/" onClick={onLogoutClick} className="last" href="#">Logout<i className="fa fa-sign-out"></i></Link></li>
+        <li><Link to="/" onClick={onLogoutClick} className="last">Logout<i className="fa fa-sign-out"></i></Link></li>
       </ul>
     </span>
   );
