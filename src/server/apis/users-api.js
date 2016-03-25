@@ -1,22 +1,42 @@
 /* eslint new-cap: [2, {"capIsNewExceptions": ["Router"]}] */
 const User = require('../models/users.js');
 const router = require('express').Router();
-const responseHandler = require('../lib/responseHandler');
+const { respond } = require('../lib/responseHandler');
 
 router.get('/:authID', (req, res) => {
-  responseHandler.respond(req, res, User.findByAuthID(req.params.authID), false);
+  respond(req, res, {
+    getResponse: () => {
+      return User.findByAuthID(req.params.authID);
+    },
+  });
 });
 
 router.post('/:authID', (req, res) => {
-  responseHandler.respond(req, res, User.login(req.params.authID, req.body), false);
+  respond(req, res, {
+    getResponse: () => {
+      return User.login(req.params.authID, req.body);
+    },
+  }); 
 });
 
 router.delete('/:id', (req, res) => {
-  responseHandler.respond(req, res, User.delete(req.params.id), true);
+  respond(req, res, {
+    isSecured: true,
+    getResponse: () => {
+      return User.delete(req.params.id);
+    },
+    validateSession: () => {
+      return Promise.resolve(true);
+    },
+  });
 });
 
 router.get('/entries/:id', (req, res) => {
-  responseHandler.respond(req, res, User.getEntriesForUser(req.params.id), false);
+  respond(req, res, {
+    getResponse: () => {
+      return User.getEntriesForUser(req.params.id);
+    },
+  });
 });
 
 

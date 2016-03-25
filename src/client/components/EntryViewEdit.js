@@ -39,7 +39,7 @@ class EntryViewEdit extends Component {
           </button>
             <button onClick={function clickControl() {
               if (isCreatingNew) {
-                createEntry(entry, user.id);
+                createEntry(entry, user.authID);
               } else {
                 updateEntry(entry.id, inputFields);     
               }

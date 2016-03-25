@@ -6,34 +6,55 @@ const respond = require('../lib/responseHandler').respond;
 // These handle all of the requests to the database.
 
 router.get('/', (req, res) => {
-  respond(req, res, Entry.getEntriesWithUsers(req.query.offset, req.query.limit));
+  respond(req, res, {
+    getResponse: () => {
+      return Entry.getEntriesWithUsers(req.query.offset, req.query.limit)
+    },
+  });
 });
 
 router.delete('/:id', (req, res) => {
   const entryID = req.params.id;
-  const confirmSession = (session) => {
-    return Entry.createdByUser(entryID, session.userID)
-      .then(createdByUser => {
-        return createdByUser || Promise.reject(new Error("Not allowed to delete this entry"));
-      })
-  };
-  respond(req, res, Entry.remove(req.params.id), true, confirmSession);
+  respond(req, res, {
+    isSecured: true,
+    getResponse: () => {
+      return Entry.remove(entryID);
+    },
+    validateSession: (session) => {
+      return Entry.userIsAllowedAccess(entryID, session.userID);
+    },
+  });
 });
 
 router.put('/:id', (req, res) => {
-  const confirmSession = (session) => {
-    // find by id
-    // confirm that the userID for entry matches the user id in the session
-  };
-  respond(req, res, Entry.updateByID(req.params.id, req.body), true);
+  const entryID = req.params.id;
+  respond(req, res, {
+    isSecured: true,
+    getResponse: () => {
+      return Entry.updateByID(entryID, req.body);
+    },
+    validateSession: (session) => {
+      return Entry.userIsAllowedAccess(entryID, session.userID);
+    },
+  });
 });
 
 router.post('/', (req, res) => {
-  respond(req, res, Entry.create(req.body), true);
+  respond(req, res, {
+    isSecured: true,
+    getResponse: () => {
+      return Entry.create(req.body);
+    },
+  });
 });
 
 router.get('/info', (req, res) => {
-  respond(req, res, Youtube.getInfo(req.query.url), true);
+  respond(req, res, {
+    isSecured: true,
+    getResponse: () => {
+      return Youtube.getInfo(req.query.url);
+    },
+  });
 });
 
 module.exports = router;

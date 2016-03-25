@@ -90,9 +90,10 @@ actions.receiveEntryDelete = (id, time = Date.now()) => ({
   time,
 });
 
-actions.receiveEntryDeleteError = (time = Date.now()) => ({
+actions.receiveEntryDeleteError = (error, time = Date.now()) => ({
   type: 'RECEIVE_ENTRY_DELETE_ERROR',
   time,
+  error,
 });
 
 actions.fetchEntries = () => {
@@ -157,9 +158,9 @@ actions.updateEntry = (id, fields) => {
   });
 };
 
-actions.addEntry = (entry, userID) => {
+actions.addEntry = (entry, userAuthID) => {
   const newEntry = {
-    userID,
+    userAuthID,
     ...entry,
   };
   return dispatch => getAsyncAction({

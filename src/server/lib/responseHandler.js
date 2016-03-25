@@ -22,17 +22,22 @@ const generateResponse = (promise, res) => {
 };
 
 const responseHandler = {
-  respond: (req, res, promise, isSecured, confirmSession) => {
-    const confirmSessionPromise = confirmSession === undefined ? () => Promise.resolve(true) : confirmSession;
-    let securePromise = promise;
+  respond: (req, res, options) => {
+    const {
+      getResponse,
+      validateSession = () => Promise.resolve(true),
+      isSecured = false,
+    } = options;
     if (isSecured) {
-      securePromise = Sessions.fetchByID(req.headers['session-id']).then(session => {
-        return confirmSessionPromise(session).then(() => {
-          return promise;
-        });
+      const securePromise = Sessions.fetchByID(req.headers['session-id']).then(session => {
+        return validateSession(session).then(() => {
+          return getResponse();
+        })
       });
+      generateResponse(securePromise, res);
+    } else {
+      generateResponse(getResponse(), res);
     }
-    generateResponse(securePromise, res);
   },
 };
 

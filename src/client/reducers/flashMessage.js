@@ -8,7 +8,7 @@ const errorMap = {
   RECEIVE_ENTRIES_ERROR: () => 'Something went wrong while fetching entries',
   RECEIVE_ENTRY_INFO_ERROR: (action) => action.error.message,
   RECEIVE_UPDATED_ENTRY_ERROR: () => 'Update failed, please try again',
-  RECEIVE_ENTRY_DELETE: () => 'Entry delete failed, please try again',
+  RECEIVE_ENTRY_DELETE_ERROR: (action) => action.error.message,
 };
 
 const successMap = {

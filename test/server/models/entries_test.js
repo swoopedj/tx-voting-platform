@@ -148,10 +148,26 @@ describe('The entries model', () => {
   });
 
   it_('inserts an item into the database and reads it back', function * insert() {
-    const insertResult = yield Entries.create(entry);
-    expect(insertResult, 'insertResults').to.deep.equal(entry);
+    const newEntry = {
+      id: 0,
+      title: 'test',
+      embedID: '5',
+      thumbnailURL: 'google.com',
+      statistics: {
+        stuff: 'test',
+      },
+      description: 'description',
+      sortMetric: 19,
+      userAuthID: 'qgraerdfb',
+    };
+    const insertResult = yield Entries.create(newEntry);
+    const expectedEntry  = {
+      ...newEntry,
+      userID: 0,
+    };
+    expect(insertResult, 'insertResults').to.deep.equal(expectedEntry);
     const readEntries = yield Entries.read();
-    expect(readEntries[0]).to.deep.equal(entry);
+    expect(readEntries[0]).to.deep.equal(expectedEntry);
   });
 
 // updates an item in the entries model given an id and an object with the fields to update

@@ -1,4 +1,5 @@
 const db = require('../lib/db');
+const User = require('./users');
 const Entry = module.exports;
 const fieldsArray = [
   'id',
@@ -20,11 +21,28 @@ const userFields = [
 ];
 
 Entry.create = function create(entry) {
-  return db('entries').insert(entry, fieldsArray)
-  .then(response => response[0])
-  .catch((error) => {
-    console.log('Error in Create:', error);
-    throw new Error('Database Create error');
+  // we can't expose the userIDs to the client
+  // so we're using an authID here
+  const { userAuthID } = entry;
+  delete entry.userAuthID;
+  return User.findByAuthID(userAuthID).then(user => {
+    entry.userID = user.id;
+    return entry;
+  })
+  .then(updatedEntry => {
+    return db('entries').insert(updatedEntry, fieldsArray)
+      .then(response => response[0])
+      .catch((error) => {
+        console.log('Error in Create:', error);
+        throw new Error('Database Create error');
+      });
+  });
+};
+
+Entry.userIsAllowedAccess = (entryID, userID) => {
+  return Entry.createdByUser(entryID, userID)
+  .then(createdByUser => {
+    return createdByUser || Promise.reject(new Error('Not allowed to edit this entry'));
   });
 };
 
