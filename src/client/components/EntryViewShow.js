@@ -43,13 +43,13 @@ const EntryViewShow = ({ entry }) => {
                 <h3 className="title is-6 heading"><i className="fa fa-share"></i>&nbsp;Share</h3>
                 <ul>
                   <li className="is-inline">
-                    <a target="_new" data-hint="Share on Twitter" className="hint--top hint--rounded" href={`https://twitter.com/intent/tweet?via=texansvote&amp;text=${entry.title}&amp;url=http://texaxs.vote/entry/yt/${entry.id}`}><span className="icon"><i className="fa fa-twitter-square"></i></span></a>
+                    <a target="_new" data-hint="Share on Twitter" className="hint--top hint--rounded" href={encodeURI(`https://twitter.com/intent/tweet?via=texansvote&url=http://texans.vote/entry/yt/${entry.id}&text=${entry.title}`)}><span className="icon"><i className="fa fa-twitter-square"></i></span></a>
                   </li>
                   <li className="is-inline">
-                    <a target="_new" data-hint="Share on Facebook" className="hint--top hint--rounded" href={`https://www.facebook.com/sharer/sharer.php?u=http://texaxs.vote/entry/yt/${entry.id}`}><span className="icon"><i className="fa fa-facebook-square"></i></span></a>
+                    <a target="_new" data-hint="Share on Facebook" className="hint--top hint--rounded" href={encodeURI(`https://www.facebook.com/sharer/sharer.php?u=http://texans.vote/entry/yt/${entry.id}&t=${entry.title}`)}><span className="icon"><i className="fa fa-facebook-square"></i></span></a>
                   </li>
                   <li className="is-inline">
-                    <a target="_new" data-hint="Share on Reddit" className="hint--top hint--rounded" href={`https:////www.reddit.com/submit?title=${entry.title}&amp;url=http://texaxs.vote/entry/yt/${entry.id}`}><span className="icon"><i className="fa fa-reddit-square"></i></span></a>
+                    <a target="_new" data-hint="Share on Reddit" className="hint--top hint--rounded" href={`https://www.reddit.com/submit?url=http://texans.vote/entry/yt/${entry.id}&title=${entry.title}`}><span className="icon"><i className="fa fa-reddit-square"></i></span></a>
                   </li>
                   <li>
                     <a href="https://www.facebook.com/dialog/share?app_id=588640414562288&amp;display=popup&amp;href=http://texans.vote/entry/yt/4&amp;redirect_uri=http://texans.vote/entry/yt/4">share</a>

@@ -16,9 +16,12 @@ const HeaderNav = ({ onLogoutClick, user }) => {
         <Link to="/about" activeClassName="active">Go Vote!</Link>
       </span>
       <span className="header-item">
-        <Link to="/entry/new" className="button is-primary is-small is-outlined">Submit Your Entry</Link>
+        <Link to="/profile" activeClassName="active">Account</Link>
       </span>
-      <Auth onLogoutClick={onLogoutClick} user={user} />
+      <span className="header-item">
+        <Link to="/share" className="button is-outlined">Share</Link>
+      </span>
+      {/*<Auth onLogoutClick={onLogoutClick} user={user} />*/}
     </div>
   );
 };
