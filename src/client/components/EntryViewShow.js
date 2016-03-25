@@ -51,6 +51,9 @@ const EntryViewShow = ({ entry }) => {
                   <li className="is-inline">
                     <a target="_new" data-hint="Share on Reddit" className="hint--top hint--rounded" href={`https:////www.reddit.com/submit?title=${entry.title}&amp;url=http://texaxs.vote/entry/yt/${entry.id}`}><span className="icon"><i className="fa fa-reddit-square"></i></span></a>
                   </li>
+                  <li>
+                    <a href="https://www.facebook.com/dialog/share?app_id=588640414562288&amp;display=popup&amp;href=http://texans.vote/entry/yt/4&amp;redirect_uri=http://texans.vote/entry/yt/4">share</a>
+                  </li>
                 </ul>
               </div>
             </div>
