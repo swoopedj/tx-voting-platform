@@ -4,7 +4,7 @@ require(TEST_HELPER);
 const Immutable = require('immutable');
 const { getEntryViewProps } = require(`${__client}/actionCreators/entries`);
 
-describe.only('The getEntryViewProps helper', () => {
+describe('The getEntryViewProps helper', () => {
   const getPropsUsingHelper = (assertOptions) => {
     const state = Immutable.fromJS(assertOptions.initialState);
     return getEntryViewProps(state, assertOptions.routeParams);
@@ -22,12 +22,18 @@ describe.only('The getEntryViewProps helper', () => {
                 },
               },
             },
+            user: {
+              data: {
+                authID: 'test',
+              },
+              isLoggedIn: true,
+            },
           },
           routeParams: {
             id: 'create',
           },
         });
-        expect(props.entry).to.deep.equal({ title: 'test' });
+        expect(props.entry).to.deep.equal({ title: 'test', isCreatedByUser: false });
       });
       it('that is pulled entries.items if not creating new', () => {
         const initialState = Immutable.fromJS({
@@ -164,7 +170,7 @@ describe.only('The getEntryViewProps helper', () => {
         expect(props.inputFields).to.deep.equal({ title: 'new' });
       });
       it('and mixes inputFields into the returned entry', () => {
-        expect(props.entry).to.deep.equal({ title: 'new', id: 1 });
+        expect(props.entry).to.deep.equal({ title: 'new', id: 1, isCreatedByUser: false});
       });
     });
   });
