@@ -15,7 +15,7 @@ const Home = ({ entries, onCardClick }) => {
                 <Link to="/entry/new" className="button is-primary is-large">Submit Your Entry</Link>
                 <br />
                 <br />
-                <Link to="/about">About Us</Link><i className="fa fa-star-o"></i><Link to="/login">Sign Up</Link>
+                <a href="http://blog.texans.vote/about">About Us</a><i className="fa fa-star-o"></i><Link to="/login">Sign Up</Link>
               </div>
             </div>
           </div>
@@ -28,7 +28,7 @@ const Home = ({ entries, onCardClick }) => {
               <h1 className="title has-icon"><i className="fa fa-youtube"></i>&nbsp;Latest Entries</h1>
             </div>
             <div className="column is-half is-text-right">
-              <Link to="/entries">More Entries&nbsp;<i className="fa fa-arrow-right"></i></Link>
+              <Link className="button has-icon" to="/entries">More Entries&nbsp;<i className="fa fa-arrow-right"></i></Link>
             </div>
           </div>
           <div className="columns is-multiline">
@@ -61,7 +61,7 @@ const Home = ({ entries, onCardClick }) => {
               </p>
               <p className="title is-5">
                 <br />
-                <a href="#" className="button is-large is-primary">Register To Vote</a>
+                <a href="http://blog.texans.vote/govote" className="button is-large is-primary">Register To Vote</a>
               </p>
             </div>
             <div className="column is-7">

@@ -30,15 +30,14 @@ const Profile = ({ user = {}, entries, onLogoutClick, userStats }) => {
               </nav>
             </div>
             <div className="column is-3 is-text-right">
-              <Link to="/" onClick={onLogoutClick} onclassName="button has-icon">Logout&nbsp;<i className="fa fa-sign-out"></i></Link>
+              <Link to="/" onClick={onLogoutClick} className="button has-icon">Logout&nbsp;<i className="fa fa-sign-out"></i></Link>
             </div>
           </div>
         </div>
       </div>
       <div className="container">
         <div className="column">
-          <h1 className="title">Entries</h1>
-          <hr />
+          <h1 className="title">Your Entries</h1>
           <div className="columns is-multiline">
             { entries.map(entry =>
               <EntryCard

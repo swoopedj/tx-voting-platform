@@ -8,7 +8,6 @@ import EntriesRoute from './containers/EntriesRoute';
 import GetEntryInfoRoute from './containers/GetEntryInfoRoute';
 import LoginRoute from './containers/LoginRoute';
 import Profile from './components/Profile';
-import About from './components/About';
 import NoMatch from './components/NoMatch';
 import ProfileRoute from './containers/ProfileRoute';
 import EntryViewRoute from './containers/EntryViewRoute';
@@ -31,7 +30,6 @@ ReactDOM.render(
         <Route path="/login" components={{ main: LoginRoute }} />
         <Route path="/profile" components={{ main: ProfileRoute }} />
         <Route path="/profile/:auth_id" components={{ main: ProfileRoute }} />
-        <Route path="/about" components={{ main: About }} />
         <Route path="/*" components={{ main: NoMatch }} />
       </Route>
     </Router>
