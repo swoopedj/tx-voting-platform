@@ -7,6 +7,7 @@ import { push } from 'react-router-redux';
 
 class ProfileRoute extends Component {
   componentDidMount() {
+    window.scrollTo(0, 0);
     this.props.populateProfileUser(this.props.authID);
     this.props.getEntriesForUser(this.props.authID);
   }

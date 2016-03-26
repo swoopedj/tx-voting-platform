@@ -20,7 +20,7 @@ const history = configureHistory(store);
 
 ReactDOM.render(
 	<Provider store={store}>
-    <Router onUpdate={() => window.scrollTo(0, 0)} history={history}>
+    <Router history={history}>
       <Route path="/" component={App}>
         <IndexRoute components={{ main: HomeRoute }} />
         <Route path="/entries" components={{ main: EntriesRoute }} />

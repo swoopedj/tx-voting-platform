@@ -3,6 +3,7 @@ import Entries from '../components/Entries';
 import { connect } from 'react-redux';
 import actions from '../actionCreators/entries';
 import { push } from 'react-router-redux';
+import moment from 'moment';
 
 class EntriesRoute extends Component {
   componentDidMount() {
@@ -15,7 +16,12 @@ class EntriesRoute extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const entries = state.getIn(['entries', 'itemsByID']).toList().toJS();
+  const entries = state.getIn(['entries', 'itemsByID'])
+    .toList()
+    .toJS()
+    .sort((a, b) => {
+      return moment(b.created_at).unix() - moment(a.created_at).unix();
+    });
   const { isFetching, error } = state.toJS().entries;
   return {
     isLoading: isFetching,

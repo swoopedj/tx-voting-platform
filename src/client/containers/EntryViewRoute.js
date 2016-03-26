@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 
 class EntryViewRoute extends Component {
   componentDidMount() {
+    window.scrollTo(0, 0);
     this.props.fetchEntries(this.props.id);
   }
   render() {

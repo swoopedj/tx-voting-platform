@@ -102,7 +102,7 @@ actions.receiveEntryDeleteError = (error, time = Date.now()) => ({
   error,
 });
 
-actions.fetchEntries = (offset = 0, limit = 30) => {
+actions.fetchEntries = (offset = 0, limit = 6) => {
   return dispatch => getAsyncAction({
     dispatch,
     request: () => Entry.fetch(offset, limit),
