@@ -4,7 +4,7 @@ import { combineReducers } from 'redux-immutable';
 
 const itemsByID = createReducer(Immutable.fromJS({}), {
   RECEIVE_ENTRIES_FOR_USER: (state, action) => {
-    return state.withMutations(items => {
+    return Immutable.fromJS({}).withMutations(items => {
       action.entries.map(entry => items.set(entry.id, Immutable.fromJS(entry)));
     });
   },
