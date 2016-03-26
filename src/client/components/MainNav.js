@@ -21,7 +21,6 @@ const HeaderNav = ({ onLogoutClick, user }) => {
       <span className="header-item">
         <a href="http://blog.texans.vote/share" className="button is-outlined" title="Share">Share</a>
       </span>
-      {/*<Auth onLogoutClick={onLogoutClick} user={user} />*/}
     </div>
   );
 };

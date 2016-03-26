@@ -20,13 +20,13 @@ const Footer = () => {
                   <Link to="/entry/new" className="link is-info">Submit&nbsp;Your&nbsp;Entry</Link>
                 </p>
                 <p className="navbar-item is-text-centered">
-                  <Link to="/entries" className="link is-info">Blog</Link>
+                  <a href="http://blog.texans.vote/posts" className="link is-info">Blog</a>
                 </p>
                 <p className="navbar-item is-text-centered">
-                  <Link to="/about" className="link is-info">Contest&nbsp;Rules</Link>
+                  <a href="http://blog.texans.vote/contestrules" className="link is-info">Contest&nbsp;Rules</a>
                 </p>
                 <p className="navbar-item is-text-centered">
-                  <Link to="/privacy" className="link is-info">Contact</Link>
+                  <a href="http://blog.texans.vote/contact" className="link is-info">Contact</a>
                 </p>
               </nav>
               <p className="is-text-centered">

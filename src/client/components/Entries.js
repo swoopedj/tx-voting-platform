@@ -14,6 +14,11 @@ const Entries = ({ entries, onCardClick }) => {
           />
         )}
       </div>
+      <div className="columns">
+        <div className="column is-half is-offset-quarter">
+          <a className="button is-primary is-fullwidth is-large">Load More Entries</a>
+        </div>
+      </div>
     </div>
   );
 };
