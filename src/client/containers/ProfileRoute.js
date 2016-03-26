@@ -10,9 +10,9 @@ class ProfileRoute extends Component {
     this.props.handleAuthID(this.props.authID, this.props.user);
   }
   componentDidMount() {
-    if(this.props.authID) {
-      console.log('firing');
+    if (this.props.authID) {
       this.props.getEntriesForUser(this.props.authID);
+      this.props.populateProfileUser(this.props.authID);
     }
   }
   render() {
@@ -23,34 +23,35 @@ class ProfileRoute extends Component {
 const mapStateToProps = (state, ownProps) => {
   const authID = ownProps.params.auth_id;
   const entries = state.getIn(['entriesForUser', 'itemsByID']).toList().toJS();
-  const user = state.get('user').toJS();
+  const loggedInUser = state.getIn(['user', 'data']);
+  const profileUser = authID === state.get(['user', 'data', 'authID']) ? loggedInUser.toJS() : state.getIn(['profileUser', 'data']).toJS();
   const userStats = entries.reduce((stats, entry) => {
     stats.views = stats.views || 0;
     stats.likes = stats.likes || 0;
-    stats.likes += parseInt(entry.statistics.viewCount, 0);
-    stats.views += parseInt(entry.statistics.likeCount, 0);
+    stats.likes += parseInt(entry.statistics.likeCount, 0);
+    stats.views += parseInt(entry.statistics.viewCount, 0);
     return stats;
   }, {});
   const entriesWithUsers = entries.map((entry) => {
     return {
       ...entry,
-      user: user.data,
+      user: profileUser,
     };
   });
-  
   const { isFetching, error } = state.toJS().entries;
   return {
     isLoading: isFetching,
     authID,
-    entries : entriesWithUsers,
+    entries: entriesWithUsers,
     error,
     userStats,
-    user,
+    user: profileUser,
   };
 };
 
 const matchDispatchToProps = (dispatch) => {
   return {
+    populateProfileUser: (authID) => dispatch(userActions.populateProfileUser(authID)),
     getEntriesForUser: (authID) => dispatch(entryActions.getEntriesForUser(authID)),
     onLogoutClick: () => dispatch(userActions.logOut()),
     handleAuthID: (authID, user) => {
@@ -62,6 +63,10 @@ const matchDispatchToProps = (dispatch) => {
 
 ProfileRoute.propTypes = {
   onLogoutClick: PropTypes.func.isRequired,
+  authID: PropTypes.string,
+  getEntriesForUser: PropTypes.func.isRequired,
+  populateProfileUser: PropTypes.func.isRequired,
+  handleAuthID: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, matchDispatchToProps)(ProfileRoute);

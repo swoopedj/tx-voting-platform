@@ -4,15 +4,14 @@ import numeral from 'numeral';
 const EntryCard = require('./EntryCard');
 
 const Profile = ({ user = {}, entries, onLogoutClick, userStats }) => {
-  const userData = user.data || {};
   return (
     <div>
       <div className="profile-header">
         <div className="container">
           <div className="columns">
             <div className="column is-4">
-              <img className="image is-64x64 is-rounded is-pulled-left" src={userData.photo} />
-              <h1 className="title is-2">{userData.userName}</h1>
+              <img className="image is-64x64 is-rounded is-pulled-left" src={user.photo} />
+              <h1 className="title is-2">{user.userName}</h1>
             </div>
             <div className="column is-5">
               <nav className="navbar">

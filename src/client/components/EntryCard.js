@@ -16,7 +16,7 @@ const EntryCard = ({ entry }) => {
       </div>
       <div className="card-content">
         <figure data-hint={entry.user.userName} className="image is-48x48 avatar hint--left hint--rounded">
-          <a href="#"><img className="is-round" src={entry.user.photo} alt="Image" /></a>
+          <Link to={`/profile/${entry.user.authID}`}><img className="is-round" src={entry.user.photo} alt="Image" /></Link>
         </figure>
         <small><i className="fa fa-eye"></i>&nbsp;{numeral(entry.sortMetric).format('0,0')}&nbsp;&bull;&nbsp;<DateFormat pubDate={ entry.publishedAt } /></small>
         <p className="title is-5"><Link to={`/entry/yt/${entry.id}`} title={ entry.title }>{ entry.title }</Link></p>

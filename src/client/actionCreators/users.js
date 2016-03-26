@@ -15,6 +15,21 @@ actions.requestLoggedInUser = () => ({
   type: 'REQUEST_LOGGED_IN_USER',
 });
 
+actions.requestUser = () => ({
+  type: 'REQUEST_USER',
+});
+
+actions.receiveUser = (user) => ({
+  type: 'RECEIVE_USER',
+  user,
+});
+
+actions.receiveUserError = (error, time = Date.now()) => ({
+  type: 'RECEIVE_USER_ERROR',
+  error,
+  time,
+});
+
 actions.receiveLoggedInStatus = (status) => ({
   type: 'RECEIVE_LOGGED_IN_STATUS',
   status,
@@ -55,6 +70,25 @@ actions.redirectIfNotLoggedIn = () => {
   return dispatch => {
     if (!Auth.isLoggedIn()) {
       dispatch(push('/login'));
+    }
+  };
+};
+
+actions.fetchUser = (authID) => {
+  return dispatch => getAsyncAction({
+    dispatch,
+    request: () => User.getByAuthID(authID),
+    onRequest: () => actions.requestUser(),
+    onSuccess: (user) => actions.receiveUser(user),
+    onError: (error) => actions.receiveUserError(error),
+  });
+};
+
+actions.populateProfileUser = (authID) => {
+  return (dispatch, getState) => {
+    // if the state isn't already populated
+    if (getState().getIn(['user', 'data', 'authID']) !== authID) {
+      dispatch(actions.fetchUser(authID));
     }
   };
 };
