@@ -45,7 +45,7 @@ const EntryViewShow = ({ entry }) => {
                     <a target="_new" data-hint="Share on Twitter" className="hint--top hint--rounded" href={encodeURI(`https://twitter.com/intent/tweet?via=texansvote&url=http://www.texans.vote/entry/yt/${entry.id}&text=${entry.title}`)}><span className="icon"><i className="fa fa-twitter-square"></i></span></a>
                   </li>
                   <li className="is-inline">
-                    <a target="_new" data-hint="Share on Facebook" className="hint--top hint--rounded" href={`https://www.facebook.com/dialog/share?app_id=1702211000018645&href=http://www.texans.vote/entry/yt/${entry.id}`}><span className="icon"><i className="fa fa-facebook-square"></i></span></a>
+                    <a target="_new" data-hint="Share on Facebook" className="hint--top hint--rounded" href={`https://www.facebook.com/dialog/share?app_id=1702211000018645&href=http://www.texans.vote/entry/yt/${entry.id}&picture=${entry.thumbnailURL}&caption=${entry.title}`}><span className="icon"><i className="fa fa-facebook-square"></i></span></a>
                   </li>
                   <li className="is-inline">
                     <a target="_new" data-hint="Share on Reddit" className="hint--top hint--rounded" href={encodeURI(`https://www.reddit.com/submit?url=http://www.texans.vote/entry/yt/${entry.id}&title=${entry.title}`)}><span className="icon"><i className="fa fa-reddit-square"></i></span></a>
