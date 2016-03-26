@@ -4,7 +4,9 @@ require(TEST_HELPER);
 const Entries = require(`${__server}/models/entries`);
 const Users = require(`${__server}/models/users`);
 require('sinon-as-promised');
+import Immutable from 'immutable';
 const db = require(`${__server}/lib/db`);
+
 
 describe('The entries model', () => {
   const testUser = {
@@ -26,6 +28,7 @@ describe('The entries model', () => {
     description: 'description',
     sortMetric: 19,
     userID: 0,
+    created_at: null,
   };
 
   const testUser1 = {
@@ -47,6 +50,7 @@ describe('The entries model', () => {
     description: 'description',
     sortMetric: 100,
     userID: 1,
+    created_at: null,
   };
 
   const testUser2 = {
@@ -68,6 +72,7 @@ describe('The entries model', () => {
     description: 'description',
     sortMetric: 1000,
     userID: 2,
+    created_at: null,
   };
 
   const testUser3 = {
@@ -99,13 +104,12 @@ describe('The entries model', () => {
     thumbnailURL: 'yahoo.com',
     title: 'test',
     embedID: '5',
+    created_at: null,
     description: 'description',
     statistics: { stuff: 'test' },
     sortMetric: 1000,
-    userID: 2,
     user:
-     { userID: 2,
-       userName: 'austin',
+     { userName: 'austin',
        email: 'dylan@test.com',
        photo: null,
        isAdmin: false,
@@ -114,13 +118,12 @@ describe('The entries model', () => {
     thumbnailURL: 'yahoo.com',
     title: 'test',
     embedID: '5',
+    created_at: null,
     description: 'description',
     statistics: { stuff: 'test' },
     sortMetric: 100,
-    userID: 1,
     user:
-     { userID: 1,
-       userName: 'dylan',
+     { userName: 'dylan',
        email: 'dylan@test.com',
        photo: null,
        isAdmin: false,
@@ -129,13 +132,12 @@ describe('The entries model', () => {
     thumbnailURL: 'google.com',
     title: 'test',
     embedID: '5',
+    created_at: null,
     description: 'description',
     statistics: { stuff: 'test' },
     sortMetric: 19,
-    userID: 0,
     user:
-     { userID: 0,
-       userName: 'clay',
+     { userName: 'clay',
        email: 'clay@test.com',
        photo: null,
        isAdmin: false,
@@ -155,6 +157,7 @@ describe('The entries model', () => {
       id: 0,
       title: 'test',
       embedID: '5',
+      created_at: null,
       thumbnailURL: 'google.com',
       statistics: {
         stuff: 'test',
@@ -163,14 +166,27 @@ describe('The entries model', () => {
       sortMetric: 19,
       userAuthID: 'qgraerdfb',
     };
-    const insertResult = yield Entries.create(newEntry);
-    const expectedEntry = {
-      ...newEntry,
-      userID: 0,
+
+    const output = { 
+      id: 0,
+      thumbnailURL: 'google.com',
+      title: 'test',
+      embedID: '5',
+      description: 'description',
+      statistics: { stuff: 'test' },
+      sortMetric: 19,
+      created_at: null 
     };
-    expect(insertResult, 'insertResults').to.deep.equal(newEntry);
+    const insertResult = yield Entries.create(newEntry);
+    const expectedEntry = Immutable.fromJS(newEntry)
+      .withMutations(entry => {
+        entry.delete('userAuthID');
+        entry.set('userID', 0);
+      }).toJS();
+
+    expect(insertResult, 'insertResults').to.deep.equal(output);
     const readEntries = yield Entries.read();
-    expect(readEntries[0]).to.deep.equal(expectedEntry);
+    expect(readEntries[0], 'readEntries').to.deep.equal(expectedEntry);
   });
 
 // updates an item in the entries model given an id and an object with the fields to update

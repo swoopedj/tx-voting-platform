@@ -1,6 +1,7 @@
 const db = require('../lib/db');
 const User = require('./users');
 const Entry = module.exports;
+const Immutable = require('immutable');
 const fieldsArray = [
   'id',
   'thumbnailURL',
@@ -9,11 +10,13 @@ const fieldsArray = [
   'description',
   'statistics',
   'sortMetric',
-  'userID',
+  // 'userID',
+  // added created at
+  'created_at',
 ];
 
 const userFields = [
-  'userID',
+  // 'userID',
   'userName',
   'email',
   'photo',
@@ -24,15 +27,18 @@ const userFields = [
 Entry.create = function create(entry) {
   // we can't expose the userIDs to the client
   // so we're using an authID here
-  const { userAuthID } = entry;
-  delete entry.userAuthID;
-  return User.findByAuthID(userAuthID).then(user => {
-    entry.userID = user.id;
-    return entry;
+  const inputEntry = Immutable.fromJS(entry);
+  return User.findByAuthID(entry.userAuthID).then(user => {
+    return inputEntry.withMutations(entryUpdate => {
+      entryUpdate.delete('userAuthID');
+      entryUpdate.set('userID', user.id);
+    }).toJS();
   })
   .then(updatedEntry => {
     return db('entries').insert(updatedEntry, fieldsArray)
-      .then(response => response[0])
+      .then(response => {
+        return response[0];
+      })
       .catch((error) => {
         console.log('Error in Create:', error);
         throw new Error('Database Create error');

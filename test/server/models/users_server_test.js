@@ -7,6 +7,7 @@ require('sinon-as-promised');
 const sinon = require('sinon');
 const db = require(`${__server}/lib/db`);
 const Entries = require(`${__server}/models/entries`);
+import Immutable from 'immutable';
 
 const fakeUser = {
   id: 1,
@@ -47,6 +48,7 @@ const entry = {
   id: 8,
   title: 'test',
   embedID: '5',
+  created_at: null,
   thumbnailURL: 'google.com',
   statistics: {
     stuff: 'test',
@@ -61,6 +63,7 @@ const entry1 = {
   id: 9,
   title: 'test',
   embedID: '6',
+  created_at: null,
   thumbnailURL: 'google.com',
   statistics: {
     stuff: 'test',
@@ -178,9 +181,17 @@ describe('The User Model (server)', () => {
       yield TestHelper.db('users').create(fakeUser);
       yield Entries.create(entry);
       yield Entries.create(entry1);
+      const expectedEntry = Immutable.fromJS(entry)
+      .withMutations(entry1 => {
+        entry1.delete('userID');
+      }).toJS();
+      const expectedEntry1 = Immutable.fromJS(entry1)
+      .withMutations(entry2 => {
+        entry2.delete('userID');
+      }).toJS();
       const gotEntries = yield Users.getEntriesForUser('asdgq');
-      expect(gotEntries[0]).to.deep.equal(entry);
-      expect(gotEntries[1]).to.deep.equal(entry1);
+      expect(gotEntries[0], 'first item').to.deep.equal(expectedEntry);
+      expect(gotEntries[1], 'second item').to.deep.equal(expectedEntry1);
     });
 
     it_('throws error if authID not in database', function * errorOnFind() {
