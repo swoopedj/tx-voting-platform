@@ -281,9 +281,14 @@ const getEntryWithInputFieldsMixedIn = (isCreatingNew, state, id, inputFields) =
 };
 
 const setCreatedByUserForEntry = (isCreatingNew, entry, user) => {
-  const isLoggedIn = user.get('isLoggedIn');
-  const createdByUser = (!isLoggedIn || isCreatingNew) ? false : entry.getIn(['user', 'authID']) === user.getIn(['data', 'authID']);
-  return entry.set('isCreatedByUser', createdByUser);
+  const updateEntry = (status) => entry.set('isCreatedByUser', status);
+  // if the user isn't logged or this is a new item, they cant own the item
+  if (!user.get('isLoggedIn') || isCreatingNew) return updateEntry(false);
+  // admins always created a post, so that they can edit it
+  if (user.getIn(['data', 'isAdmin'])) return updateEntry(true);
+  const authIDsMatch = entry.getIn(['user', 'authID']) === user.getIn(['data', 'authID']);
+  // otherwise, confirm that the id of the user and the auth id of the item match
+  return updateEntry(authIDsMatch);
 };
 
 actions.getEntryViewProps = (state, routeParams) => {

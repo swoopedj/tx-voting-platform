@@ -155,7 +155,9 @@ describe('The getEntryViewProps helper', () => {
           info: { data: {} },
         },
         user: {
+          isLoggedIn: true,
           data: {
+            isAdmin: true,
             authID: 'test',
           },
         },
@@ -170,7 +172,7 @@ describe('The getEntryViewProps helper', () => {
         expect(props.inputFields).to.deep.equal({ title: 'new' });
       });
       it('and mixes inputFields into the returned entry', () => {
-        expect(props.entry).to.deep.equal({ title: 'new', id: 1, isCreatedByUser: false});
+        expect(props.entry).to.deep.equal({ title: 'new', id: 1, isCreatedByUser: true});
       });
     });
   });

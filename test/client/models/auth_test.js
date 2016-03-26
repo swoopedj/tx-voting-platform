@@ -38,7 +38,6 @@ describe('The Auth client model', () => {
       photo: 'image.com',
       authID: '1000',
       userName: 'Clay Branch',
-      isAdmin: false,
     };
     loginThroughFacebookStub.resolves(userResponse);
     insertOrUpdateStub.resolves({
