@@ -16,7 +16,7 @@ const Entries = ({ entries, onCardClick, fetchEntries }) => {
       </div>
       <div className="columns">
         <div className="column is-half is-offset-quarter">
-          <a onClick={fetchEntries(entries.length)} className="button is-primary is-fullwidth is-large">Load More Entries</a>
+          <a onClick={() => fetchEntries(entries.length)} className="button is-primary is-fullwidth is-large">Load More Entries</a>
         </div>
       </div>
     </div>
