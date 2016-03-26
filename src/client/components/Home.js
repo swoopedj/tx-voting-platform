@@ -42,6 +42,46 @@ const Home = ({ entries, onCardClick }) => {
           </div>
         </div>
       </div>
+      <div className="home-section-signup">
+        <div className="columns">
+          <div className="column is-half is-offset-quarter is-text-centered">
+            <h3 className="title is-4">Create a <strong>Get Out the Vote</strong> video and then promote it far and wide. Every view your video gets will earn you a chance to win cash and prizes!</h3>
+            <Link to="/entry/new" className="button is-primary is-large">Enter Now!</Link>
+          </div>
+        </div>
+      </div>
+      <div className="home-section-info">
+        <div className="container">
+          <div className="columns">
+            <div className="column is-5">
+              <h2 className="title">Why a Get Out the Vote contest?</h2>
+              <p className="title is-5">Texas consistently ranks between dead-last and 47th among all 50 states in voter participation.</p>
+              <p className="title is-5">
+                <strong>We can do better and elect politicians that truly represent all Texans.</strong>
+              </p>
+              <p className="title is-5">
+                <br />
+                <a href="#" className="button is-large is-primary">Register To Vote</a>
+              </p>
+            </div>
+            <div className="column is-7">
+              &nbsp;
+            </div>
+          </div>
+        </div>
+      </div>
+      <section className="hero is-danger">
+        <div className="hero-content">
+          <div className="container">
+            <h1 className="title">
+              Show your love for Texas and help<br />Get Out the Vote!
+            </h1>
+            <h2 className="title">
+              <i className="fa fa-heart"></i>
+            </h2>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };
