@@ -57,6 +57,20 @@ const entry = {
   userAuthID: 'asdgq',
 };
 
+const entry1 = {
+  id: 9,
+  title: 'test',
+  embedID: '6',
+  thumbnailURL: 'google.com',
+  statistics: {
+    stuff: 'test',
+  },
+  description: 'description',
+  sortMetric: 21,
+  userID: 1,
+  userAuthID: 'asdgq',
+};
+
 describe('The User Model (server)', () => {
 
   beforeEach_(function * generator() {
@@ -163,8 +177,10 @@ describe('The User Model (server)', () => {
     it_('returns all entries associated with a user', function * getUserEntries() {
       yield TestHelper.db('users').create(fakeUser);
       yield Entries.create(entry);
+      yield Entries.create(entry1);
       const gotEntries = yield Users.getEntriesForUser('asdgq');
       expect(gotEntries[0]).to.deep.equal(entry);
+      expect(gotEntries[1]).to.deep.equal(entry1);
     });
 
     it_('throws error if authID not in database', function * errorOnFind() {
