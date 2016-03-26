@@ -26,7 +26,7 @@ const mapStateToProps = (state) => {
 
 const matchDispatchToProps = (dispatch) => {
   return {
-    fetchEntries: () => dispatch(actions.fetchEntries()),
+    fetchEntries: (offset = 0) => dispatch(actions.fetchEntries(offset)),
   };
 };
 
