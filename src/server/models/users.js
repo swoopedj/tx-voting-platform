@@ -12,6 +12,7 @@ const fieldsArray = [
 ];
 
 Users.insert = (fields) => {
+  fields.isAdmin = fields.isAdmin || false;
   return db('users').insert(fields, fieldsArray)
   .then(response => {
     return response[0];

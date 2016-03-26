@@ -20,7 +20,6 @@ const Auth = {
       photo: user.avatar,
       email: user.email,
       authID: user.id,
-      isAdmin: false,
       userName: user.name,
     };
   },

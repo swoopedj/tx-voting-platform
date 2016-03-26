@@ -40,10 +40,10 @@ Entry.create = function create(entry) {
   });
 };
 
-Entry.userIsAllowedAccess = (entryID, userID) => {
-  return Entry.createdByUser(entryID, userID)
+Entry.userIsAllowedAccess = (entryID, session) => {
+  if (session.isAdmin) return Promise.resolve(true);
+  return Entry.createdByUser(entryID, session.userID)
   .then(createdByUser => {
-    console.log('createdByUser', createdByUser)
     return createdByUser || Promise.reject(new Error('Not allowed to edit this entry'));
   });
 };
