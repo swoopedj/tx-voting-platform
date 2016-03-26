@@ -21,7 +21,7 @@ router.delete('/:id', (req, res) => {
       return Entry.remove(entryID);
     },
     validateSession: (session) => {
-      return Entry.userIsAllowedAccess(entryID, session.userID);
+      return Entry.userIsAllowedAccess(entryID, session);
     },
   });
 });
@@ -34,7 +34,7 @@ router.put('/:id', (req, res) => {
       return Entry.updateByID(entryID, req.body);
     },
     validateSession: (session) => {
-      return Entry.userIsAllowedAccess(entryID, session.userID);
+      return Entry.userIsAllowedAccess(entryID, session);
     },
   });
 });
