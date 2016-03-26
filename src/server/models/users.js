@@ -1,6 +1,7 @@
 const db = require('../lib/db');
 const Users = module.exports;
 const Sessions = require('./sessions');
+import Immutable from 'immutable';
 
 const fieldsArray = [
   'id',
@@ -103,8 +104,14 @@ Users.getEntriesForUser = (authID) => {
   .then(user => {
     return db.select('*').from('entries')
     .where('userID', user[0].id)
-    .then(entries => {
-      return entries;
+    .then((entries) => {
+      return entries.map((entry) => {
+        const immutableEntry = Immutable.Map(entry);
+        return immutableEntry.withMutations(entryUpdate => {
+          entryUpdate.delete('userID');
+          entryUpdate.set('userAuthID', authID);
+        }).toJS();
+      });
     })
     .catch(error => {
       console.log('Insert error in getEntriesForUser:', error);
