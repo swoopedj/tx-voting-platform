@@ -6,13 +6,15 @@ import userActions from '../actionCreators/users';
 import { push } from 'react-router-redux';
 
 class ProfileRoute extends Component {
-  componentWillReceiveProps() {
-    this.props.handleAuthID(this.props.authID, this.props.user);
-  }
   componentDidMount() {
-    if (this.props.authID) {
-      this.props.getEntriesForUser(this.props.authID);
-      this.props.populateProfileUser(this.props.authID);
+    this.props.populateProfileUser(this.props.authID);
+    this.props.getEntriesForUser(this.props.authID);
+  }
+  componentWillReceiveProps(nextProps) {
+    this.props.handleAuthID(this.props.authID, this.props.user);
+    if (nextProps.authID !== this.props.authID) {
+      this.props.populateProfileUser(nextProps.authID);
+      this.props.getEntriesForUser(nextProps.authID);
     }
   }
   render() {
@@ -24,7 +26,7 @@ const mapStateToProps = (state, ownProps) => {
   const authID = ownProps.params.auth_id;
   const entries = state.getIn(['entriesForUser', 'itemsByID']).toList().toJS();
   const loggedInUser = state.getIn(['user', 'data']);
-  const profileUser = authID === state.get(['user', 'data', 'authID']) ? loggedInUser.toJS() : state.getIn(['profileUser', 'data']).toJS();
+  const profileUser = (authID && authID === state.getIn(['user', 'data', 'authID'])) ? loggedInUser.toJS() : state.getIn(['profileUser', 'data']).toJS();
   const userStats = entries.reduce((stats, entry) => {
     stats.views = stats.views || 0;
     stats.likes = stats.likes || 0;
@@ -56,7 +58,8 @@ const matchDispatchToProps = (dispatch) => {
     onLogoutClick: () => dispatch(userActions.logOut()),
     handleAuthID: (authID, user) => {
       if (!authID && !user.isLoggedIn && user.isPopulated) return dispatch(push('/login'));
-      if (!authID && user.isPopulated) dispatch(push(`/profile/${user.data.authID}`));
+      if (!authID && user.isPopulated) return dispatch(push(`/profile/${user.data.authID}`));
+
     },
   };
 };
