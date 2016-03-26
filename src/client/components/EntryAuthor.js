@@ -1,18 +1,22 @@
 const React = require('react');
 const Auth = require('./Auth');
+import { Link } from 'react-router';
 
-const EntryAuthor = ({ user }) => {
-  const photo = user ? user.photo : "http://placehold.it/64x64&text=C";
-  const userName = user ? user.userName : "";
+const EntryAuthor = ({ user = {} }) => {
+  const {
+    photo = "http://placehold.it/64x64&text=C",
+    userName = "",
+    authID = "",
+  } = user;
   return (
     <div className="media">
       <div className="media-left">
         <figure className="image is-32x32 avatar">
-          <a href="#"><img className="is-round" src={photo} alt="Image" /></a>
+          <Link to={`/profile/${authID}`} ><img className="is-round" src={photo} alt="Image" /></Link>
         </figure>
       </div>
       <div className="media-content">
-        <p className="title is-5"><a href="#">{userName}</a></p>
+        <p className="title is-5"><Link to={`/profile/${authID}`} >{userName}</Link></p>
       </div>
     </div>
   );
