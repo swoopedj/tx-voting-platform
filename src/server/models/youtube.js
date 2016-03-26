@@ -82,7 +82,7 @@ Youtube.getBatchInfo = () => {
   });
 };
 // '00 00 0,12 * * 0-6' - for firing cron every day at noon and midnight
-const job = new CronJob('00 00 0,12 * * 0-6', () => {
+const job = new CronJob('00 5,6 0,12 * * 0-6', () => {
   Youtube.getBatchInfo();
   const d = new Date();
   console.log('==============Cronjob has fired at:', d.toLocaleString(), '==========');
