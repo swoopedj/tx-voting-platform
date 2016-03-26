@@ -39,6 +39,17 @@ describe('The Entries API', () => {
           expect(modelStub.calledWith(1, 12));
         });
     });
+
+    it_('returns an error if an error is thrown in the server model', function * errorGetAll() {
+      modelStub = sinon.stub(Entry, 'getEntriesWithUsers');
+      modelStub.rejects('Database Read All Entries and Users error');
+      yield request(app)
+      .get('/api/yt/entries?offset=1&limit=12')
+      .expect(200)
+      .expect(response => {
+        expect(response.body.error.message).to.equal('Database Read All Entries and Users error');
+      });
+    });
   });
 
   describe('DELETE /entries', () => {
@@ -56,14 +67,28 @@ describe('The Entries API', () => {
         });
       createdBy.restore();
     });
+
+    it_('returns an error if an error is thrown in the server model', function * errorDelete() {
+      modelStub = sinon.stub(Entry, 'remove');
+      modelStub.rejects('Attempted to delete invalid ID');
+      const createdBy = sinon.stub(Entry, 'createdByUser');
+      createdBy.resolves(true);
+      yield request(app)
+        .delete('/api/yt/entries/1111')
+        .expect(200)
+        .expect(response => {
+          expect(response.body.error.message).to.equal('Attempted to delete invalid ID');
+        });
+      createdBy.restore();
+    });
   });
 
   describe('PUT /entries', () => {
     it_('updates an entry', function * updateLink() {
       modelStub = sinon.stub(Entry, 'updateByID');
       modelStub.resolves(data);
-      const isAllowed = sinon.stub(Entry, 'userIsAllowedAccess');
-      isAllowed.resolves(1);
+      const isAllowed1 = sinon.stub(Entry, 'userIsAllowedAccess');
+      isAllowed1.resolves(1);
       yield request(app)
         .put('/api/yt/entries/1')
         .expect(200)
@@ -71,7 +96,21 @@ describe('The Entries API', () => {
           expect(modelStub.calledWith('1')).to.equal(true);
           expect(response.body.data).to.include(data);
         });
-        isAllowed.restore()
+      isAllowed1.restore();
+    });
+
+    it_('returns an error if an error thrown in the server model', function * updateError() {
+      modelStub = sinon.stub(Entry, 'updateByID');
+      modelStub.resolves(data);
+      const notAllowed = sinon.stub(Entry, 'userIsAllowedAccess');
+      notAllowed.rejects('Not allowed to edit this entry');
+      yield request(app)
+      .put('/api/yt/entries/1')
+      .expect(200)
+      .expect(response => {
+        expect(response.body.error.message).to.equal('Not allowed to edit this entry');
+      });
+      notAllowed.restore();
     });
   });
 
@@ -85,6 +124,17 @@ describe('The Entries API', () => {
         .expect(response => {
           expect(response.body.data).to.deep.equal(data);
         });
+    });
+
+    it_('returns an error when there is an error in the user model', function * errorPost() {
+      modelStub = sinon.stub(Entry, 'create');
+      modelStub.rejects('Database Create error');
+      yield request(app)
+      .post('/api/yt/entries')
+      .expect(200)
+      .expect(response => {
+        expect(response.body.error.message).to.equal('Database Create error');
+      });
     });
   });
 });
@@ -147,5 +197,18 @@ describe('The Youtube API', () => {
         });
       getBatch.restore();
     });
+
+    it_('returns an error if there is an error in the server model', function * getBatchError() {
+      const getBatch = sinon.stub(Youtube, 'getBatchInfo');
+      getBatch.rejects('Database Read Error: Invalid Url');
+      yield request(app)
+        .get('/api/yt/entries/refreshStats')
+        .expect(200)
+        .expect(response => {
+          expect(response.body.error.message).to.equal('Database Read Error: Invalid Url');
+        });
+      getBatch.restore();
+    });
   });
 });
+

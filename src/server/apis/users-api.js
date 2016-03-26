@@ -16,7 +16,7 @@ router.post('/:authID', (req, res) => {
     getResponse: () => {
       return User.login(req.params.authID, req.body);
     },
-  }); 
+  });
 });
 
 router.delete('/:id', (req, res) => {
