@@ -102,7 +102,7 @@ actions.receiveEntryDeleteError = (error, time = Date.now()) => ({
   error,
 });
 
-actions.fetchEntries = (offset = 0, limit = 6) => {
+actions.fetchEntries = (offset = 0, limit = 30) => {
   return dispatch => getAsyncAction({
     dispatch,
     request: () => Entry.fetch(offset, limit),
@@ -207,7 +207,7 @@ actions.getEntriesForUser = authID => {
     onError: (error) => [
       // push('/'),
       // actions.navigateToEntryEdit(entryID),
-      actions.receiveEntryDeleteError(error),
+      actions.receiveEntriesError(error),
     ],
   });
 };
