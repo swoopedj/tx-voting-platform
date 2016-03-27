@@ -104,7 +104,7 @@ Entry.remove = function remove(id) {
 
 Entry.getEntriesWithUsers = function getUsersEntries(offset = 0, limit = 12) {
   return db.select('*').from('users').rightJoin('entries', 'entries.userID', 'users.id')
-  .orderBy('sortMetric', 'desc')
+  .orderBy('created_at', 'desc')
   .offset(offset).limit(limit)
   .then(response => {
     const entries = response.map(item => {

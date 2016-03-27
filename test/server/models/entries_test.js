@@ -100,20 +100,21 @@ describe('The entries model', () => {
     success: true,
   };
 
-  const sortedObject = [{ id: 10,
-    thumbnailURL: 'yahoo.com',
+  const sortedObject = [
+    { id: 8,
+    thumbnailURL: 'google.com',
     title: 'test',
     embedID: '5',
     created_at: null,
     description: 'description',
     statistics: { stuff: 'test' },
-    sortMetric: 1000,
+    sortMetric: 19,
     user:
-     { userName: 'austin',
-       email: 'dylan@test.com',
+     { userName: 'clay',
+       email: 'clay@test.com',
        photo: null,
        isAdmin: false,
-       authID: 'dhtfx' } },
+       authID: 'qgraerdfb' } },
   { id: 9,
     thumbnailURL: 'yahoo.com',
     title: 'test',
@@ -128,20 +129,21 @@ describe('The entries model', () => {
        photo: null,
        isAdmin: false,
        authID: 'lkjh' } },
-  { id: 8,
-    thumbnailURL: 'google.com',
+  { id: 10,
+    thumbnailURL: 'yahoo.com',
     title: 'test',
     embedID: '5',
     created_at: null,
     description: 'description',
     statistics: { stuff: 'test' },
-    sortMetric: 19,
+    sortMetric: 1000,
     user:
-     { userName: 'clay',
-       email: 'clay@test.com',
+     { userName: 'austin',
+       email: 'dylan@test.com',
        photo: null,
        isAdmin: false,
-       authID: 'qgraerdfb' } }];
+       authID: 'dhtfx' } }
+];
 
   beforeEach_(function * generator() {
     yield TestHelper.emptyDb(db);
@@ -230,9 +232,9 @@ describe('The entries model', () => {
     yield TestHelper.db('entries').create(entry1);
     const entryAndUser = yield Entries.getEntriesWithUsers();
     expect(entryAndUser[1]).to.include.keys('thumbnailURL', 'embedID', 'user');
-    expect(entryAndUser[1].thumbnailURL).to.equal('google.com');
+    expect(entryAndUser[1].thumbnailURL).to.equal('yahoo.com');
     expect(entryAndUser[0]).to.include.keys('thumbnailURL', 'embedID', 'user');
-    expect(entryAndUser[0].thumbnailURL).to.equal('yahoo.com');
+    expect(entryAndUser[0].thumbnailURL).to.equal('google.com');
   });
 
   it_('returns videos in descending order', function * getVideos() {

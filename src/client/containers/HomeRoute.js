@@ -3,9 +3,11 @@ import Home from '../components/Home';
 import { connect } from 'react-redux';
 import actions from '../actionCreators/entries';
 import { push } from 'react-router-redux';
+import moment from 'moment';
 
 class HomeRoute extends Component {
   componentDidMount() {
+    window.scrollTo(0, 0);
     const { fetchEntries } = this.props;
     fetchEntries();
   }
@@ -15,7 +17,13 @@ class HomeRoute extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const entries = state.getIn(['entries', 'itemsByID']).toList().toJS();
+  const entries = state.getIn(['entries', 'itemsByID'])
+    .toList()
+    .toJS()
+    .sort((a, b) => {
+      return moment(b.created_at).unix() - moment(a.created_at).unix();
+    })
+    .slice(0, 6);
   const { isFetching, error, user } = state.toJS().entries;
   return {
     isLoading: isFetching,

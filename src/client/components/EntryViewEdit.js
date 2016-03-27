@@ -41,9 +41,9 @@ class EntryViewEdit extends Component {
               if (isCreatingNew) {
                 createEntry(entry, user.authID);
               } else {
-                updateEntry(entry.id, inputFields);     
+                updateEntry(entry.id, inputFields);    
               }
-            }} className={`button is-primary ${loadingClass}`}> Create Entry</button>
+            }} className={`button is-primary ${loadingClass}`}>{isCreatingNew ? 'Create Entry' : 'Edit Entry'}</button>
             &nbsp;
             <a href="/entry/new" className="button">Cancel</a>
           </p>
